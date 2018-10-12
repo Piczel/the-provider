@@ -1,0 +1,38 @@
+Internet leverant�r, ganska m�nga kunder(internationella+nationella)(stora och sm�)
+De har en datapark med en kraftfull databas,
+M�nga av deras kunder har behov av att lagra information, men �r inte s� haj p� databaser
+
+Fyra webb tj�nster
+1. Bloggtj�nst, bloggstruktur
+2. Kalendertj�nst, man ska kunna boka tider/lagra tider, (gemensamma bokningar)
+3. Wiki, lagrings st�lle d�r man kan uppdatera information
+4. Spel, Kunna lagra information fr�n spel(progress, score/highscore)
+Vore bra att kunna ha det i en databas.
+Endast chefen f�r st�lla fr�gor till kunden
+
+
+KUNDEN
+Stefan folkesson, The provider
+Allt ska lagras i deras databas
+Beh�ver hj�lp med databashantering
+Avst�mning varje vecka(inga fr�gor p� mail is�fall)
+Kunderna vill ha databaser men dom kan inte hanter dem
+Kunden ska ha "n�gorlunda frihet"
+Inloggning VIKTIGT
+
+Kalle vill ha en blogg, han trycker p� en knapp och vips s� f�r han det
+
+Det ska ske p� automatik, enkel dokumentation som visar vad man kan g�ra
+
+Bloggen, man kan vara en eller flera som loggar in och skriver inl�gg,
+Kommentera p� bloggar (st�nga av kommentarer), kunden kan ha flera bloggar
+
+Kalendern, n�rmaste eventen ska notisas, kunna dela event
+
+Wiki, tag kopplingar �r inte v�rt problem(upp till den som skapar skalet), flera anv�ndare ska kunna anv�nda en wiki
+
+Spel, n�r man starta spelet ska man f� senaste informationen, enklare spel, progress, koppla till kontot
+
+Mottagande och utskickande av XML eller json
+
+Kunden �terkommer varje m�ndag kl.14:00

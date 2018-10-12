@@ -1,0 +1,27 @@
+// Success
+{
+    "status" : true,
+    "message" : "deltagare hämtad",
+    "participants" : [
+        {
+            "uid" : 2,
+            "name" : "Hugglan"
+        },
+        {
+            "uid" : 1,
+            "name" : "Hugglan"
+        }
+        // ...
+    ]
+}
+
+// Failure
+{
+    "status" : false,
+    "message" : "du har inte tillgång till denna bloggen"
+}
+
+{
+    "status" : false,
+    "message" : "inte inloggad"
+}

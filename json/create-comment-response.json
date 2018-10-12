@@ -1,0 +1,12 @@
+// Success
+{
+    "status" : true,
+    "message" : "Kommentar tillagd"
+}
+
+// Failure
+
+{
+    "status" : false,
+    "message" : "inte inloggad"
+}
