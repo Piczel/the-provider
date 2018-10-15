@@ -7,22 +7,30 @@
     try
     {
         # Decode the input JSON to a PHP array
-        $input = json_decode(file_get_contents('json/request/'), true);
+        $input = json_decode(file_get_contents('json/request/create-wiki.json'), true);
 
         Input::validate($input, [
             'adminID' => null,
-            'token' => 20
+            'token' => 20,
+            'wiki-name' => 100,
+            'wiki-description' => 3000
         ]);
 
         Token::verify($input['adminID'], $input['token']);
 
         $connection = new DBConnection();
         
-        # Code...
+        if(!$connection->execute(
+            'INSERT INTO wiki (`name`, `description`) VALUES (?, ?)',
+            [$input['wiki-name'], $input['wiki-description']]
+        )) {
+            throw new Exception($connection->error());
+        }
 
         $response = [
             'status' => true,
-            'message' => ''
+            'message' => 'Wiki skapades',
+            'wikiID' => $connection->insert_id()
         ];
     } catch(Exception $exc)
     {

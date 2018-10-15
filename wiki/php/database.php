@@ -17,7 +17,6 @@
                 ";dbname=" . $settings["mysql"]["dbname"] . 
                 ";charset=utf8";
             
-            # If a 
             if(self::$connection == null) {
                 self::$connection = new PDO($dns, $settings["mysql"]["username"], $settings["mysql"]["password"]);
             }
@@ -51,7 +50,7 @@
             return [];     
         }
 
-        function insert(
+        function execute(
             $sql,
             $values = []
         ) {
