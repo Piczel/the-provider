@@ -1,0 +1,14 @@
+{
+    "status" : true,
+    "message" : "spelet tillagt"
+}
+
+{
+    "status" : false,
+    "message" :"Spelet kunde inte läggas till"
+}
+
+{
+    "status" : false,
+    "message" : "du är inte behörig"
+}

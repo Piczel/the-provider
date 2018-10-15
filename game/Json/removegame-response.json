@@ -1,0 +1,12 @@
+{
+    "status" : true,
+    "message" : "spelet togs bort"
+}
+{
+    "status" : false,
+    "message" : "lyckades inte ta bort spelet"
+}
+{
+    "status" : false,
+    "message" : "du har inte behörighet"
+}

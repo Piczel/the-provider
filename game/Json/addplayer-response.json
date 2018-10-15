@@ -1,0 +1,14 @@
+{
+    "status" : true,
+    "message" : "Du kan nu spela spela spelet"
+}
+
+{
+    "status" : false,
+    "message" :"Kunde inte skapa spelare"
+}
+
+{
+    "status" : false,
+    "message" : "Detta användarnamn är redan taget"
+}
