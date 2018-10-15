@@ -1,8 +1,9 @@
+//SUCCESS
 {
     "status" : true,
     "message" : "Användare borttagen"
 }
-
+//FAILURE
 {
     "status" : false,
     "message" : "kunde inte ta bort användare"
