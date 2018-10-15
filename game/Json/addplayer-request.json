@@ -1,5 +1,6 @@
 {
-    "spelare" :{
+    "token" : "token",
+    "adminid" : 1,
+
     "username" : "username"
-    }
 }
