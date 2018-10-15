@@ -1,0 +1,21 @@
+// Success
+{
+    "status" : true,
+    "message" : "Post borttagen"
+}
+
+// Failure
+{
+    "status" : false,
+    "message" : "kunde inte ta bort post"
+}
+
+{
+    "status" : false,
+    "message" : "inte inloggad"
+}
+
+{
+    "status" : false,
+    "message" : "du har inte behörighet att ta bort post"
+}

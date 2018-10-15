@@ -1,0 +1,22 @@
+//SUCCESS
+{
+    "status" : true,
+    "message" : "Användare borttagen"
+}
+//FAILURE
+{
+    "status" : false,
+    "message" : "kunde inte ta bort användare"
+}
+{
+    "status" : false,
+    "message" : "inte din blogg"
+}
+{
+    "status" : false,
+    "message" : "användaren är ej delaktig"
+}
+{
+    "status" : false,
+    "message" : "inte inloggad"
+}

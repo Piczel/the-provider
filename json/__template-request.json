@@ -1,0 +1,16 @@
+{
+    "adminID" : <number>
+    "token" : "<token>",
+
+    "id" : 1,
+    "other-id" : 3,
+
+    "data" : [
+        {
+            "attribute" : "value"
+        },
+        {
+            "attribute" : "value"
+        }
+    ]
+}

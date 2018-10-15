@@ -1,0 +1,9 @@
+{
+    "status" : true,
+    "message" : "poänget har tagits bort"
+}
+
+{
+    "status" : false,
+    "message" : "det poänget finns inte"
+}
