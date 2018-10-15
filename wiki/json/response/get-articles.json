@@ -1,0 +1,27 @@
+{
+    "status" : true,
+    "message" : "Artiklar hämtade",
+
+    "articles" : [
+        {   
+            "articleID" : 8,
+            "versionID" : 11,
+            "title" : "Titel på artikel",
+            "content" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.",
+
+            "references" : [
+                {
+                    "referenceID" : 5,
+                    "versionID" : 7,
+                    "content" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi."
+                },
+                {
+                    "..." : "..."
+                }
+            ]
+        },
+        {   
+            "..." : "..."
+        }
+    ]
+}
