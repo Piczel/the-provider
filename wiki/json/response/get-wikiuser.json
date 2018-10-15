@@ -1,0 +1,11 @@
+{
+    "status" : true,
+    "message" : "Användaren hämtad",
+
+    "wikiuser" : {
+        "accountID" : 4,
+        "email" : "user@theprovider.com",
+        "forename" : "Förnamn",
+        "surename" : "Efternamn"
+    }
+}
