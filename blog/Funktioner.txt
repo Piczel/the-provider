@@ -1,0 +1,15 @@
+Skapa blogg
+
+Bjuda in användare
+
+Skapa inlägg
+
+Ta bort inlägg
+
+Redigera inlägg
+
+Lägg till kommentar
+
+Ta bort kommentar (skaparen+admin)
+
+

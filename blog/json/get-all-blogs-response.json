@@ -1,0 +1,27 @@
+// Success
+{
+    "status" : true,
+    "blogs" : [
+        {   
+            "bid" : 1,
+            "name" : "Min ena blogg"
+        },
+        {   
+            "bid" : 2,
+            "name" : "Mitt andra blogg"
+        }
+        // ...
+    ]
+}
+
+// Failure
+{
+    "status" : false,
+    "message" : "kunde inte hämta blogg"
+}
+
+{
+    "status" : false,
+    "message" : "inte inloggad"
+}
+
