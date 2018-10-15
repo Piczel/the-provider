@@ -1,0 +1,9 @@
+{
+    "status" : true,
+    "message" : "Utvecklaren har tagits bort"
+}
+
+{
+    "status" : false,
+    "message" : "SKunde inte ta bort utvecklare"
+}
