@@ -1,0 +1,16 @@
+{
+    "aktivitet" :  [
+        {
+
+            "id" : "",
+            "namn" : "Pedram",
+            "plats" : "Skövde ",
+            "beskrivning" : "hade ett möte med Ersnt",
+            "upprepning" : "varje fredag",
+            "starttid" : "12:00",
+            "sluttid" : "13:00"
+
+        }
+    ]
+   
+}
