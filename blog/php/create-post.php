@@ -1,17 +1,15 @@
 <?php
     $input = json_decode(file_get_contents("../json/create-post-request.json"), true);
-    var_dump($input);
     try{
-        /*session_start();
-        if(isset($_SESSION["signedInUserid"])){
-            throw new Exception("Inte inloggad");
-        }
-        if($input["uid"] != $_SESSION["signedInUserid"]){
-            throw new Exception("Inte inloggad");
-        }*/
-
-    include "../database/database.php";
-    $connection = new DBconnection();
+        include "../database/database.php";
+        include "../database/utility.php";
+        Input::validate($input,[
+            "adminID"=>null,
+            "token"=>20,
+            "title"=>50
+        ]);
+        Token::verify($input["adminID"],$input["token"]);
+        $connection = new DBConnection();
 
     $blogid = $input["bid"];
     $userid = $input["uid"];
