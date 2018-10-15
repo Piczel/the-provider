@@ -1,0 +1,15 @@
+{
+    "status" : true,
+    "message" : "Poänget har lagts till"
+}
+
+{
+    "status" : false,
+    "message" :"Det spelet finns inte"
+}
+
+{
+    "status" : false,
+    "message" :"den användaren finns inte"
+}
+

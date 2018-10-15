@@ -1,0 +1,20 @@
+// Success
+{
+    "status" : true,
+    "message" : "Blogg skapad",
+    "blogg" : {
+        "bid" : 1,
+        "title" : "Min nya blogg"
+    }
+}
+
+// Failure
+{
+    "status" : false,
+    "message" : "kunde inte skapa blogg"
+}
+
+{
+    "status" : false,
+    "message" : "inte inloggad"
+}

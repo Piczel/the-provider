@@ -1,0 +1,29 @@
+{
+    "status" : true,
+    "message" : "Användare tillagd"
+}
+
+{
+    "status" : false,
+    "message" : "kunde inte lägga till användare"
+}
+
+{
+    "status" : false,
+    "message" : "inte din blogg"
+}
+
+{
+    "status" : false,
+    "message" : "personen är redan delaktig"
+}
+
+{
+    "status" : false,
+    "message" : "kunde inte hitta användaren"
+}
+
+{
+    "status" : false,
+    "message" : "inte inloggad"
+}

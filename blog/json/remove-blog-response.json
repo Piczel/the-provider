@@ -1,0 +1,21 @@
+   // Success
+{
+    "status" : true,
+    "message" : "Blogg borttagen"
+}
+
+// Failure
+{
+    "status" : false,
+    "message" : "kunde inte ta bort blogg"
+}
+
+{
+    "status" : false,
+    "message" : "inte inloggad"
+}
+
+{
+    "status" : false,
+    "message" : "du har inte behörighet att ta bort bloggen"
+}

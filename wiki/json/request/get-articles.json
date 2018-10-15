@@ -1,0 +1,10 @@
+{
+    "adminID" : 2,
+    "token" : "8asd94297asd97hidas9",
+
+    "search" : "Sökningsfras",
+    "articleID [alternatively]" : 8,
+
+    "limit [optional, hard limit = 24]" : 8,
+    "offset [optional]" : 0
+}
