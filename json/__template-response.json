@@ -1,0 +1,13 @@
+{
+    "status" : true | false,
+    "message" : "<bekräftelsemeddelande> | <felmeddelande>",
+
+    "data" : [
+        {
+            "attribute" : "value"
+        },
+        {
+            "attribute" : "value"
+        }
+    ]
+}
