@@ -14,7 +14,7 @@
         }
 
         $connection = getConnection();
-        $result = $connection->query("SELECT * FROM aktivitet");
+        $result = $connection->query("SELECT * FROM activity");
 
         $activities = [];
         while($row = $result->fetch_assoc())

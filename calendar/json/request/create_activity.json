@@ -4,11 +4,11 @@
     
     "activity" : {
         "name" : "Pedram",
-        "plats" : "Skövde ",
-        "beskrivning" : "hade ett möte med Ersnt",
-        "upprepning" : "varje fredag",
-        "starttid" : "12:00",
-        "sluttid" : "13:00"
+        "location" : "Skövde ",
+        "description" : "hade ett möte med Ersnt",
+        "repetition" : "varje fredag",
+        "starttime" : "12:00",
+        "endtime" : "13:00"
     }
    
 }

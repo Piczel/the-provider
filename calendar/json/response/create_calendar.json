@@ -2,5 +2,5 @@
     "status" : true,
     "message" : "Kalendern skapades.",
 
-    "kID" : 1
+    "calendarID" : 1
 }
