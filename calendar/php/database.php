@@ -4,7 +4,7 @@
         $host = "localhost",
         $user = "root",
         $pass = "",
-        $dbname = "kalender"
+        $dbname = "calendar"
     ) {
         $connection = new mysqli($host, $user, $pass, $dbname);
         $connection->set_charset("utf8");
