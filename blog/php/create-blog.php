@@ -1,7 +1,6 @@
 <?php
     $input = json_decode(file_get_contents("../json/create-blog-request.json"), true);
     try{
-
         include "../database/database.php";
         include "../database/utility.php";
         Input::validate($input,[
