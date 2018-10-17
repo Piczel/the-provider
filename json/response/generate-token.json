@@ -1,5 +1,5 @@
 {
-    "status" : true | false,
+    "status" : true | : false,
     "message" : "<bekräftelsemeddelande> | <felmeddelande>",
 
     "data" : [
