@@ -1,0 +1,26 @@
+//SUCCESS
+{
+    "status" : true,
+    "message" : "användare tilllagd"
+}
+//FAILUERE
+{
+    "status" : false,
+    "message" : "kunde inte bjuda in användare"
+}
+{
+    "status" : false,
+    "message" : "inte ditt event"
+}
+{
+    "status" : false,
+    "message" : "användaren är redan delaktig"
+}
+{
+    "status" : false,
+    "message" : "användare existerar inte"
+}
+{
+    "status" : false,
+    "message" : "inte inloggad"
+}
