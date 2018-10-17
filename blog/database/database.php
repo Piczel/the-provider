@@ -42,7 +42,7 @@
             }
         }
 
-        function insert($sql, $values = [])
+        function execute($sql, $values = [])
         {
             try {
                 $statement = self::$connection->prepare($sql);
