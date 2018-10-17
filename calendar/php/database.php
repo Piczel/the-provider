@@ -3,7 +3,7 @@
     function getConnection(
         $host = "localhost",
         $user = "root",
-        $pass = "",
+        $pass = "", 
         $dbname = "calendar"
     ) {
         $connection = new mysqli($host, $user, $pass, $dbname);
