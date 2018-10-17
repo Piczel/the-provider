@@ -1,0 +1,14 @@
+{
+    "adminID" : 1,
+    "token" : "asdfsasfsfsfsfsfsfds",
+    
+    "activity" : {
+        "name" : "",
+        "location" : "",
+        "description" : "",
+        "repetition" : "",
+        "starttime" : "",
+        "endtime" : ""
+    }
+   
+}
