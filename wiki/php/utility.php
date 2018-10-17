@@ -3,7 +3,7 @@
 
     class Token
     {
-        public static function verify($service, $adminID, $token)
+        public static function verify($adminID, $token)
         {
             if(true)
             {
@@ -11,13 +11,10 @@
             }
 
             throw new Exception("Användande av felaktig token");
-
-            throw new Exception("Du har inte tillgång till denna tjänd")
         }
-
     }
-    
-    
+
+
     class Input
     {
         public static function validate(array $array, array $limits)
@@ -41,6 +38,7 @@
                 }
             }
         }
+
         public static function either(array $array, array $limits)
         {
             # Returns the key in the provided array where the key is defined
