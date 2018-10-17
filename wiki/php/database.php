@@ -2,12 +2,13 @@
 
     class DBConnection
     {
-
+     
         private static $connection = null;
 
-        function __construct($file = "settings.ini")
+        function __construct($settings = "settings.ini")
         {
-            if(!$settings = parse_ini_file($file, TRUE)) throw new exception("Unable to open " . $file . ".");
+            # Parse settings from file
+            if(!$settings = parse_ini_file($settings, TRUE)) throw new exception("Unable to open " . $file . ".");
         
             $dns = 
                 $settings["mysql"]["driver"] .
@@ -15,8 +16,10 @@
                 ((!empty($settings["mysql"]["port"])) ? (";port=" . $settings["database"]["port"]) : "") .
                 ";dbname=" . $settings["mysql"]["dbname"] . 
                 ";charset=utf8";
-        
-            self::$connection = new PDO($dns, $settings["mysql"]["username"], $settings["mysql"]["password"]);
+            
+            if(self::$connection == null) {
+                self::$connection = new PDO($dns, $settings["mysql"]["username"], $settings["mysql"]["password"]);
+            }
             self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // PDO::ERRMODE_SILENT
             self::$connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); 
             
@@ -27,29 +30,37 @@
             try {
                 return self::$connection->prepare($sql);
             } catch(PDOException $exc) {
-                return null;
+            
             }
+            return null;
         }
 
-        function query($sql, $values = [])
-        {
+        function query(
+            $sql,
+            $values = [],
+            $fetchMode = PDO::FETCH_ASSOC
+        ) {
             try {
                 $statement = self::$connection->prepare($sql);
                 $statement->execute($values);
-                return $statement->fetchAll(PDO::FETCH_ASSOC);
+                return $statement->fetchAll($fetchMode);
             } catch(PDOException $exc) {
-                return null;                
+            
             }
+            return [];     
         }
 
-        function execute($sql, $values = [])
-        {
+        function execute(
+            $sql,
+            $values = []
+        ) {
             try {
                 $statement = self::$connection->prepare($sql);
                 return $statement->execute($values);
             } catch(PDOException $exc) {
-                return false;                
+            
             }
+            return false;     
         }
 
         function insert_id()
@@ -63,6 +74,4 @@
             return "ERROR: ".$info[0]." ".$info[2];
         }
     }
-
-    
 ?>
