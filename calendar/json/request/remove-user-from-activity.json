@@ -2,5 +2,7 @@
     "adminID" : 1,
     "token" : "8asd94297asd97hidas9",
 
-    "tpid" : 1
+    "uid" : 1,
+    "removeid" : 2,
+    "activityID" : 1
 }

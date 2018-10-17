@@ -14,7 +14,7 @@
         }
 
         $connection = getConnection();
-        $result = $connection->query("INSERT INTO activity (activityID, name, location, description, repetition, starttime, endtime) VALUES ('1', 'Cardinal', 'Pinegrove', 'Musik', '1', '1', '1')");
+        $result = $connection->query("INSERT INTO activity (name, location, description, repetition, starttime, endtime) VALUES ('Cardinal', 'Pinegrove', 'Musik', '1', '2000-10-10 12:20', '2010-10-12 12:12')");
 
         $response = [
             "status" => true,
