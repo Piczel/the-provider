@@ -1,5 +1,5 @@
 <?php
-    $input = json_decode(file_get_contents("../json/create-comment-request.json"), true);
+    $input = json_decode(file_get_contents("../json/get-own-blogs-request.json"), true);
     try{
         include "../database/database.php";
         include "../database/utility.php";
@@ -11,20 +11,18 @@
         $connection = new DBConnection();
 
         $userid = $input["uid"];
-        $postid = $input["pid"];
-        $date = $input["date"];
-        $text = $input["text"];
 
-        $sql = "INSERT INTO comment(uid,pid,date,text) VALUES (?,?,?,?)";
-        if($connection->insert($sql, [$userid,$postid,$date,$text]) === false){
-            throw new Exception("Kunde inte lägga till kommentar");
+        $sql = "SELECT * FROM blog INNER JOIN blogger WHERE blogger.bid = blog.bi AND uid = ?";
+        $result = $connection->query($sql,[$userid]);
+        if(count($result) >= 1){
+            $response = [
+                "status"=>true,
+                "message"=>"Bloggar hämtade",
+                "blogs"=>$result
+            ];
+        }else{
+            throw new Exception("Kunde inte hämta bloggar");
         }
-
-        $response = [
-            "status"=>true,
-            "message"=>"Kommenterad"
-        ];
-
     }catch(Exception $exc){
         $response = [
             "status"=>false,

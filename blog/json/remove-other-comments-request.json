@@ -2,6 +2,8 @@
     "adminID" : 1,
     "token" : "agf65rt87yh9oj123456",
 
-    "uid" : 1,
-    "cid" : 3
+    "uid" : 2,
+    "bid" : 1,
+    "pid" : 1,
+    "cid" : 5
 }
