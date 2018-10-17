@@ -1,29 +1,27 @@
 <?php
     $input = json_decode(file_get_contents("../json/create-post-request.json"), true);
-    var_dump($input);
     try{
-        /*session_start();
-        if(isset($_SESSION["signedInUserid"])){
-            throw new Exception("Inte inloggad");
-        }
-        if($input["uid"] != $_SESSION["signedInUserid"]){
-            throw new Exception("Inte inloggad");
-        }*/
-
-    include "../database/database.php";
-    $connection = new DBconnection();
+        include "../database/database.php";
+        include "../database/utility.php";
+        Input::validate($input,[
+            "adminID"=>null,
+            "token"=>20,
+            "title"=>50
+        ]);
+        Token::verify($input["adminID"],$input["token"]);
+        $connection = new DBConnection();
 
     $blogid = $input["bid"];
     $userid = $input["uid"];
     $title = $input["title"];
     $date = $input["date"];
-    $text = $input["text"];
+    $content = $input["content"];
 
     $sql = "SELECT * FROM blogger WHERE uid = ? AND bid = ?";
     $result = $connection->query($sql,[$userid,$blogid]);
     if(count($result) == 1){
         $sql = "INSERT INTO post(title, date, text, bid, uid) VALUES (?,?,?,?,?)"; 
-        if($connection->insert($sql, [$title, $date, $text, $blogid, $userid]) === false){
+        if($connection->insert($sql, [$title, $date, $content, $blogid, $userid]) === false){
             throw new Exception("Kunde inte lägga till post");    
         }
     }else{

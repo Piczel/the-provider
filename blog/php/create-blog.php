@@ -1,22 +1,22 @@
 <?php
     $input = json_decode(file_get_contents("../json/create-blog-request.json"), true);
-    var_dump($input);
     try{
-        /*session_start();
-        if(isset($_SESSION["signedInUserid"])){
-            throw new Exception("Inte inloggad");
-        }
-        if($input["uid"] != $_SESSION["signedInUserid"]){
-            throw new Exception("Inte inloggad");
-        }*/
 
         include "../database/database.php";
+        include "../database/utility.php";
+        Input::validate($input,[
+            "adminID"=>null,
+            "token"=>20,
+            "title"=>50
+        ]);
+        Token::verify($input["adminID"],$input["token"]);
         $connection = new DBConnection();
 
+        $userid = $input["uid"];
         $title = $input["title"];
 
-        $sql = "INSERT INTO blog(title) VALUES (?)"; //? anger värden, ett ? = ett värde
-        if($connection->insert($sql, [$title]) === false){//skicka med värdena som en array när frågan körs
+        $sql = "INSERT INTO blog(title,uid) VALUES (?,?)"; //? anger värden, ett ? = ett värde
+        if($connection->insert($sql, [$title,$userid]) === false){//skicka med värdena som en array när frågan körs
             throw new Exception("Kunde inte skapa blogg");
         }
 

@@ -1,0 +1,14 @@
+//SUCCESS
+{
+    "status" : true,
+    "message" : "Alla poster hämtade"
+}
+//FAILURE
+{
+    "status" : false,
+    "message" :"Kunde inte hämta poster"
+}
+{
+    "status" : false,
+    "message" :"Blogg existerar inte"
+}
