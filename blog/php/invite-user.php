@@ -6,7 +6,7 @@
         Input::validate($input,[
             "adminID"=>null,
             "token"=>20,
-            "email"=>50
+            "invite-email"=>50
         ]);
         Token::verify($input["adminID"],$input["token"]);
         $connection = new DBconnection();
@@ -14,6 +14,12 @@
         $userid = $input["uid"];
         $email = $input["invite-email"];
         $blogid = $input["bid"];
+
+        $sql = "SELECT uid FROM blog WHERE uid = ? AND bid = ?";
+        $result = $connection->query($sql,[$userid,$blogid]);
+        if(count($result) != 1){
+            throw new Exception("Inte ägare av blogg");
+        }
 
         $sql = "SELECT uid FROM user WHERE email = ?";
         $result = $connection->query($sql,[$email]);
