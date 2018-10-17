@@ -2,7 +2,8 @@
     "adminID" : 1,
     "token" : "ia89sd89asduia9sd",
     
-    "activity" : {
+    "activity" :
+    {
         "name" : "Pedram",
         "location" : "Skövde ",
         "description" : "hade ett möte med Ersnt",
