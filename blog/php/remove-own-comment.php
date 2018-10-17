@@ -15,13 +15,15 @@
         
         $sql = "SELECT * FROM comment WHERE uid = ? AND cid = ?";
         $result = $connection->query($sql,[$userid,$commentid]);
-        if(count($result) == 1){
-            $sql = "DELETE FROM comment WHERE cid = ?";
-            if($connection->insert($sql, [$commentid]) === false){
-                throw new Exception("Kunde inte ta bort kommentar");
-            }
+        if(count($result) != 1){
+            throw new Exception("Inte din kommentar");
         }
-
+        
+        $sql = "DELETE FROM comment WHERE cid = ?";
+        if($connection->insert($sql, [$commentid]) === false){
+            throw new Exception("Kunde inte ta bort kommentar");
+        }
+        
         $response = [
             "status"=>true,
             "message"=>"Kommentar borttagen"

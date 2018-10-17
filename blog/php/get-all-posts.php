@@ -1,8 +1,8 @@
 <?php
-    $input = json_decode(file_get_contents("../json/get-own-blogs-request.json"), true);
+    $input = json_decode(file_get_contents("../json/get-all-posts-request.json"), true);
     try{
-        include "../database/database.php";
-        include "../database/utility.php";
+    include "../database/database.php";
+    include "../database/utility.php";
         Input::validate($input,[
             "adminID"=>null,
             "token"=>20
@@ -10,18 +10,18 @@
         Token::verify($input["adminID"],$input["token"]);
         $connection = new DBConnection();
 
-        $userid = $input["uid"];
-
-        $sql = "SELECT * FROM blog INNER JOIN blogger WHERE blogger.bid = blog.bi AND uid = ?";
-        $result = $connection->query($sql,[$userid]);
+        $blogid = $input["bid"];
+            
+        $sql = "SELECT * FROM post WHERE bid = ?";
+        $result = $connection->query($sql,[$blogid]);
         if(count($result) >= 1){
             $response = [
                 "status"=>true,
-                "message"=>"Bloggar hämtade",
-                "blogs"=>$result
+                "message"=>"Alla poster hämtade",
+                "posts"=>$result
             ];
         }else{
-            throw new Exception("Kunde inte hämta bloggar");
+            throw new Exception("Kunde inte hämta inlägg");
         }
     }catch(Exception $exc){
         $response = [
