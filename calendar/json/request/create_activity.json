@@ -1,0 +1,15 @@
+{
+    "adminID" : 1,
+    "token" : "lalolalolaoloaloaloalola",
+    
+    "activity" :
+    {
+        "name" : "Pedram",
+        "location" : "Skövde ",
+        "description" : "hade ett möte med Ersnt",
+        "repetition" : "varje fredag",
+        "starttime" : "12:00",
+        "endtime" : "13:00"
+    }
+   
+}
