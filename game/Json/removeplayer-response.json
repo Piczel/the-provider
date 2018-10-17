@@ -1,0 +1,9 @@
+{
+    "status" : true,
+    "message" : "spelaren togs bort"
+}
+
+{
+    "status" : false,
+    "message" : "Spelaren finns inte"
+}

@@ -1,0 +1,21 @@
+// Success
+{
+    "status" : true,
+    "message" : "post tillagd"
+}
+
+// Failure
+{
+    "status" : false,
+    "message" : "du har inte behörighet att lägga till poster"
+}
+
+{
+    "status" : false,
+    "message" : "inte din blogg"
+}
+
+{
+    "status" : false,
+    "message" : "inte inloggad"
+}

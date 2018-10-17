@@ -1,0 +1,26 @@
+{
+    "status" : true,
+    "message" : "poäng hämtat",
+    "poäng" : [
+        {
+            "sid" : 1,
+            "spelid" : 1,
+            "score" : 2000
+        }
+    ]
+}
+
+{
+"status" : false,
+"message" : "kunde inte hämta poäng"
+}
+
+{
+    "status" : false,
+    "message" : "Spelare finns inte"
+}
+
+{
+    "status" : false,
+    "message" : "Spelet finns inte"
+}

@@ -1,0 +1,19 @@
+    {
+        "status" : true,
+        "message" : "Din vänförfrågan lyckades"
+    }
+    
+    {
+        "status" : false,
+        "message" :"Ni är redan vänner"
+    }
+    
+    {
+        "status" : false,
+        "message" : "Du är redan vän med denna spelare"
+    }
+
+    {
+        "status" : false,
+        "message" : "Denna spelare är bannad"
+    }

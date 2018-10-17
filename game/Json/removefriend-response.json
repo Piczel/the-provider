@@ -1,0 +1,14 @@
+{
+    "status" : true,
+    "message" : "Spelaren togs bort från din vänlista"
+}
+
+{
+    "status" : false,
+    "message" : "spelaren har redan tagits bort"
+}
+
+{
+    "status" : false,
+    "message" : "Du har inte denna spelare som vän"
+}

@@ -1,4 +1,5 @@
 {
+    "adminID" : <number>
     "token" : "<token>",
 
     "id" : 1,
