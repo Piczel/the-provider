@@ -1,0 +1,18 @@
+//SUCCESS
+{
+    "status" : true,
+    "message" : "Kommentar borttagen"
+}
+//FAILURE
+{
+    "status" : false,
+    "message" : "Inte din blogg"
+}
+{
+    "status" : false,
+    "message" : "Kunde inte hitta kommentar"
+}
+{
+    "status" : false,
+    "message" : "Kunde inte ta bort kommentar"
+}

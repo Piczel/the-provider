@@ -12,10 +12,11 @@
         Token::verify($input["adminID"],$input["token"]);
         $connection = new DBConnection();
 
+        $userid = $input["uid"];
         $title = $input["title"];
 
-        $sql = "INSERT INTO blog(title) VALUES (?)"; //? anger värden, ett ? = ett värde
-        if($connection->insert($sql, [$title]) === false){//skicka med värdena som en array när frågan körs
+        $sql = "INSERT INTO blog(title,uid) VALUES (?,?)"; //? anger värden, ett ? = ett värde
+        if($connection->insert($sql, [$title,$userid]) === false){//skicka med värdena som en array när frågan körs
             throw new Exception("Kunde inte skapa blogg");
         }
 

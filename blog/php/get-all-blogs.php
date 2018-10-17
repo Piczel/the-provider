@@ -10,8 +10,6 @@
         Token::verify($input["adminID"],$input["token"]);
         $connection = new DBConnection();
 
-    $userid = $input["uid"];
-    
     $sql = "SELECT * FROM blog";
     $result = $connection->query($sql);
     if(count($result) >= 1){
