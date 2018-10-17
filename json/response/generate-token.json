@@ -1,13 +1,6 @@
 {
-    "status" : true | : false,
-    "message" : "<bekräftelsemeddelande> | <felmeddelande>",
+    "status" : true,
+    "message" : "Token genererad",
 
-    "data" : [
-        {
-            "attribute" : "value"
-        },
-        {
-            "attribute" : "value"
-        }
-    ]
+    "token" : token
 }
