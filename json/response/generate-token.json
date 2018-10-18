@@ -1,0 +1,6 @@
+{
+    "status" : true,
+    "message" : "Token genererad",
+
+    "token" : token
+}
