@@ -91,7 +91,7 @@
 
 
         # Calculates interval between dates in minutes
-        function getMinutes($date_1 , $date_2)
+        private static function getMinutes($date_1 , $date_2)
         {
             $datetime1 = date_create($date_1);
             $datetime2 = date_create($date_2);
