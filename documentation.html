@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Dokumentation</h1>
+
+    <h2>Generell</h2>
+
+    <p>Som kund hos The Provider får man sitt konto i samband med att avtal sluts. Detta konto registreras av The Provider.</p>
+    <p>Med detta konto har man tillgång till alla administrativa funktioner i respektive tjänst:</p>
+    <ul>
+        <li>Wiki</li>
+        <li>Blogg</li>
+        <li>Kalender</li>
+        <li>Spel</li>
+    </ul>
+    <p>Din tjänst aktiveras av The Provider.</p>
+
+
+    <h3>Konton</h3>
+
+    <p>Flera förfrågningar behöver verifieras med en <b>nyckel</b> som genereras av och för ett konto med hjälp av sitt användarnamn och lösenord.</p>
+    <p>Nyckeln är giltig i 30 minuter efter att den skapades eller att den senast användes. Har 30 minuter passerat måste en ny genereras.</p>
+    <p>När du har din nyckel kan du ställa alla frågor som kontot har rätt till.</p>
+
+    <br>
+
+
+
+    <p>Varje tjänst kan slås av och på av kunden, men The Provider har en ytterligare "switch" som slår av och på tjänsten. Båda "switchar" måste vara på för att tjänsten ska vara aktiv.</p>
+    <p>Vid varje fråga verifieras det om tjänsten är aktiverad av båda parter.</p>
+    <br>
+    <p>Alla frågor ställs av en person. Administratören kan med sitt kontoid och sin nyckel utföra administrativa operationer och i fall av subanvändare (ex wikianvändare) kan denne endast utföra förfrågningar med dennes kontoid och nyckel som definierats i specifik tjänst.</p>
+    <p>Administratören kan vara både administratör och subanvändare men detta måste definieras manuellt. Detta gäller också enbart för specifika tjänster.</p>
+
+    <h2>Wiki</h2>
+    <p>Ett wiki skapas i samband med att tjänsten aktiveras för kontot. Om kontot tidigare haft wiki tjänsten aktiverad skapas inget nytt wiki. Endast ett wiki per användare</p>
+    <p>Ändringar av artiklar blir till artikelversioner som alla har ett eget versionsid. Dessa dyker upp under redigeringshistoriken för varje artikel. Varje artikel har en aktuell version, om den inte är raderad (då satt till NULL). Om wikit är konfigurerat till att artiklar måste godkännas, måste den nya versionen hämtas ur artikelhistoriken för att sedan accepteras med en förfrågan.</p>
+    
+    <h3>Vem som helst</h3>
+    <h4>Hämta artiklar</h4>
+    <p>Denna fråga kan ställas av vem som helst men beroende på om tjänsten aktiverad eller inte (både The Provider och kund) får du ett svar med innehåll.</p>
+    <p>Man kan be om alla artiklar som matchar en söksträng eller en specifik artikel.</p>
+    <p>Man kan även begränsa antalet artiklar som ska hämtas.</p>
+
+    <h4>Hämta redigeringshistorik</h4>
+    <p>En logg över de ändringar som skett för enskild artikel eller hela wikit. Med ändringar menas:</p>
+    <ul>
+        <li>Skapande av artikel</li>
+        <li>Uppdatering (redigering) av artikel</li>
+        <li>Rederande av artikel</li>
+    </ul>
+
+    <h4>Hämta wikianvändare</h4>
+    <p>Genom att ange kontoid eller användarnamn hämtas information om specifikt konto.</p>
+
+    <h4>Registrera wikianvändare</h4>
+    <p>Registrera nya användarkonton som kan användas för att t.ex. redigera artiklar.</p>
+    <p>Om administratören anger sitt egna användarnamn och lösenord så blir administratören själv en wikianvändare. Detta krävs för att administratören skall kunna utföra förfrågningar som wikianvändare.</p>
+    
+    <h3>Administratören kan</h3>
+    
+    <h4>Hämta mitt wiki</h4>
+    <p>Denna fråga hämtar administratörens wiki. Svaret inkluderar titel och beskrivning samt id som används för andra förfrågningar.</p>
+    
+    <h4>Uppdatera wiki information</h4>
+    <p>Uppdaterar wikits titel och beskrivning.</p>
+    
+    <h4>Uppdatera inställningar</h4>
+    <p>Det finns fyra inställningar som administratören kan ändra:</p>
+    <ol>
+        <li>
+            <p>Vilka konton som kan redigera artiklar</p>
+            <ul>
+                <li>Administratör</li>
+                <li>Utvalda konton</li>
+                <li>Alla konton i wiki't</li>
+            </ul>
+        </li>
+        <li>
+            <p>Vilka konton som kan acceptera ändringar av artiklar</p>
+            <ul>
+                <li>Administratör</li>
+                <li>Utvalda konton</li>
+                <li>Ändring accepteras automatikst</li>
+            </ul>
+        </li>
+        <li>
+            <p>Vem som kan tilldela rättigheter att redigera artiklar</p>
+            <ul>
+                <li>Administratör</li>
+                <li>Konton med redigeringsrättighet</li>
+            </ul>
+        </li>
+        <li>
+            <p>Vem som kan tilldela rättigheter att acceptera ändringar</p>
+            <ul>
+                <li>Administratör</li>
+                <li>Konton med accepteringsrättighet</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h3>Wikianvändaren kan</h3>
+    <h4>Bokmärk artikel</h4>
+    <h4>Ta bort bokmärkning av artikel</h4>
+    
+    <h3>Beroende av inställningar</h3>
+    
+    <h4>Ändra wikianvändares redigeringsrättighet</h4>
+    <p>Tilldela en wikianvändare redigeringsrättighet</p>
+    <p>Baserat på inställning kan detta endast göras av administratör eller av andra wikianvändare med redigeringsrättighet.</p>
+    
+    <h4>Ändra wikianvändares accepteringsrättighet</h4>
+    <p>Tilldela en wikianvändare accepteringsrättighet</p>
+    <p>Baserat på inställning kan detta endast göras av administratör eller av andra wikianvändare med accepteringsrättighet.</p>
+
+    <h4>Skapa ny artikel</h4>
+    <p>Skapa en ny artikel genom att samtidigt tilldela den en initial version.</p>
+    <p>Baserat på inställning kan detta endast göras av administratör, av utvalda wikianvändare (redigeringsrättighet) eller alla wikianvändare.</p>
+    <p>Artikel kan behöva accepteras innan den får en artikelversion tilldelad.</p>
+    
+    <h4>Ta bort artikel</h4>
+    <p>Artikel raderas men försvinner inte ur databasen. Artikelns aktuella version sätts till NULL och dyker då inte upp i förfrågan "Hämta artiklar" men syns fortfarande i redigeringshistoriken.</p>
+    <p>Baserat på inställning kan detta endast göras av administratör eller av utvalda wikianvändare (accepteringsrättighet).</p>
+    
+    <h4>Uppdatera artikel</h4>
+    <p>Artikel uppdateras och läggs till i redigeringshistoriken för acceptering (accepteringsrättighet) eller accepteras automatiskt beroende på inställningar.</p>
+    <p>Baserat på inställning kan detta endast göras av administratör, av utvalda wikianvändare (redigeringsrättighet) eller alla wikianvändare.</p>
+
+    <h4>Acceptera ändring/Återställ artikel</h4>
+    <p>Uppdaterar aktuell artikelversion för specifik artikel.</p>
+    <h5>Acceptera</h5>
+    <p>Accepterar en föreslagen ändring för en artikel och den föreslagna ändringens versionsid blir artikels aktuella versionsid.</p>
+    <h5>Återställa</h5>
+    <p>Återställ aktuellt versionsid för en artikel genom att tilldela ett nytt från redigeringshistoriken.</p>
+    
+</body>
+</html>
