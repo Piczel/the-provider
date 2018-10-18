@@ -5,7 +5,7 @@ include '../utility/utility.php';
     $response = null;
     try
     {
-        $input = json_decode(file_get_contents("json/request/create_activity.json"), true);
+        $input = json_decode(file_get_contents("json/request/create-activity.json"), true);
 
         if(!verifyToken($input["adminID"], $input["token"]))
         {
