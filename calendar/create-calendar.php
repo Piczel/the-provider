@@ -1,7 +1,8 @@
 <?php
-    include 'php/verify-token.php';
-    include 'php/database.php';
-    $response = null;
+
+    include '../utility/utility.php';
+
+$response = null;
     try
     {
         $input = json_decode(file_get_contents("json/request/create-calendar.json"), true);
