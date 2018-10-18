@@ -1,7 +1,6 @@
 <?php
 
-    include 'php/verify-token.php';
-    include 'php/database.php';
+include '../utility/utility.php';
 
     $response = null;
     try
