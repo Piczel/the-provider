@@ -7,7 +7,7 @@ $response = null;
     {
         $input = json_decode(file_get_contents("json/request/create-calendar.json"), true);
         
-        if(!Token::verify($input["adminID"], $input["token"]))
+        if(!Token::verify($input["accountID"], $input["token"]))
         
         {
             throw new Exception("Användande av felaktig token");
@@ -16,11 +16,7 @@ $response = null;
         $connection = new DBConnection();
         $calendarID = $input["calendarID"];
 
-        $sql = "INSERT INTO calendar(calendarID) VALUES 
-        
-        if($connection->execute($sql,[$calendarID]) === false){
-            throw new Exception("kunde inte skapa kalender");
-        }
+        $result = $connection->query("INSERT INTO calendar (calendarID) VALUES ('?')");
 
         $response = [
             "status"=>true,
