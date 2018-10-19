@@ -1,0 +1,14 @@
+{
+    "status" : true,
+    "message" : "Alla wikis hämtade",
+
+    "wikis" : {
+        "name" : "Namn på wiki",
+        "description" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.",
+        
+        "may-edit" : "superuser | selected | any",
+        "may-accept" : "superuser | selected | auto",
+        "may-assign-edit" : "superuser | selected",
+        "may-assign-accept" : "superuser | selected"
+    }
+}
