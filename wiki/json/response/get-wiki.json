@@ -2,7 +2,7 @@
     "status" : true,
     "message" : "Alla wikis hämtade",
 
-    "wikis" : {
+    "wiki" : {
         "name" : "Namn på wiki",
         "description" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.",
         
