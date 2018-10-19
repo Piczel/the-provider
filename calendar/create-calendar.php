@@ -6,16 +6,19 @@ $response = null;
     try
     {
         $input = json_decode(file_get_contents("json/request/create-calendar.json"), true);
-        if(!verifyToken($input["adminID"], $input["token"]))
+        
+        if(!Token::verify($input["adminID"], $input["token"]))
+        
         {
             throw new Exception("Användande av felaktig token");
         }
-        $connection = getConnection();
     
-        $tpid = $input["tpid"];
+        $connection = new DBConnection();
+        $calendarID = $input["calendarID"];
 
-        $sql = "INSERT INTO calendar(tpid) VALUES (?)";
-        if($connection->execute($sql,[$tpid]) === false){
+        $sql = "INSERT INTO calendar(calendarID) VALUES 
+        
+        if($connection->execute($sql,[$calendarID]) === false){
             throw new Exception("kunde inte skapa kalender");
         }
 

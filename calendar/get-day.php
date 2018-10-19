@@ -7,12 +7,12 @@ include '../utility/utility.php';
     {
         $input = json_decode(file_get_contents("json/request/get-day.json"), true);
 
-        if(!verifyToken($input["adminID"], $input["token"]))
+        if(!Token::verify($input["adminID"], $input["token"]))
         {
             throw new Exception("Användande av felaktig token");
         }
 
-        $connection = getConnection();
+        $connection = new DBConnection();
         $result = $connection->query("SELECT * FROM activity");
 
         $activities = [];
