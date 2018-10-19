@@ -1,9 +1,6 @@
 {
-    "adminID" : 2,
+    "accountID" : 2,
     "token" : "8asd94297asd97hidas9",
-
-    "accountID [setting-dependent]" : 4,
-    "user-token [setting-dependent]" : "d98oaskqkj22ikjaws0",
     
     "articleID" : 8
 }
