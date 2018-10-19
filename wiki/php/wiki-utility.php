@@ -1,20 +1,5 @@
 <?php
-    include_once 'database.php';
-
-    class Token
-    {
-        public static function verify($adminID, $token)
-        {
-            if(true)
-            {
-                return;
-            }
-
-            throw new Exception("Användande av felaktig token");
-        }
-    }
-
-
+    
     class Input
     {
         public static function validate(array $array, array $limits)

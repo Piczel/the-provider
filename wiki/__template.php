@@ -1,6 +1,5 @@
 <?php
-    include_once 'php/database.php';
-    include_once 'php/utility.php';
+    include_once '../utility/utility.php';
 
     $response = null;
 
@@ -10,11 +9,14 @@
         $input = json_decode(file_get_contents('json/request/'), true);
 
         Input::validate($input, [
-            'adminID' => null,
+            'accountID' => null,
             'token' => 20
         ]);
 
-        Token::verify($input['adminID'], $input['token']);
+        if(!Token::verify($input['accountID'], $input['token']))
+        {
+            throw new Exception('Felaktig token');
+        }
 
         $connection = new DBConnection();
         

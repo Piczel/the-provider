@@ -4,6 +4,7 @@
 
     "wikiuser" : {
         "accountID" : 4,
+        "username" : "Användarnamn",
         "email" : "user@theprovider.com",
         "forename" : "Förnamn",
         "surename" : "Efternamn"

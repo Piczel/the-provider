@@ -1,6 +1,7 @@
 <?php
-    include_once 'php/database.php';
-    include_once 'php/utility.php';
+    include_once '../utility/utility.php';
+
+    include_once 'php/wiki-utility.php';
 
     $response = null;
 

@@ -1,23 +1,10 @@
 {
-    "adminID" : 2,
+    "accountID" : 2,
     "token" : "8asd94297asd97hidas9",
-
-    "accountID [setting-dependent]" : 4,
-    "user-token [setting-dependent]" : "d98oaskqkj22ikjaws0",
     
     "article" : {
         "articleID" : 8,
         "title" : "Titel på artikel",
-        "content" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.",
-
-        "references [optional]" : [
-            {
-                "referenceID [optional]" : 5,
-                "content" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi."
-            },
-            {
-                "..." : "..."
-            }
-        ]
+        "content" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi."
     }
 }
