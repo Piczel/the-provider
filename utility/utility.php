@@ -1,4 +1,5 @@
 <?php
+
     class Account
     {
         # Registers account and returns its accountID on success and returns false on error

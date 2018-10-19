@@ -1,19 +1,22 @@
 <?php
     $input = json_decode(file_get_contents("../json/get-own-blogs-request.json"), true);
     try{
-        include "../database/database.php";
-        include "../database/utility.php";
+        include "../../utility/utility.php";
         Input::validate($input,[
-            "adminID"=>null,
-            "token"=>20
+            "accountID"=>null,
+            "token"=>20,
         ]);
-        Token::verify($input["adminID"],$input["token"]);
+        echo $input["token"];
+        if(!Token::verify($input["accountID"], $input["token"]))
+        {
+            throw new Exception("Felaktig token");
+        }
         $connection = new DBConnection();
 
-        $userid = $input["uid"];
+        $account = $input["accountID"];
 
-        $sql = "SELECT * FROM blog INNER JOIN blogger WHERE blogger.bid = blog.bi AND uid = ?";
-        $result = $connection->query($sql,[$userid]);
+        $sql = "SELECT * FROM blog INNER JOIN blog_account WHERE blog_account.forBlogID = blog.blogID AND forAccountID = ?";
+        $result = $connection->query($sql,[$account]);
         if(count($result) >= 1){
             $response = [
                 "status"=>true,
