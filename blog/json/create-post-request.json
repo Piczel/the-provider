@@ -1,11 +1,8 @@
 {
-    "token" : "agf65rt87yh9oo123456",
-
-    "forAccountID" : 1,
+    "token" : "59efea3fbcd975c20b6b",
+    "accountID" : 5,
     "forBlogID" : 1,
-    
     "title" : "Detta har jag gjort idag",
     "date" : "2018-06-29 14:29",
-
     "content" : "Idag har jag inte gjort ett skit"
 }
