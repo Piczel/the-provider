@@ -1,4 +1,22 @@
 <?php
+    class Account
+    {
+        # Registers account and returns its accountID on success and returns false on error
+        public static function register(
+            $email,
+            $username,
+            $password
+        ) {
+            $connection = new DBConnection();
+
+            if(!$connection->execute('INSERT INTO account (email, username, `password`) VALUES (?, ?, ?)', [$email, $username, password_hash($password, PASSWORD_DEFAULT)]))
+            {
+                return false;
+            }
+
+            return $connection->insert_id();
+        }
+    }
 
     class Token
     {
@@ -208,6 +226,60 @@
         {
             $info = self::$connection->errorInfo();
             return $info[0]." ".$info[2];
+        }
+    }
+
+    class Input
+    {
+        # Class with methods to verify that array has set indexes and that the values are of certain length
+
+
+        public static function validate(array $array, array $limits)
+        {
+            foreach($limits as $key => $limit)
+            {
+                if(!isset($array[$key]))
+                {
+                    throw new Exception('Odefinierat värde: "'. $key .'"');
+                }
+
+                # Skip limit check
+                if(!is_numeric($limit))
+                {
+                    continue;
+                }
+
+                if(strlen($array[$key]) > $limit)
+                {
+                    throw new Exception('Värdet "'. $key .'" överskrider den maximala längden ('. $limit .')');
+                }
+            }
+        }
+
+        public static function either(array $array, array $limits)
+        {
+            # Returns the key in the provided array where the key is defined
+
+            foreach($limits as $key => $limit)
+            {
+                if(!isset($array[$key]))
+                {
+                    continue;
+                }
+
+                # If numeric, do limit check
+                if(is_numeric($limit))
+                {   
+                    if(strlen($array[$key]) > $limit)
+                    {
+                        throw new Exception('Värdet "'. $key .'" överskrider den maximala längden ('. $limit .')');
+                    }
+                }
+                
+                return $key;
+            }
+
+            throw new Exception('Inget av värdena "'. implode('", "', array_keys($limits)) .'" är definierade');
         }
     }
     
