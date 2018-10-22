@@ -23,6 +23,7 @@
         # Code...
         $wiki = $connection->query(
             'SELECT
+                wikiID,
                 `name`,
                 `description`,
                 mayEdit AS "may-edit",
@@ -34,18 +35,21 @@
             [$input['accountID']]
 
         );
-        $SQL = "SELECT activated_tp AND activated_user FROM admin_wiki WHERE forAccountId = ?";
-        if('activated_tp' && 'activated_user' != 1){
-            throw new Exception(
-                "The service is not activated."
-            );
-        }
-
         if(count($wiki)<1){
             throw new Exception(
                 "Kunde inte hitta ditt wiki."
             );
         }
+        $SQL = "SELECT activated_tp, activated_user FROM admin_wiki WHERE forAccountId = ? AND forWikiID = ?";
+        $status = $connection->query($SQL,[$input['accountID'], $wiki[0]["wikiID"]]);
+        if(count($status)<1){
+            throw new Exception("Du har inget wiki.");
+        }
+        if($status[0]['activated_tp'] != 1 && $status[0]['activated_user'] != 1){
+            throw new Exception("The service is not activated.");
+        }
+
+        
        
 
         $response = [
