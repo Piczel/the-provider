@@ -1,15 +1,15 @@
 <?php
-    $input = json_decode(file_get_contents("../json/addgame-request.json"), true);
-    
+    $input = json_decode(file_get_contents("../json/addgame-response.json"), true);
+    var_dump($input);
     try{
 
         include"../../utility/utility.php";
         $connection = new DBConnection();
 
-        $spelnamn = $input["name"];
+        $spelnamn = $input["spelnamn"];
 
-        $sql = "INSERT INTO game(`name`) VALUES (?)";
-        if($connection->execute($sql, [$spelnamn]) === false){
+        $sql = "INSERT INTO spel(spelnamn) VALUES (?)";
+        if($connection->insert($sql, [$spelnamn]) === false){
             throw new Exception("Kunde inte lägga till spel");
         }
 

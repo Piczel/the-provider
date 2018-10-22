@@ -2,6 +2,6 @@
     "token" : "token",
     "adminid" : 1,
 
-    "sid" : "Warcraft III",
-    "sid2" : 1
+    "forPlayerID" : "31",
+    "forFriendID" : 3
 }

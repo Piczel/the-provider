@@ -2,8 +2,8 @@
     "token" : "token",
     "adminid" : 1,
 
-    "score" : "2000",
-    "datum" : "datum",
-    "sid" : "1",
-    "spelid" : "1"
+    "score" : "15000",
+    "datum" : "2018-10-19",
+    "forGameID":"1",
+    "forPlayerID":"1"
 }

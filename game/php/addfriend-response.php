@@ -1,16 +1,16 @@
 <?php
-    $input = json_decode(file_get_contents("../json/addfriend-request.json"), true);
-  
+    $input = json_decode(file_get_contents("../json/addfriend-response.json"), true);
+    var_dump($input);
     try{
 
         include "../../utility/utility.php";
         $connection = new DBConnection();
         
         
-        $forPlayerID = $input["forPlayerID"];
-        $forFriendID = $input["forFriendID"];
-        $sql = "INSERT INTO friendship(forPlayerID,forFriendID) VALUES (?,?)";
-        if($connection->execute($sql, [$forFriendID,$forPlayerID]) === false){
+        $sid2 = $input["sid2"];
+
+        $sql = "INSERT INTO vänskap(sid2) VALUES (?)";
+        if($connection->insert($sql, [$sid2]) === false){
             throw new Exception("Kunde inte lägga till vän");
         }
 
