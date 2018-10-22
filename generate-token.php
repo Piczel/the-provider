@@ -1,17 +1,39 @@
 <?php
+    include_once 'utility/utility.php';
 
-    $input = json_decode(file_get_contents("json/request/generate-token.json"),TRUE);
-include "php/database.php";
-    $connection = new db();
+    $response = null;
 
-    $SQL = "SELECT adminID FROM admin WHERE username = 'Casper' and password = 'Jesus'";
-    
-    $token = bin2hex(random_bytes(10));
-    $SQL="update admin set token ='$token' where admin.adminId = 1";
-            $connection->execute($SQL);
+    try
+    {
+        # Decode the input JSON to a PHP array
+        $input = json_decode(file_get_contents('json/request/generate-token.json'), true);
 
-    echo json_encode([
-        "status"=>true, "message"=>"Token genererad", "token"=>$token
-    ]);
+        Input::validate($input, [
+            'username' => 50,
+            'password' => 100
+        ]);
+        
+        if(!($generated = Token::generate($input['username'], $input['password'])))
+        {
+            throw new Exception('Felaktigt användarnamn eller lösenord');
+        }
 
+        $response = [
+            'status' => true,
+            'message' => 'Token genererad',
+            'accountID' => $generated['accountID'],
+            'token' => $generated['token']
+        ];
+    } catch(Exception $exc)
+    {
+        # Catch errors and create response with 'status' set to false
+        $response = [
+            'status' => false,
+            'message' => $exc->getMessage()
+        ];
+    } finally
+    {   
+        # Print the response as JSON
+        echo json_encode($response);
+    }
 ?>
