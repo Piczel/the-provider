@@ -3,15 +3,16 @@
     var_dump($input);
     try{
 
-        include "../database/database.php";
+        include "../utility/utility.php";
         $connection = new DBConnection();
 
-        //definiera gameID
+        $gameID = $input["gameID"];
 
         $sql = " SELECT score, `date`, `name` FROM score INNER JOIN player ON forPlayerID = playerID WHERE forGameID = ? order by score DESC";
 
-        $highscore = $connection->query($sql,[$gameID]);
-        
+        if($connection->execute($highscore = $connection->query($sql,[$gameID])) === false){
+            throw new Exception("Kunde inte lägga till poäng");
+        }
         
         $response = [
             "status"=>true,

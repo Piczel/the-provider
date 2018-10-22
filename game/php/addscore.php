@@ -18,7 +18,7 @@
 
         $response = [
             "status"=>true,
-            "message"=>"poäng tilllagt"
+            "message"=>"poäng tillagt"
         ];
 
     }catch(Exception $exc){
