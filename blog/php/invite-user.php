@@ -1,54 +1,49 @@
 <?php
     $input = json_decode(file_get_contents("../json/invite-user-request.json"), true);
     try{
-        include "../database/database.php";
-        include "../database/utility.php";
+        include "../../utility/utility.php";
         Input::validate($input,[
             "adminID"=>null,
-            "token"=>20,
-            "invite-email"=>50
+            "token"=>20
         ]);
-        Token::verify($input["adminID"],$input["token"]);
-        $connection = new DBconnection();
+        if(!Token::verify($input["adminID"], $input["token"]))
+        {
+            throw new Exception("Felaktig token");
+        }
+        $connection = new DBConnection();
 
-        $userid = $input["uid"];
-        $email = $input["invite-email"];
-        $blogid = $input["bid"];
+        $admin = $input["adminID"];
+        $username = $input["username"];
+        $blog = $input["blogID"];
 
-        $sql = "SELECT uid FROM blog WHERE uid = ? AND bid = ?";
-        $result = $connection->query($sql,[$userid,$blogid]);
+        $sql = "SELECT admin_blogID FROM admin_blog WHERE admin_blogID = ? AND forBlogID = ?";
+        $result = $connection->query($sql,[$admin,$blog]);
         if(count($result) != 1){
             throw new Exception("Inte ägare av blogg");
         }
 
-        $sql = "SELECT uid FROM user WHERE email = ?";
-        $result = $connection->query($sql,[$email]);
+        $sql = "SELECT accountID FROM account WHERE username = ?";
+        $result = $connection->query($sql,[$username]);
         if(count($result) != 1){
             throw new Exception("Kunde inte hitta konto");
         }
 
-        $inviteid = $result[0]["uid"];
+        $invite = $result[0]["accountID"];
 
-        $sql = "SELECT uid FROM blogger WHERE uid = ? AND bid = ?";
-        $result = $connection->query($sql,[$userid,$blogid]);
-        if(count($result) != 1){
-            throw new Exception("Inte din blogg");
-        }
-
-        $sql = "SELECT 1 FROM blogger WHERE uid = ? AND bid = ?";
-        $result = $connection->query($sql,[$inviteid,$blogid]);
+        $sql = "SELECT 1 FROM blog_account WHERE forAccountID = ? AND forBlogID = ?";
+        $result = $connection->query($sql,[$invite,$blog]);
         if(count($result) != 0){
             throw new Exception("Användare redan tillagd");
         }
 
-        $sql = "INSERT INTO blogger(uid,bid) VALUES (?,?)";
-        if($connection->insert($sql,[$inviteid,$blogid]) === true){
+        $sql = "INSERT INTO blog_account(forAccountID,forBlogID) VALUES (?,?)";
+        if($connection->execute($sql,[$invite,$blog]) === true){
             $response = [
                 "status"=>true,
-                "message"=>"Inbjudan skickad"
+                "message"=>"Konto tillagt"
             ];
         }else{
-            throw new Exception("Kunde inte bjuda in konto");
+            throw new Exception("Kunde inte lägga till konto");
         }
 
     }catch(Exception $exc){

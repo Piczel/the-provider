@@ -1,13 +1,7 @@
 <?php
     $input = json_decode(file_get_contents("../json/get-all-blogs-request.json"), true);
     try{
-    include "../database/database.php";
-    include "../database/utility.php";
-        Input::validate($input,[
-            "adminID"=>null,
-            "token"=>20
-        ]);
-        Token::verify($input["adminID"],$input["token"]);
+        include "../../utility/utility.php";
         $connection = new DBConnection();
 
     $sql = "SELECT * FROM blog";

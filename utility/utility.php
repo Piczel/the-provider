@@ -1,15 +1,17 @@
 <?php
+
     class Account
     {
         # Registers account and returns its accountID on success and returns false on error
         public static function register(
             $email,
             $username,
-            $password
+            $password,
+            $usertype = 'normal'
         ) {
             $connection = new DBConnection();
 
-            if(!$connection->execute('INSERT INTO account (email, username, `password`) VALUES (?, ?, ?)', [$email, $username, password_hash($password, PASSWORD_DEFAULT)]))
+            if(!$connection->execute('INSERT INTO account (email, username, `password`, `type`) VALUES (?, ?, ?, ?)', [$email, $username, password_hash($password, PASSWORD_DEFAULT), $usertype]))
             {
                 return false;
             }
