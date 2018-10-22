@@ -13,7 +13,7 @@ include '../utility/utility.php';
         }
 
         $connection = new DBConnection();
-        $result = $connection->query("INSERT INTO activity (name, location, description, repetition, startTime, endTime, forCalendarID ) VALUES ('Cardinal', 'Pinegrove', 'Musik', '1', '2000-10-10 12:24', '2100-12-12 12:12', '2')");
+        $result = $connection->query("INSERT INTO activity (name, location, description, repetition, startTime, endTime, forCalendarID ) VALUES ('Cardinal', 'Pinegrove', 'Musik', '1', '2000-10-10 12:24', '2100-12-12 12:12')");
 
         $response = [
             "status" => true,
