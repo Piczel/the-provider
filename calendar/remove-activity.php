@@ -7,13 +7,13 @@ include '../utility/utility.php';
     {
         $input = json_decode(file_get_contents("json/request/remove-activity.json"), true);
 
-         if(!Token::verify($input["adminID"], $input["token"]))
+         if(!Token::verify($input["accountID"], $input["token"]))
         {
             throw new Exception("Användande av felaktig token");
         }
      
         $connection = new DBConnection();
-        $activity = $connection ->query("SELECT * FROM activity as a INNER JOIN calendar on a.forCalendarID = calendarID INNER JOIN admin_calendar on admin_calendar.forCalendarID = calendarID INNER JOIN account on admin_calendar.forAccountID = accountID WHERE activityID=? and accountID=? ", [$input["activityID"], $input["adminID"]]);
+        $activity = $connection->query("SELECT * FROM activity as a INNER JOIN calendar on a.forCalendarID = calendarID INNER JOIN admin_calendar on admin_calendar.forCalendarID = calendarID INNER JOIN account on admin_calendar.forAccountID = accountID WHERE activityID=? and accountID=? ", [$input["activityID"], $input["accountID"]]);
         if (count($activity)<1)
         {
             throw new Exception("den här är fan inte din, sluta DIREKT");
