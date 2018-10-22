@@ -1,32 +1,29 @@
 <?php
     $input = json_decode(file_get_contents("../json/remove-post-request.json"), true);
-    var_dump($input);
     try{
-        /*session_start();
-        if(isset($_SESSION["signedInUserid"])){
-            throw new Exception("Inte inloggad");
+        include "../../utility/utility.php";
+        Input::validate($input,[
+            "accountID"=>null,
+            "token"=>20
+        ]);
+        if(!Token::verify($input["accountID"], $input["token"]))
+        {
+            throw new Exception("Felaktig token");
         }
-        if($input["uid"] != $_SESSION["signedInUserid"]){
-            throw new Exception("Inte inloggad");
-        }*/
-
-        include "../database/database.php";
         $connection = new DBConnection();
 
-        $userid = $input["uid"];
-        $postid = $input["pid"];
+        $account = $input["accountID"];
+        $post = $input["postID"];
 
-        $sql = "SELECT * FROM post 
-        INNER JOIN blogger 
-        ON post.bid = blogger.bid 
-        WHERE post.pid = ? 
-        AND blogger.uid = ?";
-        $result = $connection->query($sql,[$postid,$userid]);
-        if(count($result) == 1){
-            $sql = "DELETE FROM post WHERE pid = ?";
-            if($connection->insert($sql, [$postid]) === false){
-                throw new Exception("Kunde inte ta bort post");
-            }
+        $sql = "SELECT * FROM post INNER JOIN blog_account ON post.forBlogID = blog_account.forBlogID WHERE post.postID = ? AND blog_account.forAccountID = ?";
+        $result = $connection->query($sql,[$post,$account]);
+        if(count($result) != 1){
+            throw new Exception("Post är redan borttagen");
+        }
+        
+        $sql = "DELETE FROM post WHERE postID = ?";
+        if($connection->execute($sql, [$post]) === false){
+            throw new Exception("Kunde inte ta bort post");
         }
 
         $response = [
@@ -40,5 +37,5 @@
             "message"=>$exc->getMessage()
         ];
     }
-    echo json_encode($result);
+    echo json_encode($response);
 ?>

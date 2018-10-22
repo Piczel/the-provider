@@ -1,36 +1,35 @@
 <?php
     $input = json_decode(file_get_contents("../json/remove-from-blog-request.json"), true);
-    var_dump($input);
     try{
-        /*session_start();
-        if(isset($_SESSION["signedInUserid"])){
-            throw new Exception("Inte inloggad");
+        include "../../utility/utility.php";
+        Input::validate($input,[
+            "accountID"=>null,
+            "token"=>20
+        ]);
+        if(!Token::verify($input["accountID"], $input["token"]))
+        {
+            throw new Exception("Felaktig token");
         }
-        if($input["uid"] != $_SESSION["signedInUserid"]){
-            throw new Exception("Inte inloggad");
-        }*/
-
-        include "../database/database.php";
         $connection = new DBConnection();
 
-        $userid = $input["uid"];
-        $removeid = $input["removeid"];
-        $blogid = $input["bid"];
+        $account = $input["accountID"];
+        $remove = $input["removeAccountID"];
+        $blog = $input["blogID"];
 
-        $sql = "SELECT uid FROM blogger WHERE uid = ? AND bid = ?";
-        $result = $connection->query($sql,[$userid,$blogid]);
+        $sql = "SELECT forAccountID FROM admin_blog WHERE forAccountID = ? AND forBlogID = ?";
+        $result = $connection->query($sql,[$account,$blog]);
         if(count($result) != 1){
             throw new Exception("Inte din blogg");
         }
 
-        $sql = "SELECT uid FROM blogger WHERE uid = ? AND bid = ?";
-        $result = $connection->query($sql,[$removeid,$blogid]);
+        $sql = "SELECT forAccountID FROM blog_account WHERE forAccountID = ? AND forBlogID = ?";
+        $result = $connection->query($sql,[$remove,$blog]);
         if(count($result) != 1){
             throw new Exception("Användaren är redan borttagen");
         }
 
-        $sql = "DELETE FROM blogger WHERE bid = ? AND uid = ?";
-        if($connection->insert($sql,[$blogid,$removeid]) === true){
+        $sql = "DELETE FROM blog_account WHERE forBlogID = ? AND forAccountID = ?";
+        if($connection->execute($sql,[$blog,$remove]) === true){
             $response = [
                 "status"=>true,
                 "message"=>"Användare borttagen"

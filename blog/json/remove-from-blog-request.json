@@ -1,5 +1,6 @@
 {
-    "uid" : 1,
-    "removeid" : 2,
-    "bid" : 1
+    "token" : "b0fe8339f931f5494313",
+    "accountID" : 5,
+    "removeAccountID" : 6,
+    "blogID" : 10
 }

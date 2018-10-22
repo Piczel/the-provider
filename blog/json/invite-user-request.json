@@ -1,5 +1,6 @@
 {
-    "uid" : 1,
-    "invite-email" : "lars.bandars@gmail.com",
-    "bid" : 1
+    "token" : "ff31a88ab9e588a56254",
+    "adminID" : 1,
+    "username" : "newGuy",
+    "blogID" : 1
 }
