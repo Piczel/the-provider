@@ -1,22 +1,22 @@
 <?php
-    include 'php/verify-token.php';
-    include 'php/database.php';
-    $response = null;
+
+    include '../utility/utility.php';
+
+$response = null;
     try
     {
         $input = json_decode(file_get_contents("json/request/create-calendar.json"), true);
-        if(!verifyToken($input["adminID"], $input["token"]))
+        
+        if(!Token::verify($input["accountID"], $input["token"]))
+        
         {
             throw new Exception("Användande av felaktig token");
         }
-        $connection = getConnection();
     
-        $tpid = $input["tpid"];
+        $connection = new DBConnection();
+        $calendarID = $input["calendarID"];
 
-        $sql = "INSERT INTO calendar(tpid) VALUES (?)";
-        if($connection->execute($sql,[$tpid]) === false){
-            throw new Exception("kunde inte skapa kalender");
-        }
+        $result = $connection->query("INSERT INTO calendar (calendarID) VALUES ('?')");
 
         $response = [
             "status"=>true,
