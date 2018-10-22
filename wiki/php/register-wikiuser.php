@@ -1,12 +1,12 @@
 <?php
-    include_once '../utility/utility.php';
+    include_once '../../utility/utility.php';
 
     $response = null;
 
     try
     {
         # Decode the input JSON to a PHP array
-        $input = json_decode(file_get_contents('json/request/register-wikiuser.json'), true);
+        $input = json_decode(file_get_contents('../json/request/register-wikiuser.json'), true);
 
         Input::validate($input, [
             'wikiID' => null,
@@ -19,12 +19,12 @@
 
         $connection = new DBConnection();
         
-        if(count('SELECT 1 FROM admin_wiki WHERE activated_tp = 1 AND activated_user = 1 AND forWikiID = ?', [$input['wikiID']]) < 1)
+        if(count($connection->query('SELECT 1 FROM admin_wiki WHERE activated_tp = 1 AND activated_user = 1 AND forWikiID = ?', [$input['wikiID']])) < 1)
         {
             # The service is not turned on for specific wiki
             throw new Exception('Tjänsten är inte aktiverad');
         }
-        if(count('SELECT 1 FROM account WHERE username = ?', [$input['username']]) > 0)
+        if(count($connection->query('SELECT 1 FROM account WHERE username = ?', [$input['username']])) > 0)
         {
             # Username taken
             throw new Exception('Användarnamnet är upptaget');
@@ -41,8 +41,8 @@
 
         # Adds data to inheriting table
         if(!$connection->execute(
-            'INSERT INTO wikiuser (forAccountID, forWikiID) VALUES (?, ?)',
-            [$accountID, $input['wikiID']]
+            'INSERT INTO wikiuser (forAccountID, forename, surname, forWikiID) VALUES (?, ?, ?, ?)',
+            [$accountID, $input['forename'], $input['surname'], $input['wikiID']]
         )) {
             throw new Exception('Kunde inte göra konto till wikianvändare');
         }
@@ -50,7 +50,7 @@
 
         $response = [
             'status' => true,
-            'message' => $message,
+            'message' => 'Kontot registrerades',
             'accountID' => $accountID
         ];
     } catch(Exception $exc)
