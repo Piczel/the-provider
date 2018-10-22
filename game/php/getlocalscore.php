@@ -6,5 +6,5 @@
         include "../database/database.php";
         $connection = new DBConnection();
 
-        $sql = " SELECT* FROM score";
+        $sql = 
 ?>
