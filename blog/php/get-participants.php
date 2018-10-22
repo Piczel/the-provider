@@ -14,11 +14,9 @@
 
         $account = $input["accountID"];
         $blog = $input["blogID"];
-        $activated_tp = $input["activated_tp"];
-        $activated_user = $input["activated_user"];
-    
-        $sql = "SELECT * FROM admin_blog WHERE activated_tp = ? AND activated_user = ? AND forBlogID = ?";
-        $result = $connection->query($sql,[$activated_tp,$activated_user,$blog]);
+
+        $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
+        $result = $connection->query($sql,[$blog]);
         if(count($result) != 1){
             throw new Exception("Bloggen är ej aktiverad");
         }

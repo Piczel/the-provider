@@ -14,11 +14,9 @@
 
         $account = $input["accountID"];
         $post = $input["postID"];
-        $activated_tp = $input["activated_tp"];
-        $activated_user = $input["activated_user"];
     
-        $sql = "SELECT * FROM admin_blog WHERE activated_tp = ? AND activated_user = ? AND forBlogID = ?";
-        $result = $connection->query($sql,[$activated_tp,$activated_user,$blog]);
+        $sql = "SELECT activated_tp,activated_user FROM admin_blog INNER JOIN post WHERE postID = ? AND post.forBlogID = admin_blog.forBlogID AND activated_tp = 1 AND activated_user = 1";
+        $result = $connection->query($sql,[$post]);
         if(count($result) != 1){
             throw new Exception("Bloggen är ej aktiverad");
         }
@@ -29,6 +27,11 @@
             throw new Exception("Post är redan borttagen");
         }
         
+        $sql = "DELETE FROM comment WHERE forPostID = ?";
+        if($connection->execute($sql,[$post]) === false){
+            throw new Exception("Kunde inte ta bort kommentarer");
+        }
+
         $sql = "DELETE FROM post WHERE postID = ?";
         if($connection->execute($sql, [$post]) === false){
             throw new Exception("Kunde inte ta bort post");
