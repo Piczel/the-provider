@@ -4,7 +4,6 @@
         include "../../utility/utility.php";
         Input::validate($input,[
             "token"=>20,
-            "title"=>50
         ]);
         if(!Token::verify($input["accountID"], $input["token"]))
         {
@@ -16,6 +15,13 @@
         $post = $input["postID"];
         $date = $input["date"];
         $content = $input["content"];
+        $blog = $input["blogID"];
+    
+        $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
+        $result = $connection->query($sql,[$blog]);
+        if(count($result) != 1){
+            throw new Exception("Bloggen är ej aktiverad");
+        }
 
         $sql = "INSERT INTO comment(content,date,forPostID,forAccountID) VALUES (?,?,?,?)";
         if($connection->execute($sql, [$content,$date,$post,$account]) === false){

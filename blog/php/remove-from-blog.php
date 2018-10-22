@@ -15,6 +15,14 @@
         $account = $input["accountID"];
         $remove = $input["removeAccountID"];
         $blog = $input["blogID"];
+        $activated_tp = $input["activated_tp"];
+        $activated_user = $input["activated_user"];
+    
+        $sql = "SELECT * FROM admin_blog WHERE activated_tp = ? AND activated_user = ? AND forBlogID = ?";
+        $result = $connection->query($sql,[$activated_tp,$activated_user,$blog]);
+        if(count($result) != 1){
+            throw new Exception("Bloggen är ej aktiverad");
+        }
 
         $sql = "SELECT forAccountID FROM admin_blog WHERE forAccountID = ? AND forBlogID = ?";
         $result = $connection->query($sql,[$account,$blog]);
