@@ -2,5 +2,6 @@
     "status" : true,
     "message" : "Token genererad",
 
-    "token" : token
+    "accountID" : 1,
+    "token" : "7c8bcbcc8a67e652a8dd"
 }

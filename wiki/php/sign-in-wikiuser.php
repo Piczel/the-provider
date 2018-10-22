@@ -1,12 +1,12 @@
 <?php
-    include_once 'utility/utility.php';
+    include_once '../../utility/utility.php';
 
     $response = null;
 
     try
     {
         # Decode the input JSON to a PHP array
-        $input = json_decode(file_get_contents('json/request/generate-token.json'), true);
+        $input = json_decode(file_get_contents('../json/request/sign-in-wikiuser.json'), true);
 
         Input::validate($input, [
             'username' => 50,
@@ -16,13 +16,14 @@
         if(!($generated = Token::generate($input['username'], $input['password'])))
         {
             throw new Exception('Felaktigt användarnamn eller lösenord');
-        }
+        }        
+        # Code...
 
         $response = [
             'status' => true,
-            'message' => 'Token genererad',
+            'message' => 'Användaren loggades in',
             'accountID' => $generated['accountID'],
-            'token' => $generated['token']
+            'user-token' => $generated['token']
         ];
     } catch(Exception $exc)
     {
