@@ -1,11 +1,7 @@
 {
-    "adminID" : 1,
-    "token" : "agf65rt87yh9oj123456",
-
-    "uid" : 1,
-    "pid" : 1,
-    
+    "token" : "3d85170c34fbcd9ed0d6",
+    "accountID" : 6,
+    "postID" : 3,
     "date" : "2018-06-29 14:29",
-
-    "text" : "Detta är en kommentar"
+    "content" : "Detta är en kommentar"
 }
