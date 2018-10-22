@@ -2,5 +2,6 @@
     "status" : true,
     "message" : "Användaren loggades in",
 
+    "accountID" : 1354,
     "user-token" : "d98oaskqkj22ikjaws0"
 }
