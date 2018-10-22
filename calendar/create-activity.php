@@ -1,13 +1,13 @@
 <?php
 
 include '../utility/utility.php';
-
+include '../utility/DBConnect.php'
     $response = null;
     try
     {
         $input = json_decode(file_get_contents("json/request/create-activity.json"), true);
 
-        if(!Token::verify($input["adminID"], $input["token"]))
+        if(!Token::verify($input["accountID"], $input["token"]))
         {
             throw new Exception("Användande av felaktig token");
         }
@@ -26,6 +26,7 @@ include '../utility/utility.php';
             "message" => $exc->getMessage()
         ];
     } finally
+    
     {
         echo json_encode($response);
     }
