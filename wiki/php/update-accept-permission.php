@@ -58,7 +58,7 @@
                     # Check if account has the permission
                     if(count($connection->query('SELECT 1 FROM selected_accept WHERE forAccountID = ? AND forWikiID = ?', [$input['accountID'], $wiki['wikiID']])) < 1)
                     {
-                        throw new Exception('Du behöver själv ha denna rättighet för att ge den till andra');
+                        throw new Exception('Du behöver själv ha denna rättighet för att uppdatera andras');
                     }
                     break;
                 case 'superuser':
