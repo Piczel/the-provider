@@ -97,8 +97,7 @@
                 $wiki['wikiID']
             ]
         )) {
-            # Could not create an initial version, remove the created article
-            $connection->execute('DELETE FROM article WHERE articleID = ?', [$articleID]);
+            # Could not create an article version
             throw new Exception('Kunde inte skapa en artikelversion');
         }
 
@@ -129,7 +128,7 @@
                 }
             }
 
-            $connection->execute('UPDATE article SET forVersionID = ?', [$versionID]);
+            $connection->execute('UPDATE article SET forVersionID = ? WHERE articleID = ?', [$versionID, $input['article']['articleID']]);
         } catch(Exception $exc)
         {
             # versionID of article not updated

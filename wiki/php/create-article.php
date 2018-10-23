@@ -131,7 +131,7 @@
                 }
             }
 
-            $connection->execute('UPDATE article SET forVersionID = ?', [$versionID]);
+            $connection->execute('UPDATE article SET forVersionID = ? WHERE articleID = ?', [$versionID, $articleID]);
         } catch(Exception $exc)
         {
             # No versionID is assigned to the article
