@@ -28,6 +28,7 @@ include '../utility/utility.php';
             "status" => false,
             "message" => $exc->getMessage()
         ];
+        
     } finally
     {
         echo json_encode($response);
