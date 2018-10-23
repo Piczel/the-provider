@@ -6,7 +6,7 @@
     try
     {
         # Decode the input JSON to a PHP array
-        $input = json_decode(file_get_contents('../json/request/update-accept-permission.json'), true);
+        $input = json_decode(file_get_contents('../json/request/update-edit-permission.json'), true);
 
         Input::validate($input, [
             'accountID' => null,
@@ -16,7 +16,6 @@
         ]);
 
         $connection = new DBConnection();
-
         
         
         if(!Token::verify($input['accountID'], $input['token']))
@@ -28,8 +27,8 @@
         # Fetches the wiki and assumes the account is either admin or wikiuser
         # Only the one(s) with a database result is stored in $wikis
         $wikis = array_filter([
-            $connection->query('SELECT wikiID, mayAssignAccept AS "setting" FROM wiki INNER JOIN admin_wiki ON forWikiID = wikiID INNER JOIN account ON admin_wiki.forAccountID = accountID WHERE accountID = ?', [$input['accountID']]),
-            $connection->query('SELECT wikiID, mayAssignAccept AS "setting" FROM wiki INNER JOIN wikiuser ON forWikiID = wikiID WHERE wikiuser.forAccountID = ?', [$input['accountID']])
+            $connection->query('SELECT wikiID, mayAssignEdit AS "setting" FROM wiki INNER JOIN admin_wiki ON forWikiID = wikiID INNER JOIN account ON admin_wiki.forAccountID = accountID WHERE accountID = ?', [$input['accountID']]),
+            $connection->query('SELECT wikiID, mayAssignEdit AS "setting" FROM wiki INNER JOIN wikiuser ON forWikiID = wikiID WHERE wikiuser.forAccountID = ?', [$input['accountID']])
         ]);
 
         if(count($wikis) < 1)
@@ -56,7 +55,7 @@
             {
                 case 'selected':
                     # Check if account has the permission
-                    if(count($connection->query('SELECT 1 FROM selected_accept WHERE forAccountID = ? AND forWikiID = ?', [$input['accountID'], $wiki['wikiID']])) < 1)
+                    if(count($connection->query('SELECT 1 FROM selected_edit WHERE forAccountID = ? AND forWikiID = ?', [$input['accountID'], $wiki['wikiID']])) < 1)
                     {
                         throw new Exception('Du behöver själv ha denna rättighet för att uppdatera andras');
                     }
@@ -76,10 +75,10 @@
 
         if($input['permission'] == true)
         {
-            $connection->execute('INSERT INTO selected_accept (forWikiID, forAccountID) VALUES (?, ?)', [$wiki['wikiID'], $input['forAccountID']]);
+            $connection->execute('INSERT INTO selected_edit (forWikiID, forAccountID) VALUES (?, ?)', [$wiki['wikiID'], $input['forAccountID']]);
         } else if($input['permission'] == false)
         {
-            $connection->execute('DELETE FROM selected_accept WHERE forWikiID = ? AND forAccountID = ?', [$wiki['wikiID'], $input['forAccountID']]);
+            $connection->execute('DELETE FROM selected_edit WHERE forWikiID = ? AND forAccountID = ?', [$wiki['wikiID'], $input['forAccountID']]);
         } else {
             throw new Exception('Otillåtet värde för "permission": '. $input['permission']);
         }
