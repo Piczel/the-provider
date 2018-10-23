@@ -11,16 +11,11 @@ include '../utility/utility.php';
         {
             throw new Exception("Användande av felaktig token");
         }
-
-        $connection = new DBConnection();
-        $result = $connection->query("SELECT * FROM activity");
-
-        $activities = [];
  
-        while($row = $result->fetch_assoc())
-        {
-            $activities[] = $row;
-        }
+        $connection = new DBConnection();
+        $result = $connection->query("SELECT * FROM activity WHERE startTime BETWEEN '?' AND '?'");
+
+        $activities = [$result];
         
         $response = [
             "status" => true,
@@ -33,6 +28,7 @@ include '../utility/utility.php';
             "status" => false,
             "message" => $exc->getMessage()
         ];
+        
     } finally
     {
         echo json_encode($response);

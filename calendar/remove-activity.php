@@ -18,19 +18,20 @@ include '../utility/utility.php';
         if (!$connection->execute("DELETE FROM activity where activityID=?",[$input["activityID"]]))
         {
             throw new Exception("Aktiviteten kunde inte tas bort");
-    
         }
+
         $response = [
             "status" => true,
             "message" => "Aktivitet raderad",
         ];
+
     } catch(Exception $exc)
-    {
+        {
         $response = [
             "status" => false,
             "message" => $exc->getMessage()
         ];
-    } finally
+        } finally
     {
         echo json_encode($response);
     }

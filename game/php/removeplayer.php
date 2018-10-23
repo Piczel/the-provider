@@ -53,4 +53,9 @@
         ];
     }
     echo json_encode($response);
+<<<<<<< HEAD
 ?>
+=======
+?>
+
+>>>>>>> dfc1ce4990587573b6b400a6f3baaffe45cbe255
