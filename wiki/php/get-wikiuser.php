@@ -17,6 +17,8 @@
             
         $connection = new DBConnection();
 
+        
+
         switch($key)
         {
             case 'accountID':
@@ -32,6 +34,12 @@
         if(count($wikiuser) < 1)
         {
             throw new Exception($err_message);
+        }
+
+        if(count($connection->query('SELECT 1 FROM admin_wiki INNER JOIN wikiuser ON wikiuser.forWikiID = admin_wiki.forWikiID WHERE activated_tp = 1 AND activated_user = 1 AND wikiuser.forAccountID = ?', [$wikiuser[0]['accountID']])) < 1)
+        {
+            # The service is not turned on for specific wiki
+            throw new Exception('Tjänsten är inte aktiverad');
         }
 
         $response = [
