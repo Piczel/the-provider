@@ -4,19 +4,20 @@
 
 $response = null;
     try
-    {
+    { 
         $input = json_decode(file_get_contents("json/request/create-calendar.json"), true);
-        
-        if(!Token::verify($input["accountID"], $input["token"]))
-        
+        if(!verifyToken($input["adminID"], $input["token"]))
         {
             throw new Exception("Användande av felaktig token");
         }
+        $connection = getConnection();
     
-        $connection = new DBConnection();
-        $calendarID = $input["calendarID"];
+        $tpid = $input["tpid"];
 
-        $result = $connection->query("INSERT INTO calendar (calendarID) VALUES ('?')");
+        $sql = "INSERT INTO calendar(tpid) VALUES (?)";
+        if($connection->execute($sql,[$tpid]) === false){
+            throw new Exception("kunde inte skapa kalender");
+        }
 
         $response = [
             "status"=>true,

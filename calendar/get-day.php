@@ -7,7 +7,7 @@ include '../utility/utility.php';
     {
         $input = json_decode(file_get_contents("json/request/get-day.json"), true);
 
-        if(!Token::verify($input["adminID"], $input["token"]))
+        if(!Token::verify($input["accountID"], $input["token"]))
         {
             throw new Exception("Användande av felaktig token");
         }
@@ -16,11 +16,12 @@ include '../utility/utility.php';
         $result = $connection->query("SELECT * FROM activity");
 
         $activities = [];
+ 
         while($row = $result->fetch_assoc())
         {
             $activities[] = $row;
         }
-
+        
         $response = [
             "status" => true,
             "message" => "Dagen hämtad",
