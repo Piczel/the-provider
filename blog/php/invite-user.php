@@ -3,18 +3,25 @@
     try{
         include "../../utility/utility.php";
         Input::validate($input,[
-            "adminID"=>null,
+            "accountID"=>null,
             "token"=>20
         ]);
-        if(!Token::verify($input["adminID"], $input["token"]))
+        if(!Token::verify($input["accountID"], $input["token"]))
         {
             throw new Exception("Felaktig token");
         }
         $connection = new DBConnection();
 
+        $account = $input["accountID"];
         $admin = $input["adminID"];
         $username = $input["username"];
         $blog = $input["blogID"];
+    
+        $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
+        $result = $connection->query($sql,[$blog]);
+        if(count($result) != 1){
+            throw new Exception("Bloggen är ej aktiverad");
+        }
 
         $sql = "SELECT admin_blogID FROM admin_blog WHERE admin_blogID = ? AND forBlogID = ?";
         $result = $connection->query($sql,[$admin,$blog]);
