@@ -6,11 +6,11 @@
         include "../utility/utility.php";
         $connection = new DBConnection();
 
-        $forPlayerID = $input["forPlayerID"];
+        $PlayerID = $input["PlayerID"];
 
         $sql = " SELECT score, `date`, game.`name` AS 'game', player.name AS 'player' FROM score INNER JOIN player ON forPlayerID = playerID INNER JOIN game ON forGameID = gameID Where forPlayerID = ? order by score DESC";
 
-        if($connection->execute($localhighscore = $connection->query($sql,[$forPlayerID])) === false){
+        if($connection->execute($localhighscore = $connection->query($sql,[$PlayerID])) === false){
             throw new Exception("Kunde inte hämta poäng");
         }
         
