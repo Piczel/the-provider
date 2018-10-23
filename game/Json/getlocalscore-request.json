@@ -1,7 +1,4 @@
 {
-    "token" : "token",
-    "adminid" : 1,
-
-    "sid" : 1,
-    "spelid" : 1
+    "PlayerID" : 1,
+    "forGameID":1
 }
