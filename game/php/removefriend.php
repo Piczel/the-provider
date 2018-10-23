@@ -1,18 +1,30 @@
 <?php
-    $input = json_decode(file_get_contents("../json/removefriend-request.json"), true);
-   
+    $input = json_decode(file_get_contents("../json/removefriend-request.json"), true);   
     try{
-
         include "../../utility/utility.php";
+        Input::validate($input,[
+            "accountID"=>null,
+            "token"=>20
+        ]);
+        if(!Token::verify($input["accountID"], $input["token"]))
+        {
+            throw new Exception("Felaktig token");
+        }
         $connection = new DBConnection();
 
-        $friendshipID = $input["friendshipID"];
+        $playerID = $input["playerID"];
+        $forFriendID = $input["forFriendID"];
 
-        $sql = "DELETE FROM friendship WHERE friendshipID = ?";
-        if($connection->execute($sql, [$friendshipID]) === false){
-            throw new Exception("Kunde inte ta bort vän");
+        $sql = "SELECT * FROM friendship WHERE forPlayerID = ? AND forFriendID = ?";
+        $result = $connection->query($sql,[$playerID,$forFriendID]);
+        if(count($result) != 1){
+            throw new Exception("Ni är inte vänner");
         }
 
+        $sql = "DELETE FROM friendship WHERE forPlayerID = ? AND forFriendID = ?";
+        if($connection->execute($sql, [$playerID,$forFriendID]) === false){
+            throw new Exception("Kunde inte ta bort vän");
+        }
 
         $response = [
             "status"=>true,
