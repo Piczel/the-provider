@@ -140,7 +140,8 @@
 
         $response = [
             'status' => true,
-            'message' => $message
+            'message' => $message,
+            'articleID' => $articleID
         ];
     } catch(Exception $exc)
     {
