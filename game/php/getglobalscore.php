@@ -1,5 +1,5 @@
 <?php
-    $input = json_decode(file_get_contents("../json/getglobalscore.json"), true);
+    $input = json_decode(file_get_contents("../json/getglobalscore-request.json"), true);
     var_dump($input);
     try{
 
@@ -11,7 +11,7 @@
         $sql = " SELECT score, `date`, `name` FROM score INNER JOIN player ON forPlayerID = playerID WHERE forGameID = ? order by score DESC";
 
         if($connection->execute($highscore = $connection->query($sql,[$gameID])) === false){
-            throw new Exception("Kunde inte lägga till poäng");
+            throw new Exception("Kunde inte hämta poäng");
         }
         
         $response = [
