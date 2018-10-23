@@ -74,12 +74,6 @@
             }
         }
 
-        # Redundant but will leave for now
-        if(count($connection->query('SELECT 1 FROM wikiuser WHERE forWikiID = ?', [$wiki['wikiID']])) < 1)
-        {
-            # The account is not a wikiuser in the specified wiki
-            throw new Exception('Du tillhör inte detta wiki');
-        }
 
         if(!$connection->execute(
             'INSERT INTO article (forWikiID) VALUES (?)',
