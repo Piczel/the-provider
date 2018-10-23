@@ -12,7 +12,7 @@
             'accountID' => null,
             'token' => 20
         ]);
-
+            
         if(!Token::verify($input['accountID'], $input['token']))
         {
             throw new Exception('Felaktig token');
