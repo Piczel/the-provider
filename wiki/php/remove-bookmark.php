@@ -6,7 +6,7 @@
     try
     {
         # Decode the input JSON to a PHP array
-        $input = json_decode(file_get_contents('../json/request/add-bookmark.json'), true);
+        $input = json_decode(file_get_contents('../json/request/remove-bookmark.json'), true);
 
         Input::validate($input, [
             'accountID' => null,
@@ -21,14 +21,14 @@
         $connection = new DBConnection();
         
         # Code...
-        $SQL = 'INSERT INTO bookmark (forAccountID, forArticleID) VALUES (?, ?)';
+        $SQL = 'DELETE FROM bookmark WHERE forAccountID = ? AND forArticleID = ?';
         if(!$connection->execute($SQL, [$input['accountID'], $input['articleID']])){
-            throw new Exception('Bokmärke kunde inte skapas');
+            throw new Exception('Bokmärke kunde inte raderas');
         }
 
         $response = [
             'status' => true,
-            'message' => 'Bokmärke skapades'
+            'message' => 'Bokmärke raderades'
         ];
     } catch(Exception $exc)
     {
