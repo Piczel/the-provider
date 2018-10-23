@@ -69,7 +69,7 @@
                         throw new Exception('Kunde inte skapa koppling mellan konto och kalender');
                     }
 
-                    $message = 'Blogg skapades och aktiverades';
+                    $message = 'Kalender skapades och aktiverades';
                 }
                 break;
             case 'game':

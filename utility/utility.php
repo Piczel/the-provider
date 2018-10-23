@@ -53,7 +53,7 @@
                 return false;
             }
 
-            if(!$connection->execute('UPDATE account SET triggerUpdate = 1 WHERE accountID = ?', [$accountID]))
+            if(!$connection->execute('UPDATE account SET triggerUpdate = 1-triggerUpdate WHERE accountID = ?', [$accountID]))
             {
                 # Could not update tokenTime
                 return false;
