@@ -5,10 +5,10 @@
         include "../../utility/utility.php";
         $connection = new DBConnection();
 
-        $spelarensnamn = $input["username"];
+        $playername = $input["username"];
 
         $sql = "INSERT INTO player(`name`) VALUES (?)";
-        if($connection->execute($sql, [$spelarensnamn]) === false){
+        if($connection->execute($sql, [$playername]) === false){
             throw new Exception("Kunde inte lägga till spelare");
         }
         
