@@ -1,0 +1,14 @@
+{
+    "status" : true,
+    "message" : "Bokmärken hämtade",
+
+    "bookmarks" : [
+        {
+            "articleID" : 1,
+            "title" : "Titel på artikel"
+        },
+        {
+            "..." : "..."
+        }
+    ]
+}
