@@ -2,12 +2,22 @@
     "status" : true,
     "message" : "Ändringshistorik hämtad",
 
-    "history" : [
+    "articles" : [
         {
             "articleID" : 8,
-            "versionID" : 11,
+            "currentVersionID" : 11,
 
-            "content" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi."
+            "history" : [
+                {
+                    "versionID" : 5,
+                    "date" : "2018-10-23 11:00",
+                    "title" : "Titel på artikel",
+                    "content" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi."
+                },
+                {
+                    "..." : "..."
+                }
+            ]
         },
         {
             "..." : "..."
