@@ -85,7 +85,7 @@
         $articleID = $connection->insert_id();
 
         if(!$connection->execute(
-            'INSERT INTO articleversion (title, content, forArticleID, forAccountID) VALUES (?, ?, ?, ?)',
+            'INSERT INTO articleversion (title, content, forArticleID, forWikiID) VALUES (?, ?, ?, ?)',
             [
                 $input['article']['title'],
                 $input['article']['content'],
