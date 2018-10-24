@@ -85,12 +85,12 @@
         $articleID = $connection->insert_id();
 
         if(!$connection->execute(
-            'INSERT INTO articleversion (title, content, forArticleID, forWikiID) VALUES (?, ?, ?, ?)',
+            'INSERT INTO articleversion (title, content, forArticleID, forAccountID) VALUES (?, ?, ?, ?)',
             [
                 $input['article']['title'],
                 $input['article']['content'],
                 $articleID,
-                $wiki['wikiID']
+                $input['accountID']
             ]
         )) {
             # Could not create an initial version, remove the created article
