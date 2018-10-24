@@ -7,3 +7,23 @@
     "status" : false,
     "message" : "Spelaren finns inte"
 }
+
+{
+    "status" : false,
+    "message" : "Kunde inte ta bort spelarens poäng"
+}
+
+{
+    "status" : false,
+    "message" : "Kunde inte ta bort spelare från vänlista1"
+}
+
+{
+    "status" : false,
+    "message" : "Kunde inte ta bort spelare från vänlista2"
+}
+
+{
+    "status" : false,
+    "message" : "Kunde inte ta bort spelare"
+}
