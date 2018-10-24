@@ -1,15 +1,15 @@
 {
     "status" : true,
-    "message" : "Poänget har lagts till"
+    "message" : "poäng tillagt"
 }
 
 {
     "status" : false,
-    "message" :"Det spelet finns inte"
+    "message" :"Spelet är inte aktiverat"
 }
 
 {
     "status" : false,
-    "message" :"den användaren finns inte"
+    "message" :"Kunde inte lägga till poäng"
 }
 

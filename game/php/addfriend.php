@@ -1,23 +1,32 @@
 <?php
-    $input = json_decode(file_get_contents("../json/addfriend-request.json"), true);
-  
+    $input = json_decode(file_get_contents("../json/addfriend-request.json"), true);   
     try{
-
         include "../../utility/utility.php";
+        
         $connection = new DBConnection();
-        
-        
+
         $forPlayerID = $input["forPlayerID"];
         $forFriendID = $input["forFriendID"];
+
+        $sql = "SELECT * FROM friendship WHERE forPlayerID = ? AND forFriendID = ?";
+        $result = $connection->query($sql,[$forPlayerID,$forFriendID]);
+        if(count($result) == 1){
+            throw new Exception("Ni är redan vänner");
+        }
+
         $sql = "INSERT INTO friendship(forPlayerID,forFriendID) VALUES (?,?)";
-        if($connection->execute($sql, [$forFriendID,$forPlayerID]) === false){
+        if($connection->execute($sql, [$forPlayerID,$forFriendID]) === false){
             throw new Exception("Kunde inte lägga till vän");
         }
 
-
+        $sql = "INSERT INTO friendship(forFriendID,forPlayerID) VALUES (?,?)";
+        if($connection->execute($sql, [$forPlayerID,$forFriendID]) === false){
+            throw new Exception("Kunde inte lägga till vän");
+        }
+        
         $response = [
             "status"=>true,
-            "message"=>"spelare tillagd som vän"
+            "message"=>"Lade till vän"
         ];
 
     }catch(Exception $exc){
