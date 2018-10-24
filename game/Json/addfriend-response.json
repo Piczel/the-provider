@@ -13,7 +13,4 @@
         "message" : "Du är redan vän med denna spelare"
     }
 
-    {
-        "status" : false,
-        "message" : "Denna spelare är bannad"
-    }
+  

@@ -15,6 +15,12 @@
         $account = $input["accountID"];
         $blog = $input["blogID"];
 
+        $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
+        $result = $connection->query($sql,[$blog]);
+        if(count($result) != 1){
+            throw new Exception("Bloggen är ej aktiverad");
+        }
+
         $sql = "SELECT 1 FROM blog WHERE forAdminID = ? AND blogID = ?";
         $result = $connection->query($sql,[$account,$blog]);
         if(count($result) != 1){

@@ -1,6 +1,7 @@
 {
-"vänskap" : {
-    "sid" : "Warcraft III",
-    "sid2" : 1
-    }
+    "token" : "token",
+    "adminid" : 1,
+
+    "forPlayerID" : 32,
+    "forFriendID" : 7
 }
