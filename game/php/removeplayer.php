@@ -18,18 +18,18 @@
 
         $sql = "DELETE FROM score WHERE forPlayerID = ?";
         if($connection->execute($sql, [$playerID]) === false){
-            throw new Exception("Kunde inte ta bort poäng");
+            throw new Exception("Kunde inte ta bort spelarens poäng");
     }
     else {
         $sql = "DELETE FROM friendship WHERE forPlayerID = ?";
         if($connection->execute($sql, [$playerID]) === false){
-        throw new Exception("Kunde inte ta bort från vänlista1");
+        throw new Exception("Kunde inte ta bort spelare från vänlista1");
         }
         else{
             
             $sql = "DELETE FROM friendship WHERE forFriendID = ?";
             if($connection->execute($sql, [$playerID]) === false){
-            throw new Exception("Kunde inte ta bort från vänlista2");
+            throw new Exception("Kunde inte ta bort spelare från vänlista2");
             }
             else{
                 

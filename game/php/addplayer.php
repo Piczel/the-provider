@@ -17,7 +17,7 @@
         $sql = "SELECT * FROM player WHERE `name` = ?";
         $result = $connection->query($sql,[$name]);
         if(count($result) == 1){
-            throw new Exception("Spelaren finns redan");
+            throw new Exception("användarnamnet taget");
         }
 
         $sql = "INSERT INTO player(`name`) VALUES (?)";

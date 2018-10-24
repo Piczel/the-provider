@@ -5,10 +5,10 @@
 
 {
     "status" : false,
-    "message" : "spelaren har redan tagits bort"
+    "message" : "Ni är inte vänner"
 }
 
 {
     "status" : false,
-    "message" : "Du har inte denna spelare som vän"
+    "message" : "Kunde inte ta bort vän"
 }

@@ -2,14 +2,7 @@
     $input = json_decode(file_get_contents("../json/addfriend-request.json"), true);   
     try{
         include "../../utility/utility.php";
-        Input::validate($input,[
-            "accountID"=>null,
-            "token"=>20
-        ]);
-        if(!Token::verify($input["accountID"], $input["token"]))
-        {
-            throw new Exception("Felaktig token");
-        }
+        
         $connection = new DBConnection();
 
         $forPlayerID = $input["forPlayerID"];
