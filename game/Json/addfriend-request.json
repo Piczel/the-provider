@@ -2,6 +2,6 @@
     "token" : "token",
     "adminid" : 1,
 
-    "forPlayerID" : "31",
-    "forFriendID" : 3
+    "forPlayerID" : 32,
+    "forFriendID" : 7
 }
