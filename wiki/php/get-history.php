@@ -28,25 +28,58 @@
         $date_from = $input['date-form'] ?? '1971-01-01 12:00';
         $date_to = $input['date-to'] ?? '2038-01-01 12:00';
 
-        $result = $connection->query(
-            'SELECT
-                versionID,
-                articleID,
-                title,
-                content,
-                `date`,
-                forVersionID
-            FROM article
-                INNER JOIN articleversion
-                    ON forArticleID = articleID
-            WHERE `date` BETWEEN ? AND ?
-            LIMIT '. $offset .','. $limit,
-            [
-                $date_from,
-                $date_to,
-                $input['articleID']
-            ]
-        );
+        $articleID = $input['articleID'] ?? NULL;
+
+        if($articleID === NULL)
+        {
+            $result = $connection->query(
+                'SELECT
+                    versionID,
+                    articleID,
+                    title,
+                    content,
+                    `date`,
+                    forVersionID,
+                    forAccountID AS "accountID"
+                FROM article
+                    INNER JOIN articleversion
+                        ON forArticleID = articleID
+                WHERE forWikiID = ? AND (`date` BETWEEN ? AND ?)
+                ORDER BY `date` DESC
+                LIMIT '. $offset .','. $limit,
+                [
+                    $input['wikiID'],
+                    $date_from,
+                    $date_to
+                ]
+            );
+        } else
+        {
+            $result = $connection->query(
+                'SELECT
+                    versionID,
+                    articleID,
+                    title,
+                    content,
+                    `date`,
+                    forVersionID,
+                    forAccountID AS "accountID"
+                FROM article
+                    INNER JOIN articleversion
+                        ON forArticleID = articleID
+                WHERE forWikiID = ? AND (`date` BETWEEN ? AND ?) AND articleID = ?
+                ORDER BY `date` DESC
+                LIMIT '. $offset .','. $limit,
+                [
+                    $input['wikiID'],
+                    $date_from,
+                    $date_to,
+                    $input['articleID']
+                ]
+            );
+        }
+
+        
 
 
         $articles = [];
@@ -55,6 +88,7 @@
         {
             if(!isset($articles[$row['articleID']])) $articles[$row['articleID']] = [];
 
+            $articles[$row['articleID']]['articleID'] = $row['articleID'];
             $articles[$row['articleID']]['currentVersionID'] = $row['forVersionID'];
             
             if(!isset($articles[$row['articleID']]['history'])) $articles[$row['articleID']]['history'] = [];
@@ -63,12 +97,12 @@
                 'versionID' => $row['versionID'],
                 'date' => $row['date'],
                 'title' => $row['title'],
-                'content' => $row['content']
+                'content' => $row['content'],
+                'accountID' => $row['accountID']
             ];
         }
-
-        var_dump($result);
-
+        $articles = array_values($articles);
+        var_dump($articles);
     
         $response = [
             'status' => true,
