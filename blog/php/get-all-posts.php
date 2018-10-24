@@ -1,27 +1,27 @@
 <?php
     $input = json_decode(file_get_contents("../json/get-all-posts-request.json"), true);
     try{
-    include "../database/database.php";
-    include "../database/utility.php";
-        Input::validate($input,[
-            "adminID"=>null,
-            "token"=>20
-        ]);
-        Token::verify($input["adminID"],$input["token"]);
+        include "../../utility/utility.php";
         $connection = new DBConnection();
 
-        $blogid = $input["bid"];
+        $blog = $input["blogID"];
+    
+        $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
+        $result = $connection->query($sql,[$blog]);
+        if(count($result) != 1){
+            throw new Exception("Bloggen är ej aktiverad");
+        }
             
-        $sql = "SELECT * FROM post WHERE bid = ?";
-        $result = $connection->query($sql,[$blogid]);
+        $sql = "SELECT title,content,date FROM post WHERE forBlogID = ?";
+        $result = $connection->query($sql,[$blog]);
         if(count($result) >= 1){
             $response = [
                 "status"=>true,
-                "message"=>"Alla poster hämtade",
+                "message"=>"Alla inlägg hämtade",
                 "posts"=>$result
             ];
         }else{
-            throw new Exception("Kunde inte hämta inlägg");
+            throw new Exception("Kunde inte hitta inlägg");
         }
     }catch(Exception $exc){
         $response = [

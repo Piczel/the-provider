@@ -1,37 +1,45 @@
 <?php
     $input = json_decode(file_get_contents("../json/create-post-request.json"), true);
     try{
-        include "../database/database.php";
-        include "../database/utility.php";
+        include "../../utility/utility.php";
         Input::validate($input,[
-            "adminID"=>null,
+            "accountID"=>null,
             "token"=>20,
             "title"=>50
         ]);
-        Token::verify($input["adminID"],$input["token"]);
+        if(!Token::verify($input["accountID"], $input["token"]))
+        {
+            throw new Exception("Felaktig token");
+        }
         $connection = new DBConnection();
 
-    $blogid = $input["bid"];
-    $userid = $input["uid"];
-    $title = $input["title"];
-    $date = $input["date"];
-    $content = $input["content"];
+        $blog = $input["blogID"];
+        $account = $input["accountID"];
+        $title = $input["title"];
+        $date = $input["date"];
+        $content = $input["content"];
 
-    $sql = "SELECT * FROM blogger WHERE uid = ? AND bid = ?";
-    $result = $connection->query($sql,[$userid,$blogid]);
-    if(count($result) == 1){
-        $sql = "INSERT INTO post(title, date, text, bid, uid) VALUES (?,?,?,?,?)"; 
-        if($connection->insert($sql, [$title, $date, $content, $blogid, $userid]) === false){
-            throw new Exception("Kunde inte lägga till post");    
+        $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
+        $result = $connection->query($sql,[$activated_tp,$activated_user,$blog]);
+        if(count($result) != 1){
+            throw new Exception("Bloggen är ej aktiverad");
         }
-    }else{
-        throw new Exception("Inte medlem i blogg");
-    }
 
-    $response = [
-        "status"=>true,
-        "message"=>"Post tillagd"
-    ];
+        $sql = "SELECT * FROM blog_account WHERE forAccountID = ? AND forBlogID = ?";
+        $result = $connection->query($sql,[$account,$blog]);
+        if(count($result) == 1){
+            $sql = "INSERT INTO post(title, date, content, forBlogID, forAccountID) VALUES (?,?,?,?,?)"; 
+            if($connection->execute($sql, [$title, $date, $content, $blog, $account]) === false){
+                throw new Exception("Kunde inte lägga till post");    
+            }
+        }else{
+            throw new Exception("Inte medlem i blogg");
+        }
+
+        $response = [
+            "status"=>true,
+            "message"=>"Post tillagd"
+        ];
 
     }catch(Exception $exc){
         $response = [

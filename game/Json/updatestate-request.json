@@ -2,10 +2,8 @@
     "adminid" : 1,
     "token" : "token",
 
-    "State" : {
         "Stateid" : 1,
         "BLOB" : "",
         "spelid" : 1,
         "sid" : 1
-    }
 }

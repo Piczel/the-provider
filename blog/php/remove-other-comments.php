@@ -1,34 +1,35 @@
 <?php
     $input = json_decode(file_get_contents("../json/remove-other-comments-request.json"), true);
     try{
-        include "../database/database.php";
-        include "../database/utility.php";
+        include "../../utility/utility.php";
         Input::validate($input,[
-            "adminID"=>null,
+            "accountID"=>null,
             "token"=>20
         ]);
-        Token::verify($input["adminID"],$input["token"]);
+        if(!Token::verify($input["accountID"], $input["token"]))
+        {
+            throw new Exception("Felaktig token");
+        }
         $connection = new DBConnection();
 
-        $userid = $input["uid"];
-        $blogid = $input["bid"];
-        $postid = $input["pid"];
-        $commentid = $input["cid"];
+        $account = $input["accountID"];
+        $blog = $input["blogID"];
+        $comment = $input["commentID"];
+    
+        $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
+        $result = $connection->query($sql,[$blog]);
+        if(count($result) != 1){
+            throw new Exception("Bloggen är ej aktiverad");
+        }
 
-        $sql = "SELECT uid FROM blogger WHERE uid = ? AND bid = ?";
-        $result = $connection->query($sql,[$userid,$blogid]);
+        $sql = "SELECT forAccountID FROM blog_account WHERE forAccountID = ? AND forBlogID = ?";
+        $result = $connection->query($sql,[$account,$blog]);
         if(count($result) != 1){
             throw new Exception("Inte din blogg");
         }
 
-        $sql = "SELECT * FROM comment WHERE pid = ? AND cid = ?";
-        $result = $connection->query($sql,[$postid,$commentid]);
-        if(count($result) != 1){
-            throw new Exception("Kunde inte hitta kommentar");
-        }
-
-        $sql = "DELETE FROM comment WHERE cid = ?";
-        if($connection->insert($sql,[$commentid]) === false){
+        $sql = "DELETE FROM comment WHERE commentID = ?";
+        if($connection->execute($sql,[$comment]) === false){
             throw new Exception("Kunde inte ta bort kommentar");
         }
 

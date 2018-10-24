@@ -23,15 +23,15 @@
         return false;
     }
     var_dump(verify_token(1,"89a055e19402af027f21"));
-
-
+    
+    
     function dateDifference($date_1 , $date_2)
     {
         $datetime1 = date_create($date_1);
         $datetime2 = date_create($date_2);
         
         $interval = date_diff($datetime1, $datetime2);
-
+        
         $minutes = 0;
         $minutes += ((int)$interval->format("%y") * 525948.766);
         $minutes += ((int)$interval->format("%m") * 43829);

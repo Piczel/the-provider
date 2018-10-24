@@ -1,9 +1,6 @@
 {
-    "adminID" : 1,
-    "token" : "agf65rt87yh9oj123456",
-
-    "uid" : 2,
-    "bid" : 1,
-    "pid" : 1,
-    "cid" : 5
+    "token" : "773dbab248fb669102a2",
+    "accountID" : 6,
+    "blogID" : 10,
+    "commentID" : 5
 }

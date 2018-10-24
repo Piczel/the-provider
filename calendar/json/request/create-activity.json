@@ -1,15 +1,15 @@
 {
-    "adminID" : 1,
+    "accountID" : 1,
     "token" : "b2987030d5c94b6e9615",
-
+    
     "activity" :
     {
-        "name" : "Pedram",
-        "location" : "Skövde ",
-        "description" : "hade ett möte med Ersnt",
-        "repetition" : "varje fredag",
-        "starttime" : "12:00",
-        "endtime" : "13:00"
+        "name" : "",
+        "location" : "",
+        "description" : "",
+        "repetition" : "",
+        "starttime" : "",
+        "endtime" : ""
     }
    
 }
