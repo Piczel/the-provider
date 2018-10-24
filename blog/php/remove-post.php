@@ -1,5 +1,5 @@
 <?php
-    $input = json_decode(file_get_contents("../json/remove-post-request.json"), true);
+    $input = json_decode(file_get_contents("php://input"), true);
     try{
         include "../../utility/utility.php";
         Input::validate($input,[
