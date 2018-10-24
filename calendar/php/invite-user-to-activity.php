@@ -1,7 +1,7 @@
 <?php
-    $input = json_decode(file_get_contents("json/request/invite-user-to-activity.json"), true);
+    $input = json_decode(file_get_contents("php://input"), true);
     try{
-        include '../utility/utility.php';
+        include '../../utility/utility.php';
         if(!Token::verify($input["accountID"], $input["token"]))
         {
             throw new Exception("Användande av felaktig token");

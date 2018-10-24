@@ -7,7 +7,7 @@
     try
     {
         # Decode the input JSON to a PHP array
-        $input = json_decode(file_get_contents('../json/request/get-wikiuser.json'), true);
+        $input = json_decode(file_get_contents('php://input'), true);
 
         # Retrieves the key of the first defined key
         $key = Input::either($input, [

@@ -1,11 +1,11 @@
 <?php
 
-    include '../utility/utility.php';
+    include '../../utility/utility.php';
 
 $response = null;
     try
     { 
-        $input = json_decode(file_get_contents("json/request/create-calendar.json"), true);
+        $input = json_decode(file_get_contents("php://input"), true);
         if(!verifyToken($input["adminID"], $input["token"]))
         {
             throw new Exception("Användande av felaktig token");
