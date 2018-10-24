@@ -6,7 +6,7 @@
     try
     {
         # Decode the input JSON to a PHP array
-        $input = json_decode(file_get_contents('../json/request/create-article.json'), true);
+        $input = json_decode(file_get_contents('../json/request/update-article.json'), true);
 
         Input::validate($input, [
             'accountID' => null,
@@ -15,6 +15,7 @@
         ]);
 
         Input::validate($input['article'], [
+            'articleID' => null,
             'title' => 100,
             'content' => null
         ]);
@@ -60,7 +61,7 @@
                     # Check if account has the permission
                     if(count($connection->query('SELECT 1 FROM selected_edit WHERE forAccountID = ? AND forWikiID = ?', [$input['accountID'], $wiki['wikiID']])) < 1)
                     {
-                        throw new Exception('Du har inte rättighet att skapa artiklar');
+                        throw new Exception('Du har inte rättighet att uppdatera artiklar');
                     }
                     break;
                 case 'superuser':
@@ -75,32 +76,28 @@
         }
 
 
-        if(!$connection->execute(
-            'INSERT INTO article (forWikiID) VALUES (?)',
-            [$wiki['wikiID']]
-        )) {
-            throw new Exception('Kunde inte skapa artikel');
+        if(count($connection->query('SELECT 1 FROM article WHERE articleID = ? AND forWikiID = ?', [$input['article']['articleID'], $wiki['wikiID']])) < 1)
+        {
+            # Article not found in users wiki
+            throw new Exception('Artikeln finns inte i ditt wiki');
         }
-
-        $articleID = $connection->insert_id();
 
         if(!$connection->execute(
             'INSERT INTO articleversion (title, content, forArticleID, forAccountID) VALUES (?, ?, ?, ?)',
             [
                 $input['article']['title'],
                 $input['article']['content'],
-                $articleID,
+                $input['article']['articleID'],
                 $wiki['wikiID']
             ]
         )) {
-            # Could not create an initial version, remove the created article
-            $connection->execute('DELETE FROM article WHERE articleID = ?', [$articleID]);
+            # Could not create an article version
             throw new Exception('Kunde inte skapa en artikelversion');
         }
 
         $versionID = $connection->insert_id();
 
-        $message = 'Artikeln skapades';
+        $message = 'Artikeln uppdaterades';
 
         try {
             if($account['type'] !== 'admin')
@@ -110,13 +107,13 @@
                 {
                     case 'superuser':
                         # Wiki's setting is set to superuser while account isn't
-                        throw new Exception('Artikeln skapades utan initialt versionsid');
+                        throw new Exception('Förslag på uppdatering lades till');
                         break;
                     case 'selected':
                         if(count($connection->query('SELECT 1 FROM selected_accept WHERE forAccountID = ? AND forWikiID = ?', [$input['accountID'], $wiki['wikiID']])) < 1)
                         {
                             # Account may not accept the content of this article
-                            throw new Exception('Artikeln skapades utan initialt versionsid');
+                            throw new Exception('Förslag på uppdatering lades till');
                         }
 
                         break;
@@ -125,17 +122,17 @@
                 }
             }
 
-            $connection->execute('UPDATE article SET forVersionID = ? WHERE articleID = ?', [$versionID, $articleID]);
+            $connection->execute('UPDATE article SET forVersionID = ? WHERE articleID = ?', [$versionID, $input['article']['articleID']]);
         } catch(Exception $exc)
         {
-            # No versionID is assigned to the article
+            # versionID of article not updated
             $message = $exc->getMessage();
         }
 
         $response = [
             'status' => true,
             'message' => $message,
-            'articleID' => $articleID
+            'versionID' => $versionID
         ];
     } catch(Exception $exc)
     {
