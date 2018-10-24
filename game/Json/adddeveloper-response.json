@@ -1,9 +1,0 @@
-{
-    "status" : true,
-    "message" : "Du har lagts till som utvecklare"
-}
-
-{
-    "status" : false,
-    "message" : "utvecklaren finns redan"
-}
