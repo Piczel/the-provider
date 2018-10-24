@@ -6,13 +6,16 @@
     try
     {
         # Decode the input JSON to a PHP array
-        $input = json_decode(file_get_contents('../json/request/get-wiki.json'), true);
+        $input = json_decode(file_get_contents('../json/request/update-wiki.json'), true);
 
         Input::validate($input, [
             'accountID' => null,
-            'token' => 20
+            'token' => 20,
+            'wikiID' => null,
+            'name' => 100,
+            'description' => 3000
         ]);
-            
+
         if(!Token::verify($input['accountID'], $input['token']))
         {
             throw new Exception('Felaktig token');
@@ -20,28 +23,8 @@
 
         $connection = new DBConnection();
         
-        # Code...
-        $wiki = $connection->query(
-            'SELECT
-                wikiID,
-                `name`,
-                `description`,
-                mayEdit AS "may-edit",
-                mayAccept AS "may-accept",
-                mayAssignEdit AS "may-assign-edit",
-                mayAssignAccept AS "may-assign-accept"
-            FROM wiki
-            WHERE forAccountID = ?',
-            [$input['accountID']]
-
-        );
-        if(count($wiki)<1){
-            throw new Exception(
-                "Kunde inte hitta ditt wiki."
-            );
-        }
-        $SQL = "SELECT activated_tp, activated_user FROM admin_wiki WHERE forAccountId = ? AND forWikiID = ?";
-        $status = $connection->query($SQL,[$input['accountID'], $wiki[0]["wikiID"]]);
+        $SQL = 'SELECT activated_tp, activated_user FROM admin_wiki WHERE forAccountId = ? AND forWikiID = ?';
+        $status = $connection->query($SQL, [$input['accountID'],$input['wikiID']]);
         if(count($status)<1){
             throw new Exception("Du har inget wiki.");
         }
@@ -49,13 +32,14 @@
             throw new Exception("The service is not activated.");
         }
 
-        
-       
+        $SQL = 'UPDATE wiki SET `name` = ?, `description` = ? WHERE wikiID = ?';
+        if(!$connection->execute($SQL, [$input['name'],$input['description'], $input['wikiID']])){
+            throw new Exception("Kunde inte uppdatera wikiinformation"); 
+        }
 
         $response = [
             'status' => true,
-            'message' => '',
-            'wiki' => $wiki[0]
+            'message' => 'Wikiinformation uppdaterades'
         ];
     } catch(Exception $exc)
     {
