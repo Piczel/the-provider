@@ -1,6 +1,7 @@
 {
     "status" : true,
-    "message" : "Du kan nu spela spela spelet"
+    "message" : "Du kan nu spela spela spelet",
+    "PlayerID" : ""
 }
 
 {
