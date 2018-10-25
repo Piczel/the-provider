@@ -22,11 +22,11 @@
         switch($key)
         {
             case 'accountID':
-                $wikiuser = $connection->query('SELECT accountID, email, forename, username FROM wikiuser INNER JOIN account ON forAccountID = accountID WHERE accountID = ?', [$input['accountID']]);
+                $wikiuser = $connection->query('SELECT accountID, email, forename, surname FROM wikiuser INNER JOIN account ON forAccountID = accountID WHERE accountID = ?', [$input['accountID']]);
                 $err_message = 'Kunde inte hitta användare med angivet konto ID';
                 break;
             case 'username':
-                $wikiuser = $connection->query('SELECT accountID, email, forename, username FROM wikiuser INNER JOIN account ON forAccountID = accountID WHERE username = ?', [$input['username']]);
+                $wikiuser = $connection->query('SELECT accountID, email, forename, surname FROM wikiuser INNER JOIN account ON forAccountID = accountID WHERE username = ?', [$input['username']]);
                 $err_message = 'Kunde inte hitta användare med det angivna användarnamnet';
                 break;    
         }
