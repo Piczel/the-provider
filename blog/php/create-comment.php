@@ -23,6 +23,12 @@
             throw new Exception("Bloggen är ej aktiverad");
         }
 
+        $sql = "SELECT forBlogID,forAccountID FROM block_account WHERE forBlogID = ? AND forAccountID = ?";
+        $result = $connection->query($sql,[$blog,$account]);
+        if(count($result) == 1){
+            throw new Exception("Du är blockerad från denna blogg");
+        }
+
         $sql = "INSERT INTO comment(content,date,forPostID,forAccountID) VALUES (?,?,?,?)";
         if($connection->execute($sql, [$content,$date,$post,$account]) === false){
             throw new Exception("Kunde inte lägga till kommentar");
