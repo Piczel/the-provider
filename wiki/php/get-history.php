@@ -102,7 +102,6 @@
             ];
         }
         $articles = array_values($articles);
-        var_dump($articles);
     
         $response = [
             'status' => true,
