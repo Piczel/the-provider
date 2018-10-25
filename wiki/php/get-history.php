@@ -6,7 +6,7 @@
     try
     {
         # Decode the input JSON to a PHP array
-        $input = json_decode(file_get_contents('../json/request/get-history.json'), true);
+        $input = json_decode(file_get_contents('php://input'), true);
 
         Input::validate($input, [
             'wikiID' => null
@@ -102,7 +102,6 @@
             ];
         }
         $articles = array_values($articles);
-        var_dump($articles);
     
         $response = [
             'status' => true,

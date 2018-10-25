@@ -20,6 +20,7 @@
 
         $connection = new DBConnection();
         
+
         # Fetches the wiki and assumes the account is either admin or wikiuser
         # Only the one(s) with a database result is stored in $wikis
         $wikis = array_filter([
@@ -41,19 +42,12 @@
             throw new Exception('Tjänsten är inte aktiverad');
         }
 
-        if(count($connection->query('SELECT 1 FROM article WHERE forWikiID = ? AND articleID = ?', [$wiki['wikiID'], $input['articleID']])) < 1)
-        {
-            throw new Exception('Artikeln hittades inte i ditt wiki');
-        }
-
-        $SQL = 'INSERT INTO bookmark (forAccountID, forArticleID) VALUES (?, ?)';
-        if(!$connection->execute($SQL, [$input['accountID'], $input['articleID']])){
-            throw new Exception('Bokmärke kunde inte skapas');
-        }
-
+        $bookmarks = $connection->query('SELECT articleID, title FROM article INNER JOIN bookmark ON bookmark.forArticleID = articleID INNER JOIN articleversion ON articleversion.forArticleID = articleID WHERE bookmark.forAccountID = ? GROUP BY articleID', [$input['accountID']]);
+        
         $response = [
             'status' => true,
-            'message' => 'Bokmärke skapades'
+            'message' => 'Bokmärken hämtade',
+            'bookmarks' => $bookmarks
         ];
     } catch(Exception $exc)
     {

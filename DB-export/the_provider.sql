@@ -2,10 +2,10 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Värd: 127.0.0.1
--- Tid vid skapande: 18 okt 2018 kl 11:10
--- Serverversion: 10.1.35-MariaDB
--- PHP-version: 7.2.9
+-- Host: localhost
+-- Generation Time: Oct 24, 2018 at 12:28 PM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Databas: `the_provider`
+-- Database: `the_provider`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `account`
+-- Table structure for table `account`
 --
 
 CREATE TABLE `account` (
@@ -35,21 +35,21 @@ CREATE TABLE `account` (
   `username` varchar(50) NOT NULL,
   `token` varchar(20) DEFAULT NULL,
   `tokenTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `triggerUpdate` tinyint(4) NOT NULL DEFAULT '0'
+  `triggerUpdate` tinyint(4) NOT NULL DEFAULT '0',
+  `type` enum('superadmin','admin','normal') NOT NULL DEFAULT 'normal'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumpning av Data i tabell `account`
+-- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`accountID`, `email`, `password`, `username`, `token`, `tokenTime`, `triggerUpdate`) VALUES
-(1, 'user@theprovider.com', '$2y$10$/hUr3xBZ9uzr1TSSy0I2ZuFgXhi9PMSlt5tFx79c40ZkZRt/wQVGy', 'User', 'b2987030d5c94b6e9615', '2018-10-18 08:33:39', 1),
-(2, 'user@the-provider.com', 'qwer1234', 'TheUser', 'aaaaaaaaaaaaaaaaaaaa', '2018-10-18 08:25:30', 1);
+INSERT INTO `account` (`accountID`, `email`, `password`, `username`, `token`, `tokenTime`, `triggerUpdate`, `type`) VALUES
+(1, '', '$2y$10$hqnzDWH8U6ME9XVsaNvKw.XGuwQOJDQOCIOVY8sivAwtDMzPQ5Vbq', 'theprovider', 'ad04fa3030769013db64', '2018-10-24 08:53:17', 0, 'superadmin');
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `activity`
+-- Table structure for table `activity`
 --
 
 CREATE TABLE `activity` (
@@ -63,17 +63,10 @@ CREATE TABLE `activity` (
   `forCalendarID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumpning av Data i tabell `activity`
---
-
-INSERT INTO `activity` (`activityID`, `name`, `location`, `description`, `repetition`, `startTime`, `endTime`, `forCalendarID`) VALUES
-(3, 'asdasdfasdfg', 'asdf', 'asdfasdf', 3, '2018-10-05 00:00:00', '2018-10-06 00:00:00', 2);
-
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `admin_blog`
+-- Table structure for table `admin_blog`
 --
 
 CREATE TABLE `admin_blog` (
@@ -87,7 +80,7 @@ CREATE TABLE `admin_blog` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `admin_calendar`
+-- Table structure for table `admin_calendar`
 --
 
 CREATE TABLE `admin_calendar` (
@@ -98,18 +91,10 @@ CREATE TABLE `admin_calendar` (
   `forCalendarID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumpning av Data i tabell `admin_calendar`
---
-
-INSERT INTO `admin_calendar` (`admin_calendarID`, `activated_tp`, `activated_user`, `forAccountID`, `forCalendarID`) VALUES
-(1, 1, 1, 2, 1),
-(2, 1, 1, 1, 2);
-
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `admin_game`
+-- Table structure for table `admin_game`
 --
 
 CREATE TABLE `admin_game` (
@@ -123,7 +108,7 @@ CREATE TABLE `admin_game` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `admin_wiki`
+-- Table structure for table `admin_wiki`
 --
 
 CREATE TABLE `admin_wiki` (
@@ -137,7 +122,7 @@ CREATE TABLE `admin_wiki` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `article`
+-- Table structure for table `article`
 --
 
 CREATE TABLE `article` (
@@ -149,7 +134,7 @@ CREATE TABLE `article` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `articleversion`
+-- Table structure for table `articleversion`
 --
 
 CREATE TABLE `articleversion` (
@@ -164,7 +149,7 @@ CREATE TABLE `articleversion` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `articleversion_reference`
+-- Table structure for table `articleversion_reference`
 --
 
 CREATE TABLE `articleversion_reference` (
@@ -175,7 +160,19 @@ CREATE TABLE `articleversion_reference` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `blog`
+-- Table structure for table `block_account`
+--
+
+CREATE TABLE `block_account` (
+  `blockID` int(11) NOT NULL,
+  `forBlogID` int(11) NOT NULL,
+  `forAccountID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog`
 --
 
 CREATE TABLE `blog` (
@@ -184,17 +181,10 @@ CREATE TABLE `blog` (
   `forAccountID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumpning av Data i tabell `blog`
---
-
-INSERT INTO `blog` (`blogID`, `title`, `forAccountID`) VALUES
-(1, 'Min ny blogg', 1);
-
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `blog_account`
+-- Table structure for table `blog_account`
 --
 
 CREATE TABLE `blog_account` (
@@ -206,7 +196,7 @@ CREATE TABLE `blog_account` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `bookmark`
+-- Table structure for table `bookmark`
 --
 
 CREATE TABLE `bookmark` (
@@ -217,25 +207,29 @@ CREATE TABLE `bookmark` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `calendar`
+-- Table structure for table `calendar`
 --
 
 CREATE TABLE `calendar` (
   `calendarID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumpning av Data i tabell `calendar`
+-- Table structure for table `calendar_activity`
 --
 
-INSERT INTO `calendar` (`calendarID`) VALUES
-(1),
-(2);
+CREATE TABLE `calendar_activity` (
+  `participationID` int(11) NOT NULL,
+  `forActivityID` int(11) NOT NULL,
+  `forCalendarID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `comment`
+-- Table structure for table `comment`
 --
 
 CREATE TABLE `comment` (
@@ -249,7 +243,7 @@ CREATE TABLE `comment` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `friendship`
+-- Table structure for table `friendship`
 --
 
 CREATE TABLE `friendship` (
@@ -261,30 +255,18 @@ CREATE TABLE `friendship` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `game`
+-- Table structure for table `game`
 --
 
 CREATE TABLE `game` (
   `gameID` int(11) NOT NULL,
-  `name` int(11) NOT NULL
+  `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `participation`
---
-
-CREATE TABLE `participation` (
-  `participationID` int(11) NOT NULL,
-  `forActivityID` int(11) NOT NULL,
-  `forCalendarID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Tabellstruktur `player`
+-- Table structure for table `player`
 --
 
 CREATE TABLE `player` (
@@ -295,7 +277,7 @@ CREATE TABLE `player` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `post`
+-- Table structure for table `post`
 --
 
 CREATE TABLE `post` (
@@ -310,7 +292,7 @@ CREATE TABLE `post` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `reference`
+-- Table structure for table `reference`
 --
 
 CREATE TABLE `reference` (
@@ -322,7 +304,7 @@ CREATE TABLE `reference` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `referenceversion`
+-- Table structure for table `referenceversion`
 --
 
 CREATE TABLE `referenceversion` (
@@ -336,7 +318,7 @@ CREATE TABLE `referenceversion` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `score`
+-- Table structure for table `score`
 --
 
 CREATE TABLE `score` (
@@ -350,7 +332,7 @@ CREATE TABLE `score` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `selected_accept`
+-- Table structure for table `selected_accept`
 --
 
 CREATE TABLE `selected_accept` (
@@ -361,7 +343,7 @@ CREATE TABLE `selected_accept` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `selected_edit`
+-- Table structure for table `selected_edit`
 --
 
 CREATE TABLE `selected_edit` (
@@ -372,7 +354,7 @@ CREATE TABLE `selected_edit` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `wiki`
+-- Table structure for table `wiki`
 --
 
 CREATE TABLE `wiki` (
@@ -386,83 +368,39 @@ CREATE TABLE `wiki` (
   `forAccountID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumpning av Data i tabell `wiki`
---
-
-INSERT INTO `wiki` (`wikiID`, `name`, `description`, `mayEdit`, `mayAccept`, `mayAssignEdit`, `mayAssignAccept`, `forAccountID`) VALUES
-(1, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'superuser', 'auto', 'selected', 'selected', 2),
-(2, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(3, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(4, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(5, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(6, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(7, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(8, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(9, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(10, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(11, 'Namn på wikiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(12, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(13, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(14, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(15, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(16, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(17, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(18, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(19, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(21, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(22, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(26, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(27, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(28, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(29, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(30, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(31, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(32, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(33, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(34, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 2),
-(35, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 0),
-(36, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 0),
-(37, 'Namn på wiki', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi.', 'any', 'selected', 'superuser', 'superuser', 0);
-
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `wikiuser`
+-- Table structure for table `wikiuser`
 --
 
 CREATE TABLE `wikiuser` (
   `forAccountID` int(11) NOT NULL,
+  `forename` varchar(50) NOT NULL,
+  `surname` varchar(50) NOT NULL,
   `forWikiID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumpning av Data i tabell `wikiuser`
---
-
-INSERT INTO `wikiuser` (`forAccountID`, `forWikiID`) VALUES
-(1, 1);
-
---
--- Index för dumpade tabeller
+-- Indexes for dumped tables
 --
 
 --
--- Index för tabell `account`
+-- Indexes for table `account`
 --
 ALTER TABLE `account`
   ADD PRIMARY KEY (`accountID`),
   ADD UNIQUE KEY `username` (`username`);
 
 --
--- Index för tabell `activity`
+-- Indexes for table `activity`
 --
 ALTER TABLE `activity`
   ADD PRIMARY KEY (`activityID`),
   ADD KEY `forCalendarID` (`forCalendarID`) USING BTREE;
 
 --
--- Index för tabell `admin_blog`
+-- Indexes for table `admin_blog`
 --
 ALTER TABLE `admin_blog`
   ADD PRIMARY KEY (`admin_blogID`),
@@ -470,7 +408,7 @@ ALTER TABLE `admin_blog`
   ADD KEY `forBlogID` (`forBlogID`);
 
 --
--- Index för tabell `admin_calendar`
+-- Indexes for table `admin_calendar`
 --
 ALTER TABLE `admin_calendar`
   ADD PRIMARY KEY (`admin_calendarID`),
@@ -478,7 +416,7 @@ ALTER TABLE `admin_calendar`
   ADD KEY `forCalendarID` (`forCalendarID`);
 
 --
--- Index för tabell `admin_game`
+-- Indexes for table `admin_game`
 --
 ALTER TABLE `admin_game`
   ADD PRIMARY KEY (`admin_gameID`),
@@ -486,7 +424,7 @@ ALTER TABLE `admin_game`
   ADD KEY `forGameID` (`forGameID`);
 
 --
--- Index för tabell `admin_wiki`
+-- Indexes for table `admin_wiki`
 --
 ALTER TABLE `admin_wiki`
   ADD PRIMARY KEY (`admin_wikiID`),
@@ -494,7 +432,7 @@ ALTER TABLE `admin_wiki`
   ADD KEY `forWikiID` (`forWikiID`);
 
 --
--- Index för tabell `article`
+-- Indexes for table `article`
 --
 ALTER TABLE `article`
   ADD PRIMARY KEY (`articleID`),
@@ -502,7 +440,7 @@ ALTER TABLE `article`
   ADD KEY `forVersionID` (`forVersionID`);
 
 --
--- Index för tabell `articleversion`
+-- Indexes for table `articleversion`
 --
 ALTER TABLE `articleversion`
   ADD PRIMARY KEY (`versionID`),
@@ -510,21 +448,29 @@ ALTER TABLE `articleversion`
   ADD KEY `forAccountID` (`forAccountID`);
 
 --
--- Index för tabell `articleversion_reference`
+-- Indexes for table `articleversion_reference`
 --
 ALTER TABLE `articleversion_reference`
   ADD UNIQUE KEY `articleversion_reference_unique` (`forVersionID`,`forReferenceID`),
   ADD KEY `forReferenceID` (`forReferenceID`);
 
 --
--- Index för tabell `blog`
+-- Indexes for table `block_account`
+--
+ALTER TABLE `block_account`
+  ADD PRIMARY KEY (`blockID`),
+  ADD KEY `forAccountID` (`forAccountID`),
+  ADD KEY `forBlogID` (`forBlogID`);
+
+--
+-- Indexes for table `blog`
 --
 ALTER TABLE `blog`
   ADD PRIMARY KEY (`blogID`),
   ADD UNIQUE KEY `forAccountID` (`forAccountID`) USING BTREE;
 
 --
--- Index för tabell `blog_account`
+-- Indexes for table `blog_account`
 --
 ALTER TABLE `blog_account`
   ADD PRIMARY KEY (`blog_accountID`),
@@ -532,20 +478,28 @@ ALTER TABLE `blog_account`
   ADD KEY `forAccountID` (`forAccountID`);
 
 --
--- Index för tabell `bookmark`
+-- Indexes for table `bookmark`
 --
 ALTER TABLE `bookmark`
   ADD UNIQUE KEY `bookmark_unique` (`forAccountID`,`forArticleID`),
   ADD KEY `forArticleID` (`forArticleID`);
 
 --
--- Index för tabell `calendar`
+-- Indexes for table `calendar`
 --
 ALTER TABLE `calendar`
   ADD PRIMARY KEY (`calendarID`);
 
 --
--- Index för tabell `comment`
+-- Indexes for table `calendar_activity`
+--
+ALTER TABLE `calendar_activity`
+  ADD PRIMARY KEY (`participationID`),
+  ADD KEY `forActivityID` (`forActivityID`),
+  ADD KEY `forCalendarID` (`forCalendarID`);
+
+--
+-- Indexes for table `comment`
 --
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`commentID`),
@@ -553,7 +507,7 @@ ALTER TABLE `comment`
   ADD KEY `forAccountID` (`forAccountID`);
 
 --
--- Index för tabell `friendship`
+-- Indexes for table `friendship`
 --
 ALTER TABLE `friendship`
   ADD PRIMARY KEY (`friendshipID`),
@@ -561,28 +515,20 @@ ALTER TABLE `friendship`
   ADD KEY `forFriendID` (`forFriendID`);
 
 --
--- Index för tabell `game`
+-- Indexes for table `game`
 --
 ALTER TABLE `game`
   ADD PRIMARY KEY (`gameID`);
 
 --
--- Index för tabell `participation`
---
-ALTER TABLE `participation`
-  ADD PRIMARY KEY (`participationID`),
-  ADD KEY `forActivityID` (`forActivityID`),
-  ADD KEY `forCalendarID` (`forCalendarID`);
-
---
--- Index för tabell `player`
+-- Indexes for table `player`
 --
 ALTER TABLE `player`
   ADD PRIMARY KEY (`playerID`),
   ADD UNIQUE KEY `name` (`name`);
 
 --
--- Index för tabell `post`
+-- Indexes for table `post`
 --
 ALTER TABLE `post`
   ADD PRIMARY KEY (`postID`),
@@ -590,7 +536,7 @@ ALTER TABLE `post`
   ADD KEY `forAccountID` (`forAccountID`);
 
 --
--- Index för tabell `reference`
+-- Indexes for table `reference`
 --
 ALTER TABLE `reference`
   ADD PRIMARY KEY (`referenceID`),
@@ -598,7 +544,7 @@ ALTER TABLE `reference`
   ADD KEY `forArticleID` (`forArticleID`);
 
 --
--- Index för tabell `referenceversion`
+-- Indexes for table `referenceversion`
 --
 ALTER TABLE `referenceversion`
   ADD PRIMARY KEY (`versionID`),
@@ -606,7 +552,7 @@ ALTER TABLE `referenceversion`
   ADD KEY `forAccountID` (`forAccountID`);
 
 --
--- Index för tabell `score`
+-- Indexes for table `score`
 --
 ALTER TABLE `score`
   ADD PRIMARY KEY (`scoreID`),
@@ -614,306 +560,319 @@ ALTER TABLE `score`
   ADD KEY `forPlayerID` (`forPlayerID`);
 
 --
--- Index för tabell `selected_accept`
+-- Indexes for table `selected_accept`
 --
 ALTER TABLE `selected_accept`
   ADD UNIQUE KEY `selected_accept_unique` (`forWikiID`,`forAccountID`),
   ADD KEY `forAccountID` (`forAccountID`);
 
 --
--- Index för tabell `selected_edit`
+-- Indexes for table `selected_edit`
 --
 ALTER TABLE `selected_edit`
   ADD UNIQUE KEY `selected_edit_unique` (`forWikiID`,`forAccountID`) USING BTREE,
   ADD KEY `forAccountID` (`forAccountID`);
 
 --
--- Index för tabell `wiki`
+-- Indexes for table `wiki`
 --
 ALTER TABLE `wiki`
   ADD PRIMARY KEY (`wikiID`);
 
 --
--- Index för tabell `wikiuser`
+-- Indexes for table `wikiuser`
 --
 ALTER TABLE `wikiuser`
   ADD PRIMARY KEY (`forAccountID`),
   ADD KEY `forWikiID` (`forWikiID`);
 
 --
--- AUTO_INCREMENT för dumpade tabeller
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT för tabell `account`
+-- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `accountID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `accountID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT för tabell `activity`
+-- AUTO_INCREMENT for table `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `activityID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `activityID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `admin_blog`
+-- AUTO_INCREMENT for table `admin_blog`
 --
 ALTER TABLE `admin_blog`
   MODIFY `admin_blogID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `admin_calendar`
+-- AUTO_INCREMENT for table `admin_calendar`
 --
 ALTER TABLE `admin_calendar`
-  MODIFY `admin_calendarID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `admin_calendarID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `admin_game`
+-- AUTO_INCREMENT for table `admin_game`
 --
 ALTER TABLE `admin_game`
   MODIFY `admin_gameID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `admin_wiki`
+-- AUTO_INCREMENT for table `admin_wiki`
 --
 ALTER TABLE `admin_wiki`
   MODIFY `admin_wikiID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `article`
+-- AUTO_INCREMENT for table `article`
 --
 ALTER TABLE `article`
   MODIFY `articleID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `articleversion`
+-- AUTO_INCREMENT for table `articleversion`
 --
 ALTER TABLE `articleversion`
   MODIFY `versionID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `blog`
+-- AUTO_INCREMENT for table `block_account`
 --
-ALTER TABLE `blog`
-  MODIFY `blogID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `block_account`
+  MODIFY `blockID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `blog_account`
+-- AUTO_INCREMENT for table `blog`
+--
+ALTER TABLE `blog`
+  MODIFY `blogID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `blog_account`
 --
 ALTER TABLE `blog_account`
   MODIFY `blog_accountID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `calendar`
+-- AUTO_INCREMENT for table `calendar`
 --
 ALTER TABLE `calendar`
-  MODIFY `calendarID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `calendarID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `comment`
+-- AUTO_INCREMENT for table `calendar_activity`
+--
+ALTER TABLE `calendar_activity`
+  MODIFY `participationID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
   MODIFY `commentID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `friendship`
+-- AUTO_INCREMENT for table `friendship`
 --
 ALTER TABLE `friendship`
   MODIFY `friendshipID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `game`
+-- AUTO_INCREMENT for table `game`
 --
 ALTER TABLE `game`
   MODIFY `gameID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `participation`
---
-ALTER TABLE `participation`
-  MODIFY `participationID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT för tabell `player`
+-- AUTO_INCREMENT for table `player`
 --
 ALTER TABLE `player`
   MODIFY `playerID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `post`
+-- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
   MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `reference`
+-- AUTO_INCREMENT for table `reference`
 --
 ALTER TABLE `reference`
   MODIFY `referenceID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `referenceversion`
+-- AUTO_INCREMENT for table `referenceversion`
 --
 ALTER TABLE `referenceversion`
   MODIFY `versionID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `score`
+-- AUTO_INCREMENT for table `score`
 --
 ALTER TABLE `score`
   MODIFY `scoreID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT för tabell `wiki`
+-- AUTO_INCREMENT for table `wiki`
 --
 ALTER TABLE `wiki`
-  MODIFY `wikiID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `wikiID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Restriktioner för dumpade tabeller
+-- Constraints for dumped tables
 --
 
 --
--- Restriktioner för tabell `activity`
+-- Constraints for table `activity`
 --
 ALTER TABLE `activity`
   ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`forCalendarID`) REFERENCES `calendar` (`calendarID`);
 
 --
--- Restriktioner för tabell `admin_blog`
+-- Constraints for table `admin_blog`
 --
 ALTER TABLE `admin_blog`
   ADD CONSTRAINT `admin_blog_ibfk_1` FOREIGN KEY (`forAccountID`) REFERENCES `account` (`accountID`),
   ADD CONSTRAINT `admin_blog_ibfk_2` FOREIGN KEY (`forBlogID`) REFERENCES `blog` (`blogID`);
 
 --
--- Restriktioner för tabell `admin_calendar`
+-- Constraints for table `admin_calendar`
 --
 ALTER TABLE `admin_calendar`
   ADD CONSTRAINT `admin_calendar_ibfk_1` FOREIGN KEY (`forAccountID`) REFERENCES `account` (`accountID`),
   ADD CONSTRAINT `admin_calendar_ibfk_2` FOREIGN KEY (`forCalendarID`) REFERENCES `calendar` (`calendarID`);
 
 --
--- Restriktioner för tabell `admin_game`
+-- Constraints for table `admin_game`
 --
 ALTER TABLE `admin_game`
   ADD CONSTRAINT `admin_game_ibfk_1` FOREIGN KEY (`forAccountID`) REFERENCES `account` (`accountID`),
   ADD CONSTRAINT `admin_game_ibfk_2` FOREIGN KEY (`forGameID`) REFERENCES `game` (`gameID`);
 
 --
--- Restriktioner för tabell `admin_wiki`
+-- Constraints for table `admin_wiki`
 --
 ALTER TABLE `admin_wiki`
   ADD CONSTRAINT `admin_wiki_ibfk_1` FOREIGN KEY (`forAccountID`) REFERENCES `account` (`accountID`),
   ADD CONSTRAINT `admin_wiki_ibfk_2` FOREIGN KEY (`forWikiID`) REFERENCES `wiki` (`wikiID`);
 
 --
--- Restriktioner för tabell `article`
+-- Constraints for table `article`
 --
 ALTER TABLE `article`
   ADD CONSTRAINT `article_ibfk_1` FOREIGN KEY (`forWikiID`) REFERENCES `wiki` (`wikiID`),
   ADD CONSTRAINT `article_ibfk_2` FOREIGN KEY (`forVersionID`) REFERENCES `articleversion` (`versionID`);
 
 --
--- Restriktioner för tabell `articleversion`
+-- Constraints for table `articleversion`
 --
 ALTER TABLE `articleversion`
   ADD CONSTRAINT `articleversion_ibfk_1` FOREIGN KEY (`forArticleID`) REFERENCES `article` (`articleID`),
   ADD CONSTRAINT `articleversion_ibfk_2` FOREIGN KEY (`forAccountID`) REFERENCES `wikiuser` (`forAccountID`);
 
 --
--- Restriktioner för tabell `articleversion_reference`
+-- Constraints for table `articleversion_reference`
 --
 ALTER TABLE `articleversion_reference`
   ADD CONSTRAINT `articleversion_reference_ibfk_1` FOREIGN KEY (`forVersionID`) REFERENCES `articleversion` (`versionID`),
   ADD CONSTRAINT `articleversion_reference_ibfk_2` FOREIGN KEY (`forReferenceID`) REFERENCES `reference` (`referenceID`);
 
 --
--- Restriktioner för tabell `blog`
+-- Constraints for table `block_account`
+--
+ALTER TABLE `block_account`
+  ADD CONSTRAINT `block_account_ibfk_1` FOREIGN KEY (`forAccountID`) REFERENCES `account` (`accountID`),
+  ADD CONSTRAINT `block_account_ibfk_2` FOREIGN KEY (`forBlogID`) REFERENCES `blog` (`blogID`);
+
+--
+-- Constraints for table `blog`
 --
 ALTER TABLE `blog`
   ADD CONSTRAINT `blog_ibfk_1` FOREIGN KEY (`forAccountID`) REFERENCES `account` (`accountID`);
 
 --
--- Restriktioner för tabell `blog_account`
+-- Constraints for table `blog_account`
 --
 ALTER TABLE `blog_account`
   ADD CONSTRAINT `blog_account_ibfk_1` FOREIGN KEY (`forBlogID`) REFERENCES `blog` (`blogID`),
   ADD CONSTRAINT `blog_account_ibfk_2` FOREIGN KEY (`forAccountID`) REFERENCES `account` (`accountID`);
 
 --
--- Restriktioner för tabell `bookmark`
+-- Constraints for table `bookmark`
 --
 ALTER TABLE `bookmark`
   ADD CONSTRAINT `bookmark_ibfk_1` FOREIGN KEY (`forAccountID`) REFERENCES `wikiuser` (`forAccountID`),
   ADD CONSTRAINT `bookmark_ibfk_2` FOREIGN KEY (`forArticleID`) REFERENCES `article` (`articleID`);
 
 --
--- Restriktioner för tabell `comment`
+-- Constraints for table `calendar_activity`
+--
+ALTER TABLE `calendar_activity`
+  ADD CONSTRAINT `calendar_activity_ibfk_1` FOREIGN KEY (`forActivityID`) REFERENCES `activity` (`activityID`),
+  ADD CONSTRAINT `calendar_activity_ibfk_2` FOREIGN KEY (`forCalendarID`) REFERENCES `calendar` (`calendarID`);
+
+--
+-- Constraints for table `comment`
 --
 ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`forPostID`) REFERENCES `post` (`postID`),
   ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`forAccountID`) REFERENCES `account` (`accountID`);
 
 --
--- Restriktioner för tabell `friendship`
+-- Constraints for table `friendship`
 --
 ALTER TABLE `friendship`
   ADD CONSTRAINT `friendship_ibfk_1` FOREIGN KEY (`forPlayerID`) REFERENCES `player` (`playerID`),
   ADD CONSTRAINT `friendship_ibfk_2` FOREIGN KEY (`forFriendID`) REFERENCES `player` (`playerID`);
 
 --
--- Restriktioner för tabell `participation`
---
-ALTER TABLE `participation`
-  ADD CONSTRAINT `participation_ibfk_1` FOREIGN KEY (`forActivityID`) REFERENCES `activity` (`activityID`),
-  ADD CONSTRAINT `participation_ibfk_2` FOREIGN KEY (`forCalendarID`) REFERENCES `calendar` (`calendarID`);
-
---
--- Restriktioner för tabell `post`
+-- Constraints for table `post`
 --
 ALTER TABLE `post`
   ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`forBlogID`) REFERENCES `blog` (`blogID`),
   ADD CONSTRAINT `post_ibfk_2` FOREIGN KEY (`forAccountID`) REFERENCES `account` (`accountID`);
 
 --
--- Restriktioner för tabell `reference`
+-- Constraints for table `reference`
 --
 ALTER TABLE `reference`
   ADD CONSTRAINT `reference_ibfk_1` FOREIGN KEY (`forVersionID`) REFERENCES `referenceversion` (`versionID`),
   ADD CONSTRAINT `reference_ibfk_2` FOREIGN KEY (`forArticleID`) REFERENCES `article` (`articleID`);
 
 --
--- Restriktioner för tabell `referenceversion`
+-- Constraints for table `referenceversion`
 --
 ALTER TABLE `referenceversion`
   ADD CONSTRAINT `referenceversion_ibfk_1` FOREIGN KEY (`forReferenceID`) REFERENCES `reference` (`referenceID`),
   ADD CONSTRAINT `referenceversion_ibfk_2` FOREIGN KEY (`forAccountID`) REFERENCES `wikiuser` (`forAccountID`);
 
 --
--- Restriktioner för tabell `score`
+-- Constraints for table `score`
 --
 ALTER TABLE `score`
   ADD CONSTRAINT `score_ibfk_1` FOREIGN KEY (`forGameID`) REFERENCES `game` (`gameID`),
   ADD CONSTRAINT `score_ibfk_2` FOREIGN KEY (`forPlayerID`) REFERENCES `player` (`playerID`);
 
 --
--- Restriktioner för tabell `selected_accept`
+-- Constraints for table `selected_accept`
 --
 ALTER TABLE `selected_accept`
   ADD CONSTRAINT `selected_accept_ibfk_1` FOREIGN KEY (`forWikiID`) REFERENCES `wiki` (`wikiID`),
   ADD CONSTRAINT `selected_accept_ibfk_2` FOREIGN KEY (`forAccountID`) REFERENCES `wikiuser` (`forAccountID`);
 
 --
--- Restriktioner för tabell `selected_edit`
+-- Constraints for table `selected_edit`
 --
 ALTER TABLE `selected_edit`
   ADD CONSTRAINT `selected_edit_ibfk_1` FOREIGN KEY (`forWikiID`) REFERENCES `wiki` (`wikiID`),
   ADD CONSTRAINT `selected_edit_ibfk_2` FOREIGN KEY (`forAccountID`) REFERENCES `wikiuser` (`forAccountID`);
 
 --
--- Restriktioner för tabell `wikiuser`
+-- Constraints for table `wikiuser`
 --
 ALTER TABLE `wikiuser`
   ADD CONSTRAINT `wikiuser_ibfk_1` FOREIGN KEY (`forAccountID`) REFERENCES `account` (`accountID`),

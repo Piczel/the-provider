@@ -7,7 +7,7 @@
     try
     {
         # Decode the input JSON to a PHP array
-        $input = json_decode(file_get_contents('../json/request/update-settings.json'), true);
+        $input = json_decode(file_get_contents('php://input'), true);
 
         Input::validate($input, [
             'accountID' => null,

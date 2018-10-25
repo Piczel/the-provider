@@ -6,7 +6,7 @@
     try
     {
         # Decode the input JSON to a PHP array
-        $input = json_decode(file_get_contents('../json/request/create-article.json'), true);
+        $input = json_decode(file_get_contents('php://input'), true);
 
         Input::validate($input, [
             'accountID' => null,
@@ -90,7 +90,7 @@
                 $input['article']['title'],
                 $input['article']['content'],
                 $articleID,
-                $wiki['wikiID']
+                $input['accountID']
             ]
         )) {
             # Could not create an initial version, remove the created article

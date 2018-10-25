@@ -1,11 +1,11 @@
 <?php
 
-include '../utility/utility.php';
+include '../../utility/utility.php';
 
     $response = null;
     try
     {
-        $input = json_decode(file_get_contents("json/request/remove-activity.json"), true);
+        $input = json_decode(file_get_contents("php://input"), true);
 
          if(!Token::verify($input["accountID"], $input["token"]))
         {
