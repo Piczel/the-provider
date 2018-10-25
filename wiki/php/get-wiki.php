@@ -46,7 +46,7 @@
         } else {
 
             Input::validate($input, [
-                'wikiID' : null
+                'wikiID' => null
             ]); 
 
             $wiki = $connection->query(
