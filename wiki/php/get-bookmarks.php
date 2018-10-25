@@ -42,7 +42,7 @@
             throw new Exception('Tjänsten är inte aktiverad');
         }
 
-        $bookmarks = $connection->query('SELECT articleID, title FROM article INNER JOIN bookmark ON forArticleID = articleID WHERE forAccountID = ?', [$input['accountID']]);
+        $bookmarks = $connection->query('SELECT articleID, title FROM article INNER JOIN bookmark ON bookmark.forArticleID = articleID INNER JOIN articleversion ON articleversion.forArticleID = articleID WHERE bookmark.forAccountID = ? GROUP BY articleID', [$input['accountID']]);
         
         $response = [
             'status' => true,
