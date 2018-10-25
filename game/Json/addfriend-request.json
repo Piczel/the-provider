@@ -1,6 +1,4 @@
 {
-"vänskap" : {
-    "sid" : "Warcraft III",
-    "sid2" : 1
-    }
+    "forPlayerID" : 10,
+    "forFriendID" : 11
 }

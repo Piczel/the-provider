@@ -12,15 +12,10 @@
 
 {
 "status" : false,
-"message" : "kunde inte hämta poäng"
+"message" : "Spelet är inte aktiverat"
 }
 
 {
     "status" : false,
-    "message" : "Spelare finns inte"
-}
-
-{
-    "status" : false,
-    "message" : "Spelet finns inte"
+    "message" : "Kunde inte hämta poäng"
 }

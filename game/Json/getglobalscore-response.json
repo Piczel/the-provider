@@ -1,25 +1,21 @@
 {
     "status" : true,
     "message" : "poäng hämtat",
-    "poäng" : 
+    "score" : 
         {
-            "sid" : 1,
-            "spelid" : 1,
+            "forPlayerID" : 1,
+            "forGameID" : 1,
+            "date" : 1,
             "score" : 2000
         }
 }
 
 {
 "status" : false,
-"message" : "kunde inte hämta poäng"
+"message" : "Spelet är inte aktiverat"
 }
 
 {
     "status" : false,
-    "message" : "Spelare finns inte"
-}
-
-{
-    "status" : false,
-    "message" : "Spelet finns inte"
+    "message" : "Kunde inte hämta poäng"
 }

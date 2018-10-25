@@ -1,0 +1,19 @@
+{
+    "status" : true,
+    "message" : "vänlista hämtad",
+    "friendship" : 
+        {
+            "forFriendID" : "",
+            "name" : ""
+        }
+}
+
+{
+"status" : false,
+"message" : "Du har inga vänner"
+}
+
+{
+    "status" : false,
+    "message" : "Kunde inte hämta vänner"
+}

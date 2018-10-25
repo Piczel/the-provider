@@ -17,7 +17,9 @@
             throw new Exception('Användarnamnet eller lösenordet är felaktigt');
         }
 
-        if($accountID !== 1337)
+        $connection = new DBConnection();
+
+        if(count($connection->query('SELECT 1 FROM account WHERE accountID = ? AND `type` = "superadmin"', [$accountID])) < 1)
         {
             throw new Exception('Du är inte administratör');
         }

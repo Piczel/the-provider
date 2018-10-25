@@ -1,6 +1,6 @@
     {
         "status" : true,
-        "message" : "Din vänförfrågan lyckades"
+        "message" : "Din vän lades till"
     }
     
     {
@@ -10,10 +10,7 @@
     
     {
         "status" : false,
-        "message" : "Du är redan vän med denna spelare"
+        "message" : "Kunde Inte lägga till vän"
     }
 
-    {
-        "status" : false,
-        "message" : "Denna spelare är bannad"
-    }
+  

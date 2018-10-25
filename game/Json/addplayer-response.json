@@ -1,14 +1,15 @@
 {
     "status" : true,
-    "message" : "Du kan nu spela spela spelet"
+    "message" : "Du kan nu spela spela spelet",
+    "PlayerID" : ""
 }
 
 {
     "status" : false,
-    "message" :"Kunde inte skapa spelare"
+    "message" :"Användarnamnet taget"
 }
 
 {
     "status" : false,
-    "message" : "Detta användarnamn är redan taget"
+    "message" :"Kunde inte lägga till spelare"
 }
