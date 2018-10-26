@@ -4,7 +4,7 @@
         include "../../utility/utility.php";
         $connection = new DBConnection();
 
-        $PlayerID = $input["PlayerID"];
+        $playerID = $input["playerID"];
         $forGameID = $input["forGameID"];
 
         $sql = "SELECT * FROM admin_game WHERE activated_tp = 1 AND activated_user = 1 AND forGameID = ?";
@@ -14,7 +14,7 @@
         }
 
         $sql = " SELECT score, `date`, game.`name` AS 'game', player.name AS 'player' FROM score INNER JOIN player ON forPlayerID = playerID INNER JOIN game ON forGameID = gameID Where forPlayerID = ? order by score DESC";
-        $result = $connection->query($sql,[$PlayerID]);
+        $result = $connection->query($sql,[$playerID]);
         if(count($result) >= 1){
             $response = [
                 "status"=>true,
