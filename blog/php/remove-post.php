@@ -15,7 +15,7 @@
         $account = $input["accountID"];
         $post = $input["postID"];
     
-        $sql = "SELECT activated_tp,activated_user FROM admin_blog INNER JOIN post WHERE postID = ? AND post.forBlogID = admin_blog.forBlogID AND activated_tp = 1 AND activated_user = 1";
+        $sql = "SELECT activated_tp,activated_user FROM admin_blog INNER JOIN post ON post.forBlogID = admin_blog.forBlogID AND activated_tp = 1 AND activated_user = 1 WHERE postID = ?";
         $result = $connection->query($sql,[$post]);
         if(count($result) != 1){
             throw new Exception("Bloggen är ej aktiverad");
