@@ -20,7 +20,7 @@
             throw new Exception("Kunde inte hitta bloggar");
         }
 
-        $sql = "SELECT title,blogID FROM blog INNER JOIN blog_account ON blog_account.forBlogID = blog.blogID WHERE forAccountID = ?";
+        $sql = "SELECT title,blogID FROM blog INNER JOIN blog_account ON blog_account.forBlogID = blog.blogID WHERE blog_account.forAccountID = ?";
         $result = $connection->query($sql,[$account]);
         if(count($result) < 1){
            throw new Exception("Kunde inte hämta bloggar");
