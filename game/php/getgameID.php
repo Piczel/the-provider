@@ -13,7 +13,7 @@
         }
 
         $sql = "SELECT gameID FROM game INNER JOIN admin_game ON forGameID = gameID WHERE forAccountID = ?";
-        $result = $connection->query($sql,[$forAccountID]);
+        $result = $connection->query($sql,[$accountID]);
         if(count($result)<1){
             throw new exception("Du har inget spel");
         }
