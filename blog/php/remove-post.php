@@ -22,6 +22,11 @@
             throw new Exception("Bloggen är ej aktiverad");
         }
 
+        $sql = "SELECT * FROM blog_account WHERE forAccountID = ? AND forBlogID = ?";
+        $result = $connection->query($sql,[$account,$blog]);
+        if(count($result) != 1){
+            throw new Exception("Inte medlem i blogg");
+        }
         $sql = "SELECT * FROM post INNER JOIN blog_account ON post.forBlogID = blog_account.forBlogID WHERE post.postID = ? AND blog_account.forAccountID = ?";
         $result = $connection->query($sql,[$post,$account]);
         if(count($result) != 1){
