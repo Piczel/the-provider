@@ -21,7 +21,7 @@
             throw new Exception("Bloggen är ej aktiverad");
         }
 
-        $sql = "SELECT 1 FROM blog WHERE forAdminID = ? AND blogID = ?";
+        $sql = "SELECT * FROM blog WHERE forAccountID = ? AND blogID = ?";
         $result = $connection->query($sql,[$account,$blog]);
         if(count($result) != 1){
             throw new Exception("Inte adminnistratör för blogg");
