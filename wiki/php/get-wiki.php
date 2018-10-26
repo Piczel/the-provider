@@ -8,48 +8,68 @@
         # Decode the input JSON to a PHP array
         $input = json_decode(file_get_contents('php://input'), true);
 
-        Input::validate($input, [
-            'accountID' => null,
-            'token' => 20
-        ]);
-            
-        if(!Token::verify($input['accountID'], $input['token']))
+        $accountID = $input['accountID'] ?? null;
+        $token = $input['token'] ?? null;
+
+        if($accountID !== null && $token !== null)
         {
-            throw new Exception('Felaktig token');
+            if(!Token::verify($input['accountID'], $input['token']))
+            {
+                throw new Exception('Felaktig token');
+            }
+            
+            $as_admin = true;
+        } else
+        {
+            $as_admin = false;
         }
 
         $connection = new DBConnection();
-        
-        # Code...
-        $wiki = $connection->query(
-            'SELECT
-                wikiID,
-                `name`,
-                `description`,
-                mayEdit AS "may-edit",
-                mayAccept AS "may-accept",
-                mayAssignEdit AS "may-assign-edit",
-                mayAssignAccept AS "may-assign-accept"
-            FROM wiki
-            WHERE forAccountID = ?',
-            [$input['accountID']]
 
-        );
-        if(count($wiki)<1){
-            throw new Exception(
-                "Kunde inte hitta ditt wiki."
+        if($as_admin)
+        {
+            $wiki = $connection->query(
+                'SELECT
+                    wikiID,
+                    `name`,
+                    `description`,
+                    mayEdit AS "may-edit",
+                    mayAccept AS "may-accept",
+                    mayAssignEdit AS "may-assign-edit",
+                    mayAssignAccept AS "may-assign-accept"
+                FROM wiki
+                    INNER JOIN admin_wiki
+                        ON forWikiID = wikiID
+                WHERE admin_wiki.forAccountID = ?',
+                [$input['accountID']]
+            );
+        } else {
+
+            Input::validate($input, [
+                'wikiID' => null
+            ]); 
+
+            $wiki = $connection->query(
+                'SELECT
+                    wikiID,
+                    `name`,
+                    `description`
+                FROM wiki
+                WHERE wikiID = ?',
+                [$input['wikiID']]
             );
         }
-        $SQL = "SELECT activated_tp, activated_user FROM admin_wiki WHERE forAccountId = ? AND forWikiID = ?";
-        $status = $connection->query($SQL,[$input['accountID'], $wiki[0]["wikiID"]]);
-        if(count($status)<1){
-            throw new Exception("Du har inget wiki.");
-        }
-        if($status[0]['activated_tp'] != 1 && $status[0]['activated_user'] != 1){
-            throw new Exception("The service is not activated.");
+    
+        if(count($wiki) < 1){
+            throw new Exception("Kunde inte hitta wiki");
         }
 
-        
+
+        $status = $connection->query('SELECT 1 FROM admin_wiki WHERE activated_tp = 1 AND activated_user = 1 AND forWikiID = ?',[$wiki[0]["wikiID"]]);
+        if(count($status) < 1)
+        {
+            throw new Exception("Tjänsten är inte aktiverad");
+        }        
        
 
         $response = [

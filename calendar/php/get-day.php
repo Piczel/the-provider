@@ -2,6 +2,7 @@
 
 include '../../utility/utility.php';
 
+
     $response = null;
     try
     {
@@ -11,11 +12,16 @@ include '../../utility/utility.php';
         {
             throw new Exception("Användande av felaktig token");
         }
- 
-        $connection = new DBConnection();
-        $result = $connection->query("SELECT * FROM activity WHERE startTime BETWEEN '?' AND '?'");
 
-        $activities = [$result];
+        $date_from = date('Y-m-d') . ' 0:00';
+        $date_to = date('Y-m-d') . ' 23:59';
+
+        
+        exit;
+        $connection = new DBConnection();
+        $result = $connection->query("SELECT * FROM activity WHERE startTime BETWEEN ? AND ?", [$date_from, $date_to]);
+
+        $activities = $result;
         
         $response = [
             "status" => true,

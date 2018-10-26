@@ -20,7 +20,7 @@
         $content = $input["content"];
 
         $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
-        $result = $connection->query($sql,[$activated_tp,$activated_user,$blog]);
+        $result = $connection->query($sql,[$blog]);
         if(count($result) != 1){
             throw new Exception("Bloggen är ej aktiverad");
         }

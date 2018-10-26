@@ -1,5 +1,5 @@
 <?php
-    $input = json_decode(file_get_contents("php://input"), true);
+    $input = json_decode(file_get_contents("../json/block-user-request.json"), true);
     try{
         include "../../utility/utility.php";
         Input::validate($input,[
@@ -12,31 +12,29 @@
         $connection = new DBConnection();
 
         $account = $input["accountID"];
-        $post = $input["postID"];
-        $date = $input["date"];
-        $content = $input["content"];
         $blog = $input["blogID"];
-    
+        $block = $input["blockID"];
+
         $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
         $result = $connection->query($sql,[$blog]);
         if(count($result) != 1){
             throw new Exception("Bloggen är ej aktiverad");
         }
 
-        $sql = "SELECT forBlogID,forAccountID FROM block_account WHERE forBlogID = ? AND forAccountID = ?";
-        $result = $connection->query($sql,[$blog,$account]);
-        if(count($result) == 1){
-            throw new Exception("Du är blockerad från denna blogg");
-        }
+        $sql = "SELECT * FROM blog_account WHERE forAccountID = ? AND forBlogID = ?";
+        $result = $connection->query($sql,[$account,$blog]);
+        if(count($result) != 1){
+            throw new Exception("Inte medlem i blogg");
+        }   
 
-        $sql = "INSERT INTO comment(content,date,forPostID,forAccountID) VALUES (?,?,?,?)";
-        if($connection->execute($sql, [$content,$date,$post,$account]) === false){
-            throw new Exception("Kunde inte lägga till kommentar");
+        $sql = "INSERT INTO block_account(forBlogID,forAccountID) VALUES (?,?)";
+        if($connection->execute($sql,[$blog,$block]) === false){
+            throw new Exception("Kunde inte blockera användare");
         }
 
         $response = [
             "status"=>true,
-            "message"=>"Kommenterad"
+            "message"=>"Användare blockerad"
         ];
 
     }catch(Exception $exc){
