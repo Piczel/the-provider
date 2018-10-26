@@ -7,7 +7,7 @@
         $forGameID = $input["gameID"];
 
         $sql = "SELECT * FROM admin_game WHERE activated_tp = 1 AND activated_user = 1 AND forGameID = ?";
-        $result = $connection->query($sql,[$gameID]);
+        $result = $connection->query($sql,[$forGameID]);
         if(count($result) != 1){
             throw new Exception("spelet är inte aktiverat");
         }
