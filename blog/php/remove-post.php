@@ -13,14 +13,20 @@
         $connection = new DBConnection();
 
         $account = $input["accountID"];
+        $blog = $input["blogID"];
         $post = $input["postID"];
     
-        $sql = "SELECT activated_tp,activated_user FROM admin_blog INNER JOIN post ON post.forBlogID = admin_blog.forBlogID AND activated_tp = 1 AND activated_user = 1 WHERE postID = ?";
-        $result = $connection->query($sql,[$post]);
+        $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
+        $result = $connection->query($sql,[$blog]);
         if(count($result) != 1){
             throw new Exception("Bloggen är ej aktiverad");
         }
 
+        $sql = "SELECT * FROM blog_account WHERE forAccountID = ? AND forBlogID = ?";
+        $result = $connection->query($sql,[$account,$blog]);
+        if(count($result) != 1){
+            throw new Exception("Inte medlem i blogg");
+        }
         $sql = "SELECT * FROM post INNER JOIN blog_account ON post.forBlogID = blog_account.forBlogID WHERE post.postID = ? AND blog_account.forAccountID = ?";
         $result = $connection->query($sql,[$post,$account]);
         if(count($result) != 1){
