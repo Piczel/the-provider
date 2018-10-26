@@ -13,7 +13,7 @@
         $connection = new DBConnection();
 
         $name = $input["name"];
-        $forGameID = ["forGameID"];
+        $forGameID = $input["forGameID"];
 
         $sql = "SELECT * FROM player WHERE `name` = ? AND forGameID = ?";
         $result = $connection->query($sql,[$name,$forGameID]);
