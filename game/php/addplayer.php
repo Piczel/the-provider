@@ -13,15 +13,16 @@
         $connection = new DBConnection();
 
         $name = $input["name"];
+        $forGameID = $input["forGameID"];
 
-        $sql = "SELECT * FROM player WHERE `name` = ?";
-        $result = $connection->query($sql,[$name]);
+        $sql = "SELECT * FROM player WHERE `name` = ? AND forGameID = ?";
+        $result = $connection->query($sql,[$name,$forGameID]);
         if(count($result) == 1){
             throw new Exception("användarnamnet taget");
         }
 
-        $sql = "INSERT INTO player(`name`) VALUES (?)";
-        if($connection->execute($sql, [$name]) === false){
+        $sql = "INSERT INTO player(`name`, forGameID) VALUES (?,?)";
+        if($connection->execute($sql, [$name,$forGameID]) === false){
             throw new Exception("Kunde inte lägga till spelare");
         }
         
