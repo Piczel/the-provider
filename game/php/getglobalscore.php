@@ -12,7 +12,7 @@
             throw new Exception("spelet är inte aktiverat");
         }
 
-        $sql = "SELECT score, `date`, player.name, game.name AS 'game' FROM score INNER JOIN player ON forPlayerID = playerID INNER JOIN game ON forGameID = gameID WHERE forGameID = ? order by score DESC";
+        $sql = "SELECT score, `date`, player.name, game.name AS 'game' FROM score INNER JOIN player ON forPlayerID = playerID INNER JOIN game ON score.forGameID = gameID WHERE gameID = ? ORDER BY score DESC";
         $result = $connection->query($sql,[$gameID]);
         if(count($result) >= 1){
             $response = [
