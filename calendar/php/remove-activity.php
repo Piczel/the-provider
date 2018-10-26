@@ -7,15 +7,27 @@ include '../../utility/utility.php';
     {
         $input = json_decode(file_get_contents("php://input"), true);
 
-         if(!Token::verify($input["accountID"], $input["token"]))
+        Input::validate($input, [
+            'accountID' => null,
+            'token' => 20,
+            'activityID' => null
+        ]);
+
+        if(!Token::verify($input["accountID"], $input["token"]))
         {
             throw new Exception("Användande av felaktig token");
         }
      
         $connection = new DBConnection();
-        $activity = $connection ->query("SELECT * FROM activity as a INNER JOIN calendar on a.forCalendarID = calendarID INNER JOIN admin_calendar on admin_calendar.forCalendarID = calendarID INNER JOIN account on admin_calendar.forAccountID = accountID WHERE activityID=? and accountID=? ", [$input["activityID"]]);
+        
+        $calendar = $connection->query('SELECT forCalendarID FROM admin_calendar WHERE activated_tp = 1 AND forAccountID = ?', [$input['accountID']]);
+        if(count($calendar) < 1)
+        {
+            throw new Exception('Du har ingen aktiverad kalender');
+        }
+        
 
-        if (!$connection->execute("DELETE FROM activity where activityID=?",[$input["activityID"]]))
+        if(!$connection->execute("DELETE FROM activity where activityID = ?",[$input["activityID"]]))
         {
             throw new Exception("Aktiviteten kunde inte tas bort");
         }
@@ -26,12 +38,12 @@ include '../../utility/utility.php';
         ];
 
     } catch(Exception $exc)
-        {
+    {
         $response = [
             "status" => false,
             "message" => $exc->getMessage()
         ];
-        } finally
+    } finally
     {
         echo json_encode($response);
     }
