@@ -3,10 +3,10 @@
     "message" : "poäng hämtat",
     "score" : 
         {
-            "forPlayerID" : 1,
-            "forGameID" : 1,
-            "date" : 1,
-            "score" : 2000
+            "forPlayerID" : "",
+            "forGameID" : "",
+            "date" : "",
+            "score" : ""
         }
 }
 

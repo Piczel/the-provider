@@ -1,13 +1,12 @@
 {
     "status" : true,
     "message" : "poäng hämtat",
-    "poäng" : [
+    "score" : 
         {
-            "sid" : 1,
-            "spelid" : 1,
-            "score" : 2000
+            "forPlayerID" : "",
+            "date" : "",
+            "score" : ""
         }
-    ]
 }
 
 {
