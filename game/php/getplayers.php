@@ -18,7 +18,7 @@
         $response = [
             "status"=>true,
             "message"=>"spelare hämtade",
-            "score"=>$result
+            "players"=>$result
         ];
         
 
