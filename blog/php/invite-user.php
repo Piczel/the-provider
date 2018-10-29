@@ -13,7 +13,6 @@
         $connection = new DBConnection();
 
         $account = $input["accountID"];
-        $admin = $input["adminID"];
         $username = $input["username"];
         $blog = $input["blogID"];
     
@@ -23,7 +22,7 @@
             throw new Exception("Bloggen är ej aktiverad");
         }
 
-        $sql = "SELECT admin_blogID FROM admin_blog WHERE admin_blogID = ? AND forBlogID = ?";
+        $sql = "SELECT forAccountID FROM admin_blog WHERE forAccountID = ? AND forBlogID = ?";
         $result = $connection->query($sql,[$admin,$blog]);
         if(count($result) != 1){
             throw new Exception("Inte ägare av blogg");
