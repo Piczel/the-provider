@@ -38,9 +38,14 @@
                     {
                         throw new Exception('Kunde inte skapa blogg');
                     }
-                    if(!$connection->execute('INSERT INTO admin_blog (forAccountID, forBlogID) VALUES (?, ?)', [$_GET['accountID'], $connection->insert_id()]))
+                    $blogID = $connection->insert_id();
+                    if(!$connection->execute('INSERT INTO admin_blog (forAccountID, forBlogID) VALUES (?, ?)', [$_GET['accountID'], $blogID]))
                     {
                         throw new Exception('Kunde inte skapa koppling mellan konto och blogg');
+                    }
+                    if(!$connection->execute('INSERT INTO blog_account (forBlogID, forAccountID) VALUES (?, ?)', [$blogID, $_GET['accountID']]))
+                    {
+                        throw new Exception('Kunde inte bjuda in administratör till blogg');
                     }
 
                     $message = 'Blogg skapades och aktiverades';
