@@ -23,7 +23,7 @@
         }
 
         $sql = "SELECT forAccountID FROM admin_blog WHERE forAccountID = ? AND forBlogID = ?";
-        $result = $connection->query($sql,[$admin,$blog]);
+        $result = $connection->query($sql,[$account,$blog]);
         if(count($result) != 1){
             throw new Exception("Inte ägare av blogg");
         }
