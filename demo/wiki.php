@@ -41,6 +41,9 @@
         <br>
         <br>
         <input type="text" name="token" placeholder="token">
+        <br>
+        <br>
+        <input type="text" name="wikiID" placeholder="wikiID">
     </div>
 
 

@@ -1,9 +1,9 @@
 {
-    "wikiID" : 1,
-    "articleID" : 2,
+    "wikiID" : "",
+    "articleID [optional]" : "",
 
-    "date-from" : "2018-10-23 11:00",
-    "date-to" : "2018-10-25 13:00",
+    "date-from [optional]" : "",
+    "date-to [optional]" : "",
 
     "limit [optional, hard limit = 24]" : 8,
     "offset [optional]" : 1

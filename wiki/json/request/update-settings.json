@@ -1,11 +1,11 @@
 {
-    "accountID" : 1,
-    "token" : "b2987030d5c94b6e9615",
+    "accountID" : "",
+    "token" : "",
     
-    "wikiID" : 1,
+    "wikiID" : "",
 
     "settings" : {
-        "may-edit" : "superuser",
+        "may-edit" : "selected",
         "may-accept" : "selected",
         "may-assign-edit" : "superuser",
         "may-assign-accept" : "superuser"
