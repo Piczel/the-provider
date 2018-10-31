@@ -46,12 +46,19 @@
         <input type="text" name="wikiID" placeholder="wikiID">
     </div>
 
+    <div class="main">
+        <div class="in">
+            <h2>Förfrågan</h2>
+            <div class="form request"></div>
 
-    <div class="form request"></div>
-
-    <button class="submit">Skicka</button>
-
-    <div class="form response"></div>
+            <button class="submit">Skicka</button>
+        
+        </div>
+        <div class="out">
+            <h2>Svar</h2>
+            <div class="form response"></div>
+        </div>
+    </div>
 
     
     <script src="js/demo.js"></script>

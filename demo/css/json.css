@@ -1,8 +1,15 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;    
+}
+
 .form input,
 select {
     padding: 0.3em;
     font-size: 1em;
     
+}
+select {
+    margin: 1em;
 }
 .form.request input,
 .form.response input {
@@ -28,6 +35,9 @@ ul {
     font-size: 1.2em;
 }
 
+.header {
+    margin-bottom: 2em;
+}
 
 .header a {
     padding: 1em;
@@ -35,5 +45,16 @@ ul {
 }
 
 .header a:hover {
-    background-color: lightgray;
+    background-color: rgb(235, 236, 240);
+}
+
+
+.main {
+    display: flex;
+}
+.in, .out {
+    min-width: 30vw;
+    padding: 2em;
+    background-color: rgb(241, 241, 241);
+    margin-left: 1em;
 }
