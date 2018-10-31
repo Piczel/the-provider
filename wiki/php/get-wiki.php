@@ -74,7 +74,7 @@
 
         $response = [
             'status' => true,
-            'message' => '',
+            'message' => 'Wikit hämtades',
             'wiki' => $wiki[0]
         ];
     } catch(Exception $exc)
