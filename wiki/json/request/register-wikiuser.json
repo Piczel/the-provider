@@ -1,10 +1,10 @@
 {
     "wikiID" : 1,
     
-    "username" : "Avändarnamn",
-    "password" : "Användarens hemliga lösenord",
+    "username" : "Matexperten",
+    "password" : "1234asdf",
 
-    "email" : "user@theprovider.com",
-    "forename" : "Förnamn",
-    "surname" : "Efternamn"
+    "email" : "matexperten@gmail.com",
+    "forename" : "Ulf",
+    "surname" : "Christiansson"
 }

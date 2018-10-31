@@ -1,7 +1,7 @@
 {
-    "accountID" : 1354,
-    "token" : "3b970722cbc698972407",
+    "accountID" : "",
+    "token" : "",
     
-    "forAccountID" : 1355,
-    "permission" : false
+    "forAccountID" : "",
+    "permission" : true
 }

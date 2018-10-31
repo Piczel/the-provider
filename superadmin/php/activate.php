@@ -17,7 +17,7 @@
 
 
         $connection = new DBConnection();
-
+        $message = "Okänt fel";
         switch($_GET['service'])
         {
             case 'blog':
@@ -33,12 +33,15 @@
                     $message = 'Blogg aktiverades';
                 } else 
                 {
+
+                    
                     # Blog doesn't exist, create one
                     if(!$connection->execute('INSERT INTO blog (title, forAccountID) VALUES (?, ?)', ['Ny blog', $_GET['accountID']]))
                     {
                         throw new Exception('Kunde inte skapa blogg');
                     }
                     $blogID = $connection->insert_id();
+                    $message = $blogID;
                     if(!$connection->execute('INSERT INTO admin_blog (forAccountID, forBlogID) VALUES (?, ?)', [$_GET['accountID'], $blogID]))
                     {
                         throw new Exception('Kunde inte skapa koppling mellan konto och blogg');
