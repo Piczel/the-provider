@@ -1,6 +1,12 @@
-.form input {
+.form input,
+select {
     padding: 0.3em;
     font-size: 1em;
+    
+}
+.form.request input,
+.form.response input {
+    width: 300px;
 }
 ul {
     list-style: none;

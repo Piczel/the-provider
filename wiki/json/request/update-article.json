@@ -1,10 +1,10 @@
 {
-    "accountID" : 1354,
-    "token" : "3b970722cbc698972407",
+    "accountID" : "",
+    "token" : "",
     
     "article" : {
-        "articleID" : 8,
-        "title" : "Titel på artikel",
-        "content" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi."
+        "articleID" : "",
+        "title" : "Ostens historia",
+        "content" : "Ost är en mejeriprodukt som tillverkas av mjölk (eller någon annan mjölkprodukt) genom att protein- och fettinnehållet fås att stelna (koagulera) och resten, i huvudsak vatten och vattenlösliga ämnen, avskiljs. Osten utgörs av merparten av mjölkens fett, protein (kasein) och kalcium, och den avskiljda så kallade vasslen av vatten, vattenlösliga proteiner, mjölksocker (laktos) samt en del mineraler och vitaminer. Ko-, get- och fårmjölk är de vanligaste mjölktyperna som används för framställning av ost. Det finns även tillverkning av ost gjord av vattenbuffel, älg[1] och till och med lejonmjölk. Den sistnämnda tillverkades någon gång under romartiden och det sades att man blir modig av att äta lejonost.[2]"
     }
 }
