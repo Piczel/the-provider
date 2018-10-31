@@ -12,7 +12,13 @@
         if(count($result) != 1){
             throw new Exception("Bloggen är ej aktiverad");
         }
-            
+        
+        $sql = "SELECT * FROM post WHERE postID = ?";
+        $result = $connection->query($sql,[$post]);
+        if(count($result) != 1){
+            throw new Exception("Kunde inte hitta post");
+        }
+        
         $sql = "SELECT content,date FROM comment WHERE forPostID = ?";
         $result = $connection->query($sql,[$post]);
         if(count($result) >= 1){
