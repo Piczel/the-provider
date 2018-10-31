@@ -22,7 +22,7 @@
             throw new Exception('Du har ingen aktiverad kalender');
         }
 
-        if(count($connection->query("SELECT 1 FROM calendar_activity WHERE forCalendarID != ? AND forActivityID != ?", [$calendar[0]['forCalendarID'], $input['activityID']])) < 1)
+        if(count($connection->query("SELECT 1 FROM calendar_activity WHERE forCalendarID = ? AND forActivityID = ?", [$calendar[0]['forCalendarID'], $input['activityID']])) < 1)
         {
             throw new Exception('Du är inte deltagare i denna aktivitet');
         }
