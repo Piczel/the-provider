@@ -1,21 +1,20 @@
 <?php
-    $input = json_decode(file_get_contents("php://input"), true);
     try{
         include "../../utility/utility.php";
-        Input::validate($input,[
+        Input::validate($_POST,[
             "token"=>20,
         ]);
-        if(!Token::verify($input["accountID"], $input["token"]))
+        if(!Token::verify($_POST["accountID"], $_POST["token"]))
         {
             throw new Exception("Felaktig token");
         }
         $connection = new DBConnection();
 
-        $account = $input["accountID"];
-        $post = $input["postID"];
-        $date = $input["date"];
-        $content = $input["content"];
-        $blog = $input["blogID"];
+        $account = $_POST["accountID"];
+        $post = $_POST["postID"];
+        $date = $_POST["date"];
+        $content = $_POST["content"];
+        $blog = $_POST["blogID"];
     
         $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
         $result = $connection->query($sql,[$blog]);
@@ -45,5 +44,4 @@
             "message"=>$exc->getMessage()
         ];
     }
-    echo json_encode($response);
 ?>
