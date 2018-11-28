@@ -1,10 +1,9 @@
 <?php
-    $input = json_decode(file_get_contents("php://input"), true);
     try{
         include "../../utility/utility.php";
         $connection = new DBConnection();
 
-        $blog = $input["blogID"];
+        $blog = $_POST["blogID"];
     
         $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
         $result = $connection->query($sql,[$blog]);
@@ -29,5 +28,4 @@
             "message"=>$exc->getMessage()
         ];
     }
-    echo json_encode($response);
 ?>
