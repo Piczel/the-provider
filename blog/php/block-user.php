@@ -42,5 +42,5 @@
             "message"=>$exc->getMessage()
         ];
     }
-
+    echo json_encode($response);
 ?>
