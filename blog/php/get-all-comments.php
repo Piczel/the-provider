@@ -1,11 +1,10 @@
 <?php
-    $input = json_decode(file_get_contents("php://input"), true);
     try{
         include "../../utility/utility.php";
         $connection = new DBConnection();
 
-        $blog = $input["blogID"];
-        $post = $input["postID"];
+        $blog = $_POST["blogID"];
+        $post = $_POST["postID"];
     
         $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
         $result = $connection->query($sql,[$blog]);

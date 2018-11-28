@@ -1,19 +1,18 @@
 <?php
-    $input = json_decode(file_get_contents("php://input"), true);
     try{
         include "../../utility/utility.php";
-        Input::validate($input,[
+        Input::validate($_POST,[
             "accountID"=>null,
             "token"=>20
         ]);
-        if(!Token::verify($input["accountID"], $input["token"]))
+        if(!Token::verify($_POST["accountID"], $_POST["token"]))
         {
             throw new Exception("Felaktig token");
         }
         $connection = new DBConnection();
     
-        $account = $input["accountID"];
-        $comment = $input["commentID"];
+        $account = $_POST["accountID"];
+        $comment = $_POST["commentID"];
 
         $sql = "SELECT activated_tp,activated_user FROM admin_blog AS a 
         INNER JOIN comment AS c INNER JOIN post AS p 
