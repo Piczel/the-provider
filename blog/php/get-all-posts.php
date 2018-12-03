@@ -1,4 +1,5 @@
 <?php
+    $input = json_decode(file_get_contents("php://input"), true);
     try{
         include "../../utility/utility.php";
         $connection = new DBConnection();
@@ -11,7 +12,7 @@
             throw new Exception("Bloggen är ej aktiverad");
         }
             
-        $sql = "SELECT * FROM post WHERE forBlogID = ?";
+        $sql = "SELECT title,content,date FROM post WHERE forBlogID = ?";
         $result = $connection->query($sql,[$blog]);
         if(count($result) >= 1){
             $response = [

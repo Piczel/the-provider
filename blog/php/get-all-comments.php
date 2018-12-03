@@ -1,4 +1,5 @@
 <?php
+    $input = json_decode(file_get_contents("php://input"), true);
     try{
         include "../../utility/utility.php";
         $connection = new DBConnection();

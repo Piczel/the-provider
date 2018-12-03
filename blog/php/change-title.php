@@ -1,4 +1,5 @@
 <?php
+    $input = json_decode(file_get_contents("php://input"), true);
     try{
         include "../../utility/utility.php";
         Input::validate($input,[
@@ -43,5 +44,5 @@
             "message"=>$exc->getMessage()
         ];
     }
-    echo json_encode($response);
+echo json_encode($response);
 ?>
