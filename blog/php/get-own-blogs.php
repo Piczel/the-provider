@@ -1,17 +1,17 @@
 <?php
     try{
         include "../../utility/utility.php";
-        Input::validate($_POST,[
+        Input::validate($input,[
             "accountID"=>null,
             "token"=>20,
         ]);
-        if(!Token::verify($_POST["accountID"], $_POST["token"]))
+        if(!Token::verify($input["accountID"], $input["token"]))
         {
             throw new Exception("Felaktig token");
         }
         $connection = new DBConnection();
 
-        $account = $_POST["accountID"];
+        $account = $input["accountID"];
     
         $sql = "SELECT * FROM blog INNER JOIN admin_blog ON forBlogID = blogID WHERE activated_tp = 1 AND activated_user = 1";
         $result = $connection->query($sql);
