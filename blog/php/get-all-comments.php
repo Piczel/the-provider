@@ -3,8 +3,8 @@
         include "../../utility/utility.php";
         $connection = new DBConnection();
 
-        $blog = $_POST["blogID"];
-        $post = $_POST["postID"];
+        $blog = $input["blogID"];
+        $post = $input["postID"];
     
         $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
         $result = $connection->query($sql,[$blog]);

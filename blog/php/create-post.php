@@ -1,7 +1,7 @@
 <?php
     try{
         include "../../utility/utility.php";
-        Input::validate($_POST,[
+        Input::validate($input,[
             "accountID"=>null,
             "token"=>20,
             "title"=>50

@@ -1,20 +1,20 @@
 <?php
     try{
         include "../../utility/utility.php";
-        Input::validate($_POST,[
+        Input::validate($input,[
             "token"=>20,
         ]);
-        if(!Token::verify($_POST["accountID"], $_POST["token"]))
+        if(!Token::verify($input["accountID"], $input["token"]))
         {
             throw new Exception("Felaktig token");
         }
         $connection = new DBConnection();
 
-        $account = $_POST["accountID"];
-        $post = $_POST["postID"];
-        $date = $_POST["date"];
-        $content = $_POST["content"];
-        $blog = $_POST["blogID"];
+        $account = $input["accountID"];
+        $post = $input["postID"];
+        $date = $input["date"];
+        $content = $input["content"];
+        $blog = $input["blogID"];
     
         $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
         $result = $connection->query($sql,[$blog]);
