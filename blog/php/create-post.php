@@ -6,17 +6,17 @@
             "token"=>20,
             "title"=>50
         ]);
-        if(!Token::verify($_POST["accountID"], $_POST["token"]))
+        if(!Token::verify($input["accountID"], $input["token"]))
         {
             throw new Exception("Felaktig token");
         }
         $connection = new DBConnection();
 
-        $blog = $_POST["blogID"];
-        $account = $_POST["accountID"];
-        $title = $_POST["title"];
-        $date = $_POST["date"];
-        $content = $_POST["content"];
+        $blog = $input["blogID"];
+        $account = $input["accountID"];
+        $title = $input["title"];
+        $date = $input["date"];
+        $content = $input["content"];
 
         $sql = "SELECT * FROM admin_blog WHERE activated_tp = 1 AND activated_user = 1 AND forBlogID = ?";
         $result = $connection->query($sql,[$blog]);
