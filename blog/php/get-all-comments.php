@@ -19,7 +19,7 @@
             throw new Exception("Kunde inte hitta post");
         }
         
-        $sql = "SELECT content,date FROM comment WHERE forPostID = ?";
+        $sql = "SELECT content,date FROM comment WHERE forPostID = ? ORDER BY commentID DESC";
         $result = $connection->query($sql,[$post]);
         if(count($result) >= 1){
             $response = [
