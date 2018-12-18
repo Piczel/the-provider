@@ -1,0 +1,21 @@
+{
+    "status" : true,
+    "message" : "poäng hämtat",
+    "score" : 
+        {
+            "forPlayerID" : "",
+            "forGameID" : "",
+            "date" : "",
+            "score" : ""
+        }
+}
+
+{
+"status" : false,
+"message" : "Spelet är inte aktiverat"
+}
+
+{
+    "status" : false,
+    "message" : "Kunde inte hämta poäng"
+}

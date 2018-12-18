@@ -1,0 +1,19 @@
+{
+    "status" : true,
+    "message" : "spelare hämtade",
+    "players" : 
+        {
+            "playerID" : "",
+            "name" : ""
+        }
+}
+
+{
+    "status" : false,
+    "message" : "Spelet är inte aktiverat"
+}
+
+{
+    "status" : false,
+    "message" : "Kunde inte hämta spelare"
+}

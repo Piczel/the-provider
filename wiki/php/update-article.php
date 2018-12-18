@@ -88,7 +88,7 @@
                 $input['article']['title'],
                 $input['article']['content'],
                 $input['article']['articleID'],
-                $wiki['wikiID']
+                $input['accountID']
             ]
         )) {
             # Could not create an article version

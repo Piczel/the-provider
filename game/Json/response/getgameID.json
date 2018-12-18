@@ -1,0 +1,15 @@
+{
+    "status" : true,
+    "message" : "spel hämtat",
+    "gameID" : ""
+}
+
+{
+    "status" : false,
+    "message" : "Spelet är inte aktiverat"
+}
+
+{
+    "status" : false,
+    "message" : "Kunde inte hämta gameID"
+}

@@ -1,0 +1,39 @@
+.form input,
+select {
+    padding: 0.3em;
+    font-size: 1em;
+    
+}
+.form.request input,
+.form.response input {
+    width: 300px;
+}
+ul {
+    list-style: none;
+}
+
+.attribute-label {
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.form.temp {
+    position: fixed;
+    top: 2em;
+    right: 2em;
+}
+
+.suffix {
+    color: rgb(134, 134, 134);
+    font-size: 1.2em;
+}
+
+
+.header a {
+    padding: 1em;
+    display: inline-block;
+}
+
+.header a:hover {
+    background-color: lightgray;
+}
