@@ -79,7 +79,14 @@
             );
         }
 
-        
+        $tag_statement = $connection->prepare('SELECT `name` AS "tags" FROM tag INNER JOIN articleversion_tag ON forTagID = tagID WHERE forArticleVersionID = ?');
+
+        foreach($result as &$article)
+        {
+            $tag_statement->execute([$article['versionID']]);
+            
+            $article['tags'] = $tag_statement->fetchAll(PDO::FETCH_ASSOC);
+        }
 
 
         $articles = [];
@@ -98,7 +105,9 @@
                 'date' => $row['date'],
                 'title' => $row['title'],
                 'content' => $row['content'],
-                'accountID' => $row['accountID']
+                'accountID' => $row['accountID'],
+
+                'tags' => $row['tags']
             ];
         }
         $articles = array_values($articles);
