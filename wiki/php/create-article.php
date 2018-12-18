@@ -118,7 +118,7 @@
                 $tagID = $connection->insert_id();
             }
 
-            if(!$connection->('INSERT INTO articleversion_tag (forArticleVersionID, forTagID) VALUES (?, ?)', [$versionID, $tagID]))
+            if(!$connection->execute('INSERT INTO articleversion_tag (forArticleVersionID, forTagID) VALUES (?, ?)', [$versionID, $tagID]))
                 throw new Exception('Kunde inte lägga till taggen för artikeln');
         }
 
