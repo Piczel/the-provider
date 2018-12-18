@@ -2,6 +2,10 @@
     "wikiID" : 1,
     "search" : "",
     "articleID [alternatively]" : "",
+    "tags" : [
+        "me",
+        "you"
+    ],
 
     "limit [optional, hard limit = 24]" : 8,
     "offset [optional]" : 0

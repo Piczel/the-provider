@@ -7,6 +7,11 @@
             "articleID" : 8,
             "versionID" : 11,
             "title" : "Titel på artikel",
+            "tags" : [
+                "tag name",
+                "tag name",
+                "..."
+            ],
             "content" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor dignissimos odio quaerat dolorum vel facere ratione necessitatibus distinctio dolores veniam corrupti praesentium sint excepturi, illum totam, quia quibusdam animi."
         },
         {   
