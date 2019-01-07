@@ -116,7 +116,7 @@
                 break;
         }
 
-        $tag_statement = $connection->prepare('SELECT `name` AS "tags" FROM tag INNER JOIN articleversion_tag ON forTagID = tagID WHERE forArticleVersionID = ?');
+        $tag_statement = $connection->prepare('SELECT `name` AS "name" FROM tag INNER JOIN articleversion_tag ON forTagID = tagID WHERE forArticleVersionID = ?');
 
         foreach($articles as &$article)
         {
