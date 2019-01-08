@@ -12,7 +12,7 @@
             throw new Exception("Bloggen är ej aktiverad");
         }
 
-        $sql = "SELECT * FROM blog WHERE blogID = ?";
+        $sql = "SELECT title FROM blog WHERE blogID = ?";
         $result = $connection->query($sql,[$blog]);
         if(count($result) == true){
             $response = [
