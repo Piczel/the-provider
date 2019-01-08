@@ -14,20 +14,21 @@
 
         $sql = "SELECT * FROM blog WHERE blogID = ?";
         $result = $connection->query($sql,[$blog]);
-        if(count($result) === false){
+        if(count($result) == true){
+            $response = [
+                "status"=>true,
+                "message"=>"Titel hämtad",
+                "title"=>$result
+            ];
+        }else{
             throw new Exception("Kunde inte hämta titel");
         }
 
-        $response = [
-            "status"=>true,
-            "message"=>"Titel hämtad"
-        ];
-        
     }catch(Exception $exc){
         $response = [
             "status"=>false,
             "message"=>$exc->getMessage()
         ];
     }
-echo json_decode($response);
+echo json_encode($response);
 ?>
