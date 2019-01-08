@@ -27,7 +27,8 @@
 
         switch(Input::either($input, [
             'search' => 100,
-            'articleID' => null
+            'articleID' => null,
+            'tags' => null
         ])) {
             case 'search':
                 $articles = $connection->query(
@@ -67,6 +68,61 @@
                     ]
                 );
                 break;
+            case 'tags':
+
+                $query = 
+                    'SELECT
+                        articleID,
+                        articleversion.versionID,
+                        title,
+                        content
+                    FROM article
+                        INNER JOIN articleversion
+                            ON forVersionID = articleversion.versionID';
+
+                $where = '';
+                $parameters = [];
+
+                for($i = 0; $i < count($input['tags']); $i++)
+                {
+                    $tag = $input['tags'][$i];
+                    $where .= 
+                        ' INNER JOIN (
+                            SELECT 
+                                av'. $i .'.versionID
+                            FROM articleversion_tag
+                                INNER JOIN tag
+                                    ON forTagID = tagID
+                                INNER JOIN articleversion AS av'. $i .'
+                                    ON av'. $i .'.versionID = forArticleVersionID
+                            WHERE tag.`name` = ?
+                        ) AS a'. $i .'
+                            ON a'. $i .'.versionID = articleversion.versionID';
+                    
+                    $parameters[] = $tag;
+                }
+
+                $parameters[] = $input['wikiID'];
+
+                $where .= ' WHERE forWikiID = ?';
+
+
+                $limit = ' LIMIT '. $offset .','. $limit;
+
+                $articles = $connection->query(
+                    $query . $where . $limit,
+                    $parameters
+                );
+                break;
+        }
+
+        $tag_statement = $connection->prepare('SELECT `name` AS "name" FROM tag INNER JOIN articleversion_tag ON forTagID = tagID WHERE forArticleVersionID = ?');
+
+        foreach($articles as &$article)
+        {
+            $tag_statement->execute([$article['versionID']]);
+            
+            $article['tags'] = $tag_statement->fetchAll(PDO::FETCH_ASSOC);
         }
 
         $response = [

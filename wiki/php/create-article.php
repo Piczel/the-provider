@@ -16,7 +16,8 @@
 
         Input::validate($input['article'], [
             'title' => 100,
-            'content' => null
+            'content' => null,
+            'tags' => null
         ]);
 
         if(!Token::verify($input['accountID'], $input['token']))
@@ -100,6 +101,27 @@
 
         $versionID = $connection->insert_id();
 
+        foreach($input['article']['tags'] as $tag) 
+        {
+
+            $tagID = null;
+
+            $result = $connection->query('SELECT tagID FROM tag WHERE LOWER(`name`) = LOWER(?)', [$tag]);
+            if(count($result) > 0) 
+            {
+                $tagID = $result[0]['tagID'];
+            } else
+            {
+                if(!$connection->execute('INSERT INTO tag (`name`, forWikiID) VALUES (LOWER(?), ?)', [$tag, $wiki['wikiID']]))
+                    throw new Exception('Problem med att skapa tagg');
+
+                $tagID = $connection->insert_id();
+            }
+
+            if(!$connection->execute('INSERT INTO articleversion_tag (forArticleVersionID, forTagID) VALUES (?, ?)', [$versionID, $tagID]))
+                throw new Exception('Kunde inte lägga till taggen för artikeln');
+        }
+
         $message = 'Artikeln skapades';
 
         try {
@@ -116,7 +138,7 @@
                         if(count($connection->query('SELECT 1 FROM selected_accept WHERE forAccountID = ? AND forWikiID = ?', [$input['accountID'], $wiki['wikiID']])) < 1)
                         {
                             # Account may not accept the content of this article
-                            throw new Exception('Artikeln skapades utan initialt versionsid');
+                            throw new Exception('Artikeln skapades utan initialt versionsID');
                         }
 
                         break;

@@ -17,7 +17,8 @@
         Input::validate($input['article'], [
             'articleID' => null,
             'title' => 100,
-            'content' => null
+            'content' => null,
+            'tags' => null
         ]);
 
         if(!Token::verify($input['accountID'], $input['token']))
@@ -96,6 +97,27 @@
         }
 
         $versionID = $connection->insert_id();
+
+        foreach($input['article']['tags'] as $tag) 
+        {
+
+            $tagID = null;
+
+            $result = $connection->query('SELECT tagID FROM tag WHERE LOWER(`name`) = LOWER(?)', [$tag]);
+            if(count($result) > 0) 
+            {
+                $tagID = $result[0]['tagID'];
+            } else
+            {
+                if(!$connection->execute('INSERT INTO tag (`name`, forWikiID) VALUES (LOWER(?), ?)', [$tag, $wiki['wikiID']]))
+                    throw new Exception('Problem med att skapa tagg');
+
+                $tagID = $connection->insert_id();
+            }
+
+            if(!$connection->execute('INSERT INTO articleversion_tag (forArticleVersionID, forTagID) VALUES (?, ?)', [$versionID, $tagID]))
+                throw new Exception('Kunde inte lägga till taggen för artikeln');
+        }
 
         $message = 'Artikeln uppdaterades';
 
