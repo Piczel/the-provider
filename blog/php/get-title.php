@@ -2,14 +2,6 @@
     $input = json_decode(file_get_contents("php://input"), true);
     try{
         include "../../utility/utility.php";
-        Input::validate($input,[
-            "accountID"=>null,
-            "token"=>20
-        ]);
-        if(!Token::verify($input["accountID"], $input["token"]))
-        {
-            throw new Exception("Felaktig token");
-        }
         $connection = new DBConnection();
 
         $blog = $input["blogID"];
@@ -30,6 +22,7 @@
             "status"=>true,
             "message"=>"Titel hämtad"
         ];
+        
     }catch(Exception $exc){
         $response = [
             "status"=>false,
